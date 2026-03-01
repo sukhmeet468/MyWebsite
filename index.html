@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sukhmeet Singh Hora — Computer Engineer</title>
+<title>Sukhmeet Singh Hora, EIT</title>
 <meta name="description" content="Portfolio of Sukhmeet Singh Hora — Computer Engineer specializing in IoT, Embedded Systems, Full Stack Development, and AWS.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -154,17 +154,153 @@ img { max-width: 100%; display: block; }
    HERO
 ═══════════════════════════════════════════════════════════ */
 #home {
-  position: relative; min-height: 100vh; display: flex; align-items: center;
+  position: relative; min-height: 100vh; display: flex; align-items: flex-start;
   overflow: hidden; background: var(--bg);
-  padding: 0;
+  padding: 0; flex-direction: column;
 }
+
+/* ─── Live Code Terminal ──────────────────────────────────── */
+.code-terminal-wrap {
+  position: relative; z-index: 2;
+  width: 100%; padding: 28px 64px 0;
+  opacity: 0; animation: heroFadeUp 0.7s ease 0.2s forwards;
+}
+.code-terminal {
+  background: #0F172A; border-radius: 16px; overflow: hidden;
+  box-shadow: 0 16px 60px rgba(15,23,42,0.25), 0 4px 16px rgba(132,94,194,0.15);
+  border: 1px solid rgba(132,94,194,0.2); max-width: 100%;
+}
+.terminal-titlebar {
+  background: #1E293B; padding: 10px 16px;
+  display: flex; align-items: center; gap: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.terminal-dots { display: flex; gap: 6px; }
+.tdot { width: 12px; height: 12px; border-radius: 50%; }
+.tdot-r { background: #FF5F57; }
+.tdot-y { background: #FFBD2E; }
+.tdot-g { background: #28CA41; }
+.terminal-filename {
+  font-family: 'Space Mono', monospace; font-size: 12px;
+  color: rgba(255,255,255,0.35); margin-left: 6px; flex: 1;
+}
+.terminal-tab {
+  font-family: 'Space Mono', monospace; font-size: 11px;
+  color: rgba(255,255,255,0.25); padding: 3px 10px;
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 6px;
+}
+
+/* Two-pane layout */
+.terminal-panes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-height: 320px;
+  overflow: hidden;
+}
+
+/* Left: code pane */
+.terminal-code-pane {
+  padding: 14px 18px; font-family: 'Space Mono', monospace;
+  font-size: 12px; line-height: 1.85; overflow-y: auto;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  display: flex; gap: 12px;
+  max-height: 320px;
+}
+
+/* Right: live output pane */
+.terminal-output-pane {
+  background: #080D1A;
+  padding: 12px 14px;
+  display: flex; flex-direction: column; gap: 0;
+  overflow-y: auto;
+  max-height: 320px;
+  position: relative;
+}
+.terminal-line-nums {
+  color: rgba(255,255,255,0.18); user-select: none;
+  display: flex; flex-direction: column; align-items: flex-end;
+  min-width: 22px; padding-top: 1px; flex-shrink: 0;
+}
+.terminal-line-nums span { display: block; font-size: 10px; line-height: 1.85; }
+.terminal-code { flex: 1; overflow: hidden; }
+.tc { display: block; white-space: pre; }
+.tk-purple  { color: #C084FC; }
+.tk-blue    { color: #60A5FA; }
+.tk-green   { color: #4ADE80; }
+.tk-yellow  { color: #FCD34D; }
+.tk-coral   { color: #FB923C; }
+.tk-white   { color: #E2E8F0; }
+.tk-dim     { color: #64748B; }
+.tk-teal    { color: #2DD4BF; }
+.tk-pink    { color: #F472B6; }
+.cursor-blink {
+  display: inline-block; width: 8px; height: 13px;
+  background: #C084FC; border-radius: 2px; vertical-align: middle;
+  animation: cursorPulse 0.9s ease-in-out infinite; margin-left: 1px;
+}
+@keyframes cursorPulse { 0%,49%{opacity:1;} 50%,100%{opacity:0;} }
+
+/* custom scrollbar for terminal panes */
+.terminal-code-pane::-webkit-scrollbar,
+.terminal-output-pane::-webkit-scrollbar { width: 4px; }
+.terminal-code-pane::-webkit-scrollbar-track,
+.terminal-output-pane::-webkit-scrollbar-track { background: transparent; }
+.terminal-code-pane::-webkit-scrollbar-thumb,
+.terminal-output-pane::-webkit-scrollbar-thumb { background: rgba(132,94,194,0.35); border-radius: 4px; }
+.term-output-label {
+  font-family: 'Space Mono', monospace; font-size: 10px;
+  color: rgba(255,255,255,0.2); text-transform: uppercase;
+  letter-spacing: 1.5px; margin-bottom: 8px; padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  flex-shrink: 0;
+}
+
+/* ASCII signal wave */
+.term-wave {
+  display: flex; align-items: flex-end; gap: 3px;
+  height: 28px; margin-bottom: 10px; flex-shrink: 0;
+}
+.tw-bar {
+  width: 4px; border-radius: 2px 2px 0 0;
+  background: #2DD4BF; opacity: 0.8;
+  animation: waveAnim 1.2s ease-in-out infinite;
+}
+@keyframes waveAnim {
+  0%,100% { transform: scaleY(1); opacity: 0.5; }
+  50%      { transform: scaleY(var(--h,1)); opacity: 1; }
+}
+
+/* Personality trait lines */
+.trait-line {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Space Mono', monospace; font-size: 10.5px;
+  padding: 3px 0; opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  flex-shrink: 0;
+}
+.trait-line.show { opacity: 1; transform: translateY(0); }
+.tl-dot {
+  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+  box-shadow: 0 0 6px currentColor;
+}
+.tl-key { color: #94A3B8; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tl-val { font-weight: 700; white-space: nowrap; }
+.tl-true  { color: #4ADE80; }
+.tl-warn  { color: #FCD34D; }
+.tl-crit  { color: #FB923C; }
+.tl-dim   { color: #64748B; }
+.tl-pink  { color: #F472B6; }
+.tl-purple{ color: #C084FC; }
+.tl-teal  { color: #2DD4BF; }
+.tl-blue  { color: #60A5FA; }
 
 /* Floating background blobs */
 .blob {
   position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.25; pointer-events: none; z-index: 0;
 }
 .blob-1 { width: 500px; height: 500px; background: var(--purple); top: -100px; right: -100px; animation: blobFloat 8s ease-in-out infinite; }
-.blob-2 { width: 350px; height: 350px; background: var(--coral); bottom: -50px; left: 20%; animation: blobFloat 10s ease-in-out infinite reverse; }
+.blob-2 { width: 350px; height: 350px; background: var(--coral); bottom: 10%; left: 20%; animation: blobFloat 10s ease-in-out infinite reverse; }
 .blob-3 { width: 280px; height: 280px; background: var(--teal); top: 40%; left: -80px; animation: blobFloat 7s ease-in-out infinite 2s; }
 
 @keyframes blobFloat {
@@ -189,13 +325,13 @@ img { max-width: 100%; display: block; }
 
 .hero-content {
   position: relative; z-index: 2;
-  padding: 80px 64px;
-  max-width: 1000px;
+  padding: 28px 64px 60px;
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 60px;
+  gap: 40px;
   align-items: center;
   width: 100%;
+  flex: 1;
 }
 
 
@@ -204,7 +340,7 @@ img { max-width: 100%; display: block; }
   font-family: 'Space Mono', monospace; font-size: 13px;
   color: var(--purple); letter-spacing: 3px; text-transform: uppercase;
   margin-bottom: 18px;
-  opacity: 0; animation: heroFadeUp 0.7s ease 0.3s forwards;
+  opacity: 0; animation: heroFadeUp 0.7s ease 1.0s forwards;
   background: rgba(132,94,194,0.1); display: inline-block;
   padding: 6px 14px; border-radius: 100px;
   border: 2px solid rgba(132,94,194,0.2);
@@ -212,10 +348,10 @@ img { max-width: 100%; display: block; }
 
 .hero-name {
   font-family: 'Fredoka One', sans-serif;
-  font-size: clamp(40px, 6.5vw, 80px);
+  font-size: clamp(38px, 5.5vw, 76px);
   font-weight: 400; line-height: 1.05; color: var(--text);
   margin-bottom: 22px;
-  opacity: 0; animation: heroFadeUp 0.7s ease 0.5s forwards;
+  opacity: 0; animation: heroFadeUp 0.7s ease 1.2s forwards;
 }
 
 .hero-name .h1 { color: var(--coral); }
@@ -225,7 +361,7 @@ img { max-width: 100%; display: block; }
 .hero-tagline {
   font-size: 16px; color: var(--muted); font-weight: 700;
   margin-bottom: 16px;
-  opacity: 0; animation: heroFadeUp 0.7s ease 0.7s forwards;
+  opacity: 0; animation: heroFadeUp 0.7s ease 1.4s forwards;
   display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
 }
 
@@ -240,7 +376,7 @@ img { max-width: 100%; display: block; }
 
 .hero-badges {
   display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px;
-  opacity: 0; animation: heroFadeUp 0.7s ease 0.9s forwards;
+  opacity: 0; animation: heroFadeUp 0.7s ease 1.6s forwards;
 }
 
 .hero-badge {
@@ -254,7 +390,7 @@ img { max-width: 100%; display: block; }
 
 .hero-ctas {
   display: flex; flex-wrap: wrap; gap: 12px;
-  opacity: 0; animation: heroFadeUp 0.7s ease 1.1s forwards;
+  opacity: 0; animation: heroFadeUp 0.7s ease 1.8s forwards;
 }
 
 .btn {
@@ -791,7 +927,7 @@ img { max-width: 100%; display: block; }
 }
 .exp-card.open .exp-toggle { transform: rotate(45deg); border-color: var(--purple); color: var(--purple); background: rgba(132,94,194,0.08); }
 .exp-body { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.23,1,0.32,1); }
-.exp-card.open .exp-body { max-height: 600px; }
+.exp-card.open .exp-body { max-height: 1400px; }
 .exp-achievements { padding: 0 26px 22px; border-top: 2px dashed rgba(132,94,194,0.1); padding-top: 18px; }
 .exp-achievement { display: flex; gap: 12px; padding: 8px 0; font-size: 14px; color: var(--text); line-height: 1.6; border-bottom: 1px solid rgba(0,0,0,0.04); }
 .exp-achievement:last-child { border-bottom: none; }
@@ -915,23 +1051,48 @@ img { max-width: 100%; display: block; }
   .sidebar-overlay.open { display: block; }
   .hamburger { display: flex; }
   .main-content { margin-left: 0; }
-  .section { padding: 80px 24px; }
-  .hero-content { padding: 100px 24px 60px; grid-template-columns: 1fr; }
-  .robot-wrap { display: none; }
+  .section { padding: 72px 24px; }
+
+  /* hero */
+  .code-terminal-wrap { padding: 72px 16px 0; }
+  .terminal-body { font-size: 11px; padding: 12px 14px; }
+  .hero-content { padding: 24px 16px 48px; grid-template-columns: 1fr; gap: 32px; }
+  .robot-wrap { order: -1; justify-content: center; }
+
+  /* about / grids */
   .about-grid, .education-grid, .projects-grid, .contact-grid { grid-template-columns: 1fr; }
   .resume-card { flex-direction: column; text-align: center; }
-  .resume-buttons { flex-direction: row; }
+  .resume-buttons { flex-direction: row; flex-wrap: wrap; justify-content: center; }
   .footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px; }
   .game-grid { grid-template-columns: repeat(2,1fr); }
   .hero-scroll { left: 24px; }
   .timeline { padding-left: 24px; }
   .timeline-item::before { left: -28px; }
 }
-@media (max-width:480px) {
+
+@media (max-width: 600px) {
+  .code-terminal-wrap { padding: 64px 12px 0; }
+  .terminal-panes { grid-template-columns: 1fr; max-height: none; }
+  .terminal-output-pane { border-top: 1px solid rgba(255,255,255,0.06); border-right: none; max-height: 120px; overflow-y: auto; }
+  .terminal-code-pane { font-size: 10px; min-height: 100px; padding: 10px 12px; gap: 8px; }
+  .terminal-line-nums { display: none; }
+  .hero-content { padding: 16px 16px 40px; }
+  .hero-name { font-size: clamp(34px, 9vw, 52px); }
+
+  /* robot smaller on small phones */
+  .robot-scene { width: 150px; height: 210px; transform: scale(0.8); transform-origin: top center; }
+  .robot-bubble { display: none; }
+
   .skills-grid { grid-template-columns: repeat(2,1fr); }
   .certs-grid { grid-template-columns: 1fr; }
   .game-grid { grid-template-columns: repeat(2,1fr); }
-  .section { padding: 60px 16px; }
+  .section { padding: 56px 14px; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .hero-badges { gap: 6px; }
+  .hero-badge { font-size: 10px; padding: 4px 10px; }
+  .hero-tag { font-size: 11px; }
+  .hero-ctas { gap: 8px; }
+  .btn { padding: 11px 18px; font-size: 13px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -954,7 +1115,7 @@ img { max-width: 100%; display: block; }
   <nav class="sidebar" id="sidebar" aria-label="Main Navigation">
     <div class="sidebar-logo">
       <div class="name-short"><span>S</span>ukhmeet <span>H</span>ora, EIT</div>
-      <div class="role-short">// Computer Engineer</div>
+      <div class="role-short">Computer Engineer</div>
     </div>
     <div class="sidebar-nav">
       <ul>
@@ -996,6 +1157,33 @@ img { max-width: 100%; display: block; }
 
       <!-- Floating confetti dots -->
       <div class="confetti-bg" id="confettiBg" aria-hidden="true"></div>
+
+      <!-- Live Coding Terminal -->
+      <div class="code-terminal-wrap">
+        <div class="code-terminal">
+          <div class="terminal-titlebar">
+            <div class="terminal-dots">
+              <div class="tdot tdot-r"></div>
+              <div class="tdot tdot-y"></div>
+              <div class="tdot tdot-g"></div>
+            </div>
+            <span class="terminal-filename">skills.render.js</span>
+            <span class="terminal-tab">OUTPUT ▶</span>
+          </div>
+          <div class="terminal-panes">
+            <!-- Left: typed code -->
+            <div class="terminal-code-pane">
+              <div class="terminal-line-nums" id="termLineNums"></div>
+              <div class="terminal-code" id="termCode"></div>
+            </div>
+            <!-- Right: live visual output -->
+            <div class="terminal-output-pane" id="termOutput">
+              <div class="term-output-label">// personality.scan()</div>
+              <div class="term-wave" id="termWave"></div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="hero-content">
         <!-- Left: Text -->
@@ -1286,90 +1474,184 @@ img { max-width: 100%; display: block; }
       </div>
 
       <div class="timeline">
+
+        <!-- ── Indus: Software Developer (Full-Time, Current) ── -->
         <div class="timeline-item reveal reveal-delay-1">
           <div class="exp-card" id="exp-0">
             <div class="exp-header" onclick="toggleExp('exp-0')" role="button" tabindex="0" aria-expanded="false">
               <div>
                 <div class="exp-company-badge badge-indus">🏭 Indus Automation</div>
                 <div class="exp-role">Software Developer / IT Support</div>
-                <div class="exp-dates">May 2025 – Present · Full-Time</div>
+                <div class="exp-dates">May 2025 – Present · Full-Time · Winnipeg, MB</div>
               </div>
               <div class="exp-toggle">+</div>
             </div>
             <div class="exp-body" id="exp-0-body">
               <div class="exp-achievements">
-                <div class="exp-achievement">Leading development & maintenance of a custom project management application with feature upgrades, performance optimization, and backend data handling.</div>
-                <div class="exp-achievement">Developed a custom tool to automate creation of Merged PDFs, Table of Contents with internal links, bookmarks, and optimized cut sheet generation for engineering submittals.</div>
-                <div class="exp-achievement">Building custom OPC Server + SQL Server application using WinCC OLEDB Provider to automate report generation querying tags and alarm histories.</div>
-                <div class="exp-achievement">Architected secure real-time dashboards with <strong>React–Node.js–Express</strong>, integrating Microsoft Graph API, Power Automate, Office Scripts, and Azure AD authentication (MSAL) for role-based access.</div>
-                <div class="exp-achievement">Enhancing and maintaining an IoT smartphone app for remote PLC panel monitoring & control via MQTT protocols with secure authentication.</div>
-                <div class="exp-achievement">Supporting migration of legacy infrastructure to cloud-based servers; handling system architecture planning, deployment automation, and internal IT support.</div>
-                <div class="exp-achievement">Developed a custom Power Apps form submission system integrating SharePoint, Power Automate, and email workflows.</div>
+                <div class="exp-achievement">Leading development &amp; maintenance of a custom project management application with feature upgrades, performance optimization, and backend data handling.</div>
+                <div class="exp-achievement">Developed a custom tool to automate creation of Merged PDFs, Table of Contents with internal hyperlinks, bookmarks, and optimized cut sheet generation for engineering submittals.</div>
+                <div class="exp-achievement">Building a custom OPC Server + SQL Server application using WinCC OLEDB Provider to automate report generation by querying PLC tags and alarm histories.</div>
+                <div class="exp-achievement">Architected secure real-time dashboards with <strong>React–Node.js–Express</strong>, integrating Microsoft Graph API, Power Automate, Office Scripts, and Azure AD (MSAL) for role-based access control.</div>
+                <div class="exp-achievement">Enhancing and maintaining an IoT smartphone app for remote PLC panel monitoring &amp; control via MQTT protocols with secure fleet-provisioned authentication.</div>
+                <div class="exp-achievement">Supporting migration of legacy infrastructure to cloud-based servers — handling system architecture planning, deployment automation, and internal IT support.</div>
+                <div class="exp-achievement">Developed a custom Power Apps form submission system integrating SharePoint, Power Automate, and automated email workflows.</div>
               </div>
             </div>
           </div>
         </div>
 
+        <!-- ── New Flyer ── -->
         <div class="timeline-item reveal reveal-delay-2" style="margin-top:16px">
           <div class="exp-card" id="exp-1">
             <div class="exp-header" onclick="toggleExp('exp-1')" role="button" tabindex="0" aria-expanded="false">
               <div>
                 <div class="exp-company-badge badge-newflyer">🚌 New Flyer</div>
-                <div class="exp-role">Engineering Project Coordinator Co-op</div>
-                <div class="exp-dates">May 2024 – April 2025 · Co-op</div>
+                <div class="exp-role">Engineering Student Project Coordinator</div>
+                <div class="exp-dates">May 2024 – Aug 2024 · 4 mos · Co-op · On-Site · Winnipeg, MB</div>
               </div>
               <div class="exp-toggle">+</div>
             </div>
             <div class="exp-body" id="exp-1-body">
               <div class="exp-achievements">
-                <div class="exp-achievement">Automated capacity planning and post-mortem reporting via dynamic VBA/Macros template with SharePoint integration, project tracking, and weekly burndown analysis.</div>
-                <div class="exp-achievement">Designed and implemented an automated Bill of Materials (BoM) management system using VBA and Macros, streamlining installations, part updates, and batch notifications.</div>
-                <div class="exp-achievement">Developed an automated budget forecasting tool with VBA, Power BI, and Power Query — enabling real-time annual/monthly expenditure tracking.</div>
-                <div class="exp-achievement">Studied hardware & software fundamentals: CAN protocol, J1939, and CAN FD for advanced vehicle networks.</div>
+                <div class="exp-achievement">Project Coordinator Co-op Student in the <strong>New Product Development Department</strong>, supporting cross-functional engineering initiatives for electric bus platforms.</div>
+                <div class="exp-achievement">Participated in project management process improvements by creating, reviewing, and updating templates and processes to enhance team efficiency.</div>
+                <div class="exp-achievement">Developed an automated <strong>capacity planning and post-mortem template</strong> with project tracking, weekly hours burn-down analysis, and dynamic charts — integrated with SharePoint to enhance efficiency and strategic planning.</div>
+                <div class="exp-achievement">Engineered an automated <strong>Bill of Materials (BoM)</strong> system managing part installations, updates, and automated notifications — improving part tracking accuracy and batch tasking for design support and testing commissioning.</div>
+                <div class="exp-achievement">Led projects with a focus on scope definition, risk management, progress tracking, change management, and budget adherence throughout all project phases.</div>
+                <div class="exp-achievement">Ensured project completion including design reviews, <strong>FMEA (Failure Mode &amp; Effects Analysis)</strong>, and hazard analyses for safety-critical systems.</div>
+                <div class="exp-achievement">Prepared and presented technical and financial reports on project status, including <strong>SR&amp;ED</strong> and funded project reports for executive stakeholders.</div>
+                <div class="exp-achievement">Facilitated effective communication and coordination between engineering, procurement, and manufacturing groups.</div>
+                <div class="exp-achievement">Studied hardware and software fundamentals: data communication, number systems, <strong>CAN protocol, J1939, and CAN FD</strong> for advanced electric vehicle networks.</div>
               </div>
             </div>
           </div>
         </div>
 
+        <!-- ── Indus: Engineering Aide (Contract, Jan–Jun 2024) ── -->
         <div class="timeline-item reveal reveal-delay-3" style="margin-top:16px">
           <div class="exp-card" id="exp-2">
             <div class="exp-header" onclick="toggleExp('exp-2')" role="button" tabindex="0" aria-expanded="false">
               <div>
                 <div class="exp-company-badge badge-indus">🏭 Indus Automation</div>
-                <div class="exp-role">Engineering Aide – Co-op Student</div>
-                <div class="exp-dates">Sept 2022 – Dec 2024 · Co-op</div>
+                <div class="exp-role">Engineering Aide</div>
+                <div class="exp-dates">Jan 2024 – Jun 2024 · Contract Part-Time · Winnipeg, MB</div>
               </div>
               <div class="exp-toggle">+</div>
             </div>
             <div class="exp-body" id="exp-2-body">
               <div class="exp-achievements">
-                <div class="exp-achievement">Designed and deployed a cross-platform smartphone app for real-time remote monitoring and control of Siemens S7-1200/1500 PLCs using AWS IoT Core and MQTT. Implemented role-based access, live alerts (email/SMS), and graphical trend analysis.</div>
-                <div class="exp-achievement">Developed a SharePoint-integrated project management template in Excel using VBA, Macros, and Power Query — achieving an <strong>8× efficiency boost</strong> in design and drafting workflows.</div>
-                <div class="exp-achievement">Automated Excel take-off sheets and integrated PLC I/O descriptions into AutoCAD Electrical using VBA and Auto LISP.</div>
+                <div class="exp-achievement">Continued building and refining custom macros, automation tools, and workflows in AutoCAD Electrical and Microsoft Excel established during prior co-op terms.</div>
+                <div class="exp-achievement">Applied Agile Software Development methodologies to iteratively improve internal tooling and project management processes.</div>
+                <div class="exp-achievement">Supported engineering team deliverables including Parts Sheet Submittals, PTI Manuals, and documentation tasks alongside ongoing software improvements.</div>
               </div>
             </div>
           </div>
         </div>
 
+        <!-- ── Indus: Engineering Intern Co-op (May–Dec 2023) ── -->
         <div class="timeline-item reveal reveal-delay-4" style="margin-top:16px">
           <div class="exp-card" id="exp-3">
             <div class="exp-header" onclick="toggleExp('exp-3')" role="button" tabindex="0" aria-expanded="false">
               <div>
-                <div class="exp-company-badge badge-manitoba">🏛️ Manitoba Municipal Relations</div>
-                <div class="exp-role">Student Web Developer / Analyst</div>
-                <div class="exp-dates">Jan 2022 – May 2022 · Co-op</div>
+                <div class="exp-company-badge badge-indus">🏭 Indus Automation</div>
+                <div class="exp-role">Engineering Intern — IoT &amp; Software</div>
+                <div class="exp-dates">May 2023 – Dec 2023 · Co-op · On-Site · Winnipeg, MB</div>
               </div>
               <div class="exp-toggle">+</div>
             </div>
             <div class="exp-body" id="exp-3-body">
               <div class="exp-achievements">
-                <div class="exp-achievement">Developed SharePoint collaboration site and created HTML pages for interacting with SharePoint content.</div>
-                <div class="exp-achievement">Executed operational processes including running SQL extracts, reviewing data, supervising batch jobs, and supporting operational staff.</div>
-                <div class="exp-achievement">Authored and executed test scripts and flowcharts for FDM applications; documented user guides and system manuals.</div>
+                <div class="exp-achievement">Designed and implemented a cross-platform smartphone application to remotely interface with, control setpoints, and manage outputs of Siemens S7-1200/1500 PLCs using AWS IoT Core and MQTT. The PLC is programmed to publish messages and subscribe to topics via AWS IoT Broker.</div>
+                <div class="exp-achievement">Implemented an additional pipeline using <strong>SIMATIC IoT2050</strong> with built-in Node-RED to create fully automated data flows between the PLC and cloud.</div>
+                <div class="exp-achievement">Revolutionized pump and lift station management: seamless remote control, real-time monitoring, and robust security through AWS integration — empowering operators to oversee multiple stations with instant responsiveness.</div>
+                <div class="exp-achievement"><strong>User Authentication &amp; Role-Based Access Control (RBAC)</strong> — secure multi-tier access for operators, admins, and viewers.</div>
+                <div class="exp-achievement"><strong>Real-Time Updates</strong> — dynamic, responsive UI with live telemetry data streaming from the field.</div>
+                <div class="exp-achievement"><strong>Multiple Station Management</strong> — remote monitoring and control of pumps, reservoir levels, effluent/influent flows and pressures, start/stop setpoints, alarms, and heartbeat signals.</div>
+                <div class="exp-achievement"><strong>Secure Connection</strong> — fleet provisioning by claim with seamless, encrypted PLC-to-cloud communication over MQTT.</div>
+                <div class="exp-achievement"><strong>Alerts</strong> — push notifications, email, and SMS alerts for critical events and alarms.</div>
+                <div class="exp-achievement"><strong>Logging</strong> — persistent storage of timestamped IoT messages for audit trails and diagnostics.</div>
+                <div class="exp-achievement"><strong>Trends</strong> — graphical charts with timestamps for analog sensor values enabling data-driven operations decisions.</div>
+                <div class="exp-achievement"><strong>Backend</strong> — user/content management, analytics endpoints, and API layer supporting the mobile front-end.</div>
+                <div class="exp-achievement">Developed an integrated automated project management template in Excel, synchronized with Outlook Events, to monitor purchase order deadlines across departments — featuring seamless entry management, status-based conditional formatting, and secure cell locking.</div>
               </div>
             </div>
           </div>
         </div>
+
+        <!-- ── Indus: Development Aide (Sep 2022–May 2023) ── -->
+        <div class="timeline-item reveal reveal-delay-5" style="margin-top:16px">
+          <div class="exp-card" id="exp-4">
+            <div class="exp-header" onclick="toggleExp('exp-4')" role="button" tabindex="0" aria-expanded="false">
+              <div>
+                <div class="exp-company-badge badge-indus">🏭 Indus Automation</div>
+                <div class="exp-role">Development Aide</div>
+                <div class="exp-dates">Sep 2022 – May 2023 · Contract Part-Time · Winnipeg, MB</div>
+              </div>
+              <div class="exp-toggle">+</div>
+            </div>
+            <div class="exp-body" id="exp-4-body">
+              <div class="exp-achievements">
+                <div class="exp-achievement">Improved upon previously built custom macros and automation tools in AutoCAD Electrical and Microsoft Excel — enhancing reliability, speed, and maintainability.</div>
+                <div class="exp-achievement">Generated Parts Sheet Submittals and PTI Manuals as part of ongoing engineering documentation workflows.</div>
+                <div class="exp-achievement">Researched ZOHO CRM to evaluate its suitability for managing orders, sales inquiries, leads, and quotations — comparing integration capabilities against QuickBooks and making a formal recommendation to management.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Indus: Engineering Intern Co-op (May–Sep 2022) ── -->
+        <div class="timeline-item reveal reveal-delay-6" style="margin-top:16px">
+          <div class="exp-card" id="exp-5">
+            <div class="exp-header" onclick="toggleExp('exp-5')" role="button" tabindex="0" aria-expanded="false">
+              <div>
+                <div class="exp-company-badge badge-indus">🏭 Indus Automation</div>
+                <div class="exp-role">Engineering Intern — Automation &amp; ACADE</div>
+                <div class="exp-dates">May 2022 – Sep 2022 · Co-op · Winnipeg, MB</div>
+              </div>
+              <div class="exp-toggle">+</div>
+            </div>
+            <div class="exp-body" id="exp-5-body">
+              <div class="exp-achievements">
+                <div class="exp-achievement">Streamlined and formatted an Excel automation take-off sheet to allow automatic import of Programmable Logic Controller (PLC) input/output descriptions into AutoCAD Electrical (ACADE).</div>
+                <div class="exp-achievement">Learned existing Excel macro templates and modified them to improve performance — leveraging built-in functions, tables, pivot tables, and VBA macros to build a project management sheet, time tracking, and service record template.</div>
+                <div class="exp-achievement">Programmed and created executable <strong>.bat</strong> files to automate routine Windows tasks and batch processes.</div>
+                <div class="exp-achievement">Created ACADE Assembly Codes to streamline insertion of multi-catalogue components across panel drawings.</div>
+                <div class="exp-achievement">Determined feasibility of and executed company-standard wire numbering requirements within ACADE.</div>
+                <div class="exp-achievement">Evaluated and implemented (via AutoCAD AutoLISP) several ACADE automation features: automatic ladder reference tagging, multi-catalogue terminal block rating display, equipment tag linking between panel layout and schematic, project-wide component attribute show/hide, and freezing all LOC layers.</div>
+                <div class="exp-achievement">Researched the feasibility of a customer-facing app for PLC panel remote control — authored a formal written report comparing <strong>Siemens MindSphere (Mendix)</strong> vs. <strong>Amazon IIoT (Express Link)</strong>, which directly led to the IoT app project in the next co-op term.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Government of Manitoba ── -->
+        <div class="timeline-item reveal reveal-delay-6" style="margin-top:16px">
+          <div class="exp-card" id="exp-6">
+            <div class="exp-header" onclick="toggleExp('exp-6')" role="button" tabindex="0" aria-expanded="false">
+              <div>
+                <div class="exp-company-badge badge-manitoba">🏛️ Government of Manitoba</div>
+                <div class="exp-role">Student Web Developer / Analyst</div>
+                <div class="exp-dates">Jan 2022 – May 2022 · Permanent Part-Time · Winnipeg, MB</div>
+              </div>
+              <div class="exp-toggle">+</div>
+            </div>
+            <div class="exp-body" id="exp-6-body">
+              <div class="exp-achievements">
+                <div class="exp-achievement">STEP student at <strong>Manitoba Municipal Relations – Information Systems Branch</strong>, working on internal and external government web infrastructure.</div>
+                <div class="exp-achievement">Designed, developed, published, and maintained <strong>SharePoint Publishing Sites</strong> (MR internal/external websites) based on evolving business requirements and subject matter expert feedback.</div>
+                <div class="exp-achievement">Updated and maintained SharePoint collaboration sites — creating and testing web and collaboration tools, configurations, and page layouts.</div>
+                <div class="exp-achievement">Formatted and organized web content; created visuals/graphics, page layouts, site structure, and navigation for the Municipal Relations network — updated in a timely and accurate manner.</div>
+                <div class="exp-achievement">Performed operational processes including running <strong>SQL extracts</strong>, reviewing data, supervising batch jobs, and supporting operational staff day-to-day.</div>
+                <div class="exp-achievement">Created comprehensive documentation including <strong>user guides</strong> and <strong>system manuals</strong> for internal applications.</div>
+                <div class="exp-achievement">Wrote and executed <strong>test scripts</strong> and flowcharts for custom FDM (Flexible Document Management) applications to verify system behaviour and edge cases.</div>
+                <div class="exp-achievement">Scheduled and delivered <strong>training sessions</strong> with end-users to onboard them onto new SharePoint tools and workflows.</div>
+                <div class="exp-achievement">Assisted developers and business analysts with assigned tasks; attended team meetings via Microsoft Teams to collaborate with team members and the lead developer.</div>
+                <div class="exp-achievement">Responded promptly to emails from customers and stakeholders; maintained smooth communication between team members throughout all project phases.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -1392,7 +1674,7 @@ img { max-width: 100%; display: block; }
           <div class="project-content">
             <div class="project-title">PLC IoT Remote App</div>
             <p class="project-short">Cross-platform smartphone app for real-time remote monitoring and control of Siemens S7-1200/1500 PLCs via AWS IoT Core and MQTT protocols.</p>
-            <div class="project-actions"><a href="assets/projects/indusIoTApp/IoT Application.pdf" target="_blank" class="btn btn-ghost btn-sm">📄 Report</a></div>
+            <div class="project-actions"><a href="assets/projects/indusIoTApp/IoT Application - Things we have and future maybe things to do.pdf" target="_blank" class="btn btn-ghost btn-sm">📄 Report</a></div>
             <button class="project-expand-toggle" onclick="toggleProject('proj-0')"><span>Read More</span><span class="toggle-arrow">↓</span></button>
             <div class="project-expanded"><div class="project-expanded-inner"><strong>Stack:</strong> Siemens S7-1200/1500, TIA Portal, AWS IoT Core, MQTT, Node-RED, IoT2050, Role-based authentication.</div></div>
           </div>
@@ -1696,7 +1978,145 @@ function sendMail(e) {
   window.location.href = `mailto:maherhora468@gmail.com?subject=${subject}&body=${body}`;
 }
 
-// ── Card Tilt ─────────────────────────────────────────────
+// ── Live Coding Terminal — Personality Diagnostic ─────────
+(function() {
+
+  // ── Signal wave (right pane top) ────────────────────
+  const waveEl = document.getElementById('termWave');
+  const waveHeights = [0.3,0.6,1.0,0.7,1.4,0.5,1.8,0.4,1.2,0.9,1.6,0.3,1.0,0.7,1.9,0.5,1.3,0.8,1.5,0.4,1.1,0.6,1.7,0.3];
+  waveHeights.forEach((h, i) => {
+    const bar = document.createElement('div');
+    bar.className = 'tw-bar';
+    bar.style.cssText = `height:${Math.round(h * 14) + 4}px;--h:${h};animation-delay:${(i * 0.05).toFixed(2)}s;`;
+    // alternate colours
+    const cols = ['#2DD4BF','#C084FC','#60A5FA','#4ADE80','#F472B6','#FCD34D'];
+    bar.style.background = cols[i % cols.length];
+    waveEl.appendChild(bar);
+  });
+
+  // ── Personality traits ───────────────────────────────
+  const TRAITS = [
+    { key: 'debugs_at_midnight',   val: 'true',         cls: 'tl-true',   dot: '#4ADE80' },
+    { key: 'coffee_before_standup',val: 'always',       cls: 'tl-crit',   dot: '#FB923C' },
+    { key: 'ships_then_docs',      val: '...eventually',cls: 'tl-warn',   dot: '#FCD34D' },
+    { key: 'git_push_force',       val: 'never*',       cls: 'tl-teal',   dot: '#2DD4BF' },
+    { key: 'reads_error_msg_first', val: 'true',        cls: 'tl-true',   dot: '#4ADE80' },
+    { key: 'tab_count',            val: '47 open',      cls: 'tl-warn',   dot: '#FCD34D' },
+    { key: 'over_engineers_it',    val: 'sometimes 😅', cls: 'tl-pink',   dot: '#F472B6' },
+    { key: 'build_first_plan_later',val:'true',         cls: 'tl-purple', dot: '#C084FC' },
+    { key: 'imposter_syndrome',    val: 'compiling…',   cls: 'tl-dim',    dot: '#64748B' },
+  ];
+
+  // ── Left-pane code ───────────────────────────────────
+  const lines = [
+    [{ t:'import ', c:'tk-purple' }, { t:'{ Engineer }', c:'tk-blue' }, { t:' from ', c:'tk-white' }, { t:'"@univ-manitoba"', c:'tk-green' }],
+    [{ t:'', c:'' }],
+    [{ t:'const ', c:'tk-purple' }, { t:'me', c:'tk-blue' }, { t:' = new ', c:'tk-white' }, { t:'Engineer', c:'tk-teal' }, { t:'({', c:'tk-white' }],
+    [{ t:'  name:  ', c:'tk-dim' }, { t:'"Sukhmeet"', c:'tk-green' }, { t:',', c:'tk-white' }],
+    [{ t:'  type:  ', c:'tk-dim' }, { t:'"chaotic good"', c:'tk-pink' }, { t:',', c:'tk-white' }],
+    [{ t:'  fuel:  ', c:'tk-dim' }, { t:'"☕ + curiosity"', c:'tk-coral' },{ t:',', c:'tk-white' }],
+    [{ t:'});', c:'tk-white' }],
+    [{ t:'', c:'' }],
+    [{ t:'me.', c:'tk-blue' }, { t:'scan', c:'tk-teal' }, { t:'(', c:'tk-white' }, { t:'"personality"', c:'tk-green' }, { t:');', c:'tk-white' }],
+    [{ t:'', c:'' }],
+    [{ t:'// results ↓', c:'tk-dim' }],
+    [{ t:'> debugs_at_midnight', c:'tk-purple' }],   // triggers trait 0
+    [{ t:'> coffee_before_standup', c:'tk-purple' }], // 1
+    [{ t:'> ships_then_docs', c:'tk-purple' }],       // 2
+    [{ t:'> git_push_force', c:'tk-purple' }],        // 3
+    [{ t:'> reads_error_msg_first', c:'tk-purple' }], // 4
+    [{ t:'> tab_count', c:'tk-purple' }],             // 5
+    [{ t:'> over_engineers_it', c:'tk-purple' }],     // 6
+    [{ t:'> build_first_plan_later',c:'tk-purple' }], // 7
+    [{ t:'> imposter_syndrome', c:'tk-purple' }],     // 8
+  ];
+
+  // which line index (0-based) triggers which trait index
+  const triggers = {11:0,12:1,13:2,14:3,15:4,16:5,17:6,18:7,19:8};
+
+  const codeEl = document.getElementById('termCode');
+  const numsEl = document.getElementById('termLineNums');
+  const outEl  = document.getElementById('termOutput');
+
+  const rowEls = lines.map((segs, i) => {
+    const tc = document.createElement('span');
+    tc.className = 'tc';
+    tc.style.visibility = 'hidden';
+    segs.forEach(s => {
+      const sp = document.createElement('span');
+      if (s.c) sp.className = s.c;
+      sp.textContent = '';
+      tc.appendChild(sp);
+    });
+    codeEl.appendChild(tc);
+    const num = document.createElement('span');
+    num.textContent = i + 1;
+    num.style.visibility = 'hidden';
+    numsEl.appendChild(num);
+    return { el: tc, numEl: num, segs, rowText: segs.map(s=>s.t).join('') };
+  });
+
+  function popTrait(idx) {
+    const tr = TRAITS[idx];
+    const line = document.createElement('div');
+    line.className = 'trait-line';
+    line.innerHTML = `
+      <div class="tl-dot" style="background:${tr.dot};color:${tr.dot}"></div>
+      <span class="tl-key">${tr.key}</span>
+      <span class="tl-val ${tr.cls}">${tr.val}</span>`;
+    outEl.appendChild(line);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      line.classList.add('show');
+      outEl.scrollTop = outEl.scrollHeight;
+    }));
+  }
+
+  const codePaneEl = codeEl.closest('.terminal-code-pane');
+  let rowIdx = 0, charIdx = 0, accChars = 0;
+  const SPEED = 20;
+
+  function typeNext() {
+    if (rowIdx >= rowEls.length) return;
+    const { el, numEl, segs, rowText } = rowEls[rowIdx];
+    el.style.visibility = 'visible';
+    numEl.style.visibility = 'visible';
+
+    const old = document.querySelector('.cursor-blink');
+    if (old) old.remove();
+
+    const spans = el.querySelectorAll('span');
+    const lc = charIdx - accChars;
+    let prev = 0, si = 0;
+    for (si = 0; si < segs.length; si++) {
+      if (prev + segs[si].t.length > lc) break;
+      prev += segs[si].t.length;
+    }
+    if (si >= segs.length) si = segs.length - 1;
+    for (let j = 0; j < si; j++) spans[j].textContent = segs[j].t;
+    spans[si].textContent = segs[si].t.slice(0, lc - prev + 1);
+
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor-blink';
+    spans[si].after(cursor);
+    codePaneEl.scrollTop = codePaneEl.scrollHeight;
+
+    charIdx++;
+    if (charIdx - accChars < rowText.length) {
+      setTimeout(typeNext, rowText === '' ? 1 : SPEED);
+    } else {
+      accChars += rowText.length;
+      charIdx = accChars;
+      if (triggers[rowIdx] !== undefined) {
+        setTimeout(() => popTrait(triggers[rowIdx]), 100);
+      }
+      rowIdx++;
+      if (rowIdx < rowEls.length) setTimeout(typeNext, rowText === '' ? 8 : 45);
+    }
+  }
+
+  setTimeout(typeNext, 900);
+})();
+
 if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   document.querySelectorAll('.skill-card,.project-card,.edu-card').forEach(card => {
     card.addEventListener('mousemove', e => {
