@@ -924,6 +924,53 @@ img { max-width: 100%; display: block; }
 /* Phone field animation */
 #phone-field-wrap.visible { max-height: 90px !important; opacity: 1 !important; margin-bottom: 16px !important; }
 
+
+/* ─── Project Modal ──────────────────────────────────────── */
+.proj-modal-overlay {
+  display:none; position:fixed; inset:0; z-index:500;
+  background:rgba(26,26,46,0.7); backdrop-filter:blur(8px);
+  align-items:center; justify-content:center; padding:20px;
+}
+.proj-modal-overlay.open { display:flex; }
+.proj-modal {
+  background:var(--white); border-radius:24px; max-width:600px; width:100%;
+  max-height:88vh; overflow-y:auto; box-shadow:0 32px 80px rgba(0,0,0,0.35);
+  border:2px solid rgba(132,94,194,0.2); position:relative;
+  animation:modalPop 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes modalPop {
+  from{opacity:0;transform:scale(0.88) translateY(20px);}
+  to{opacity:1;transform:scale(1) translateY(0);}
+}
+.proj-modal-header {
+  padding:24px 24px 0; border-bottom:2px dashed rgba(132,94,194,0.12); margin-bottom:0;
+  position:sticky; top:0; background:var(--white); z-index:2; border-radius:22px 22px 0 0;
+}
+.proj-modal-title { font-family:'Fredoka One',sans-serif; font-size:20px; color:var(--text); margin-bottom:4px; }
+.proj-modal-sub { font-size:11px; color:var(--muted); font-family:'Space Mono',monospace; letter-spacing:1px; padding-bottom:16px; }
+.proj-modal-close {
+  position:absolute; top:14px; right:16px; width:32px; height:32px;
+  border:2px solid rgba(132,94,194,0.2); border-radius:10px; background:none;
+  color:var(--muted); font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+}
+.proj-modal-close:hover { border-color:var(--coral); color:var(--coral); background:rgba(255,107,107,0.06); }
+.proj-modal-body { padding:20px 24px 24px; }
+.proj-modal-points { list-style:none; margin-bottom:20px; }
+.proj-modal-points li {
+  display:flex; gap:10px; padding:8px 0; font-size:13.5px; color:var(--text);
+  line-height:1.6; border-bottom:1px solid rgba(0,0,0,0.04);
+}
+.proj-modal-points li:last-child { border-bottom:none; }
+.proj-modal-points li::before { content:'▸'; color:var(--coral); flex-shrink:0; margin-top:2px; font-size:12px; }
+.proj-modal-links { display:flex; flex-wrap:wrap; gap:8px; padding-top:16px; border-top:2px dashed rgba(132,94,194,0.12); }
+.proj-modal-links a, .proj-modal-links span {
+  display:inline-flex; align-items:center; gap:6px; padding:8px 16px;
+  border-radius:12px; font-size:12px; font-weight:800; font-family:'Nunito',sans-serif;
+  text-decoration:none;
+}
+body.theme-dark .proj-modal { background:var(--card-bg); }
+body.theme-dark .proj-modal-header { background:var(--card-bg); }
+
 </style>
 </head>
 <body>
@@ -1030,7 +1077,8 @@ img { max-width: 100%; display: block; }
             <span class="hero-badge">Embedded Software Programming</span>
             <span class="hero-badge">Artificial Intelligence (AI)</span>
             <span class="hero-badge">Internet of Things (IoT)</span>
-            <span class="hero-badge">VBA · Automation · Office Scripts · Power Platform</span>
+            <span class="hero-badge">Power Apps · Power Automate · Power BI · Power Platform</span>
+            <span class="hero-badge">VBA · Automation · Office Scripts · SharePoint</span>
             <span class="hero-badge">MQTT · TCP/IP · Modbus</span>
             <span class="hero-badge">C · C++ · Python · JavaScript</span>
           </div>
@@ -1161,7 +1209,8 @@ img { max-width: 100%; display: block; }
       <div class="skills-grid">
         <div class="skill-card sc-orange reveal reveal-delay-1"><span class="skill-icon">☁️</span><div class="skill-name">Amazon Web Services</div><div class="skill-desc">AWS IoT Core · Cloud architecture · Telemetry pipelines</div></div>
         <div class="skill-card sc-sky reveal reveal-delay-2"><span class="skill-icon">🔷</span><div class="skill-name">Microsoft Azure</div><div class="skill-desc">Azure AD (Entra ID) · MSAL · Microsoft Graph API</div></div>
-        <div class="skill-card sc-teal reveal reveal-delay-3"><span class="skill-icon">🔗</span><div class="skill-name">Power Platform</div><div class="skill-desc">Power BI · Power Apps · Power Automate · SharePoint</div></div>
+        <div class="skill-card sc-teal reveal reveal-delay-3"><span class="skill-icon">🔗</span><div class="skill-name">Power Platform</div><div class="skill-desc">Power BI · Power Apps · Power Automate · Office Scripts · SharePoint</div></div>
+        <div class="skill-card sc-purple reveal reveal-delay-4"><span class="skill-icon">📱</span><div class="skill-name">Power Apps</div><div class="skill-desc">Canvas apps · Custom forms · Offline-capable mobile apps · SharePoint integration</div></div>
       </div>
       <div class="skill-category-title reveal" style="margin-top:40px">⚙️ Engineering & Automation</div>
       <div class="skills-grid">
@@ -1293,29 +1342,201 @@ img { max-width: 100%; display: block; }
         <div class="section-divider"></div>
       </div>
       <div class="projects-grid">
-        <div class="project-card reveal reveal-delay-1" id="proj-0">
-          <div class="project-thumb"><img src="assets/projects/indusIoTApp/indusIoTApp.jpg" alt="PLC IoT App" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="project-thumb-placeholder">📱</div><div class="project-overlay"></div><div class="project-tech-chips"><span class="tech-chip">AWS IoT</span><span class="tech-chip">MQTT</span><span class="tech-chip">PLC</span></div></div>
-          <div class="project-content"><div class="project-title">PLC IoT Remote App</div><p class="project-short">Cross-platform smartphone app for real-time remote monitoring and control of Siemens S7-1200/1500 PLCs via AWS IoT Core and MQTT protocols.</p><div class="project-actions"><a href="assets/projects/indusIoTApp/IoT Application - Things we have and future maybe things to do.pdf" target="_blank" class="btn btn-ghost btn-sm">📄 Report</a></div><button class="project-expand-toggle" onclick="toggleProject('proj-0')"><span>Read More</span><span class="toggle-arrow">↓</span></button><div class="project-expanded"><div class="project-expanded-inner"><strong>Stack:</strong> Siemens S7-1200/1500, TIA Portal, AWS IoT Core, MQTT, Node-RED, IoT2050, Role-based authentication.</div></div></div>
+        <div class="project-card reveal reveal-delay-1" id="proj-dash" style="grid-column:1/-1;">
+          <div class="project-thumb" style="aspect-ratio:unset;height:220px;position:relative;background:#0F172A;overflow:hidden;">
+            <div id="dash-slides" style="display:flex;width:300%;height:100%;transition:transform 0.45s cubic-bezier(0.4,0,0.2,1);">
+              <div style="flex-shrink:0;width:33.333%;height:100%;overflow:hidden;"><img src="assets/projects/dashboard/screenshot-production.jpg" loading="lazy" alt="Production Dashboard" style="width:100%;height:100%;object-fit:cover;object-position:top left;" onerror="this.style.display='none'"></div><div style="flex-shrink:0;width:33.333%;height:100%;overflow:hidden;"><img src="assets/projects/dashboard/screenshot-capacity.jpg" loading="lazy" alt="Resource Capacity Gantt" style="width:100%;height:100%;object-fit:cover;object-position:top left;" onerror="this.style.display='none'"></div><div style="flex-shrink:0;width:33.333%;height:100%;overflow:hidden;"><img src="assets/projects/dashboard/screenshot-design.jpg" loading="lazy" alt="Design Drafting Dashboard" style="width:100%;height:100%;object-fit:cover;object-position:top left;" onerror="this.style.display='none'"></div>
+            </div>
+            <div style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:5;"><button onclick="dashSlide(0)" class="dash-dot" style="width:9px;height:9px;border-radius:50%;background:#fff;border:none;cursor:pointer;opacity:0.9;padding:0;"></button><button onclick="dashSlide(1)" class="dash-dot" style="width:9px;height:9px;border-radius:50%;background:#fff;border:none;cursor:pointer;opacity:0.4;padding:0;"></button><button onclick="dashSlide(2)" class="dash-dot" style="width:9px;height:9px;border-radius:50%;background:#fff;border:none;cursor:pointer;opacity:0.4;padding:0;"></button></div>
+            <button onclick="dashSlide((window._dashIdx||0)-1)" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.45);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;z-index:5;backdrop-filter:blur(4px);">‹</button>
+            <button onclick="dashSlide((window._dashIdx||0)+1)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.45);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;z-index:5;backdrop-filter:blur(4px);">›</button>
+            <div id="dash-label" style="position:absolute;top:10px;left:12px;background:rgba(0,0,0,0.55);backdrop-filter:blur(6px);color:#fff;font-family:'Space Mono',monospace;font-size:10px;padding:4px 10px;border-radius:100px;z-index:5;letter-spacing:1px;">Production Dashboard</div>
+            <div class="project-overlay"></div>
+            <div class="project-tech-chips">
+              <span class="tech-chip">React</span><span class="tech-chip">Node.js</span>
+              <span class="tech-chip">Azure AD / MSAL</span><span class="tech-chip">Microsoft Graph API</span>
+              <span class="tech-chip">SharePoint</span><span class="tech-chip">Office Scripts</span>
+              <span class="tech-chip">Power Automate</span>
+            </div>
+          </div>
+          <div class="project-content">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:10px;">
+              <div class="project-title" style="margin-bottom:0;">🛠️ Production &amp; Design Drafting Dashboard</div>
+              <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 12px;background:rgba(132,94,194,0.1);border:2px solid rgba(132,94,194,0.25);border-radius:100px;font-size:11px;font-family:'Space Mono',monospace;color:var(--purple);white-space:nowrap;">🔐 Internal Access · MSAL Auth</span>
+            </div>
+            <p class="project-short">A secure, full-stack enterprise dashboard suite for <strong>Indus Automation</strong> — three integrated real-time apps covering production job tracking, design drafting workflows, and resource capacity planning. Protected by <strong>Microsoft Entra ID (Azure AD)</strong> with MSAL authentication; accessible only to company domain users.</p>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;">
+              <div onclick="dashSlide(0)" style="background:rgba(79,195,247,0.08);border:2px solid rgba(79,195,247,0.2);border-radius:14px;padding:12px;cursor:pointer;text-align:center;">
+                <div style="font-size:20px;margin-bottom:4px;">📦</div>
+                <div style="font-family:'Fredoka One',sans-serif;font-size:13px;color:var(--text);">Production</div>
+                <div style="font-size:10px;color:var(--muted);font-family:'Space Mono',monospace;margin-top:2px;">Job tracking &amp; deadlines</div>
+              </div>
+              <div onclick="dashSlide(2)" style="background:rgba(132,94,194,0.08);border:2px solid rgba(132,94,194,0.2);border-radius:14px;padding:12px;cursor:pointer;text-align:center;">
+                <div style="font-size:20px;margin-bottom:4px;">✏️</div>
+                <div style="font-family:'Fredoka One',sans-serif;font-size:13px;color:var(--text);">Design Drafting</div>
+                <div style="font-size:10px;color:var(--muted);font-family:'Space Mono',monospace;margin-top:2px;">Drawing workflows</div>
+              </div>
+              <div onclick="dashSlide(1)" style="background:rgba(6,214,160,0.08);border:2px solid rgba(6,214,160,0.2);border-radius:14px;padding:12px;cursor:pointer;text-align:center;">
+                <div style="font-size:20px;margin-bottom:4px;">📊</div>
+                <div style="font-family:'Fredoka One',sans-serif;font-size:13px;color:var(--text);">Resource Capacity</div>
+                <div style="font-size:10px;color:var(--muted);font-family:'Space Mono',monospace;margin-top:2px;">Gantt &amp; what-if analysis</div>
+              </div>
+            </div>
+            <div class="project-actions">
+              <span class="btn btn-ghost btn-sm" style="cursor:default;opacity:0.7;" title="Internal company access only via Azure AD">🔒 Internal Access Only</span>
+            </div>
+            <button class="project-expand-toggle" onclick="openProjModal('modal-dash')"><span>Key Highlights</span><span class="toggle-arrow">↗</span></button>
+          </div>
         </div>
-        <div class="project-card reveal reveal-delay-2" id="proj-1">
-          <div class="project-thumb"><img src="assets/projects/depthMonitoring/depthMonitoring.jpg" alt="River Depth" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="project-thumb-placeholder">🌊</div><div class="project-overlay"></div><div class="project-tech-chips"><span class="tech-chip">BLE/Wi-Fi</span><span class="tech-chip">AWS</span><span class="tech-chip">ML</span></div></div>
-          <div class="project-content"><div class="project-title">IoT River Depth Monitoring</div><p class="project-short">Capstone: sensor-driven embedded system using sonar and GPS to measure water depth in real-time with ML-driven hazard detection.</p><div class="project-actions"><a href="https://1024terabox.com/s/1i85eR_AVTswdY9h1XYKL8Q" target="_blank" rel="noopener" class="btn btn-primary btn-sm">▶ Demo</a><a href="assets/projects/depthMonitoring/G09_FinalReport.pdf" target="_blank" class="btn btn-ghost btn-sm">📄 Report</a></div><button class="project-expand-toggle" onclick="toggleProject('proj-1')"><span>Read More</span><span class="toggle-arrow">↓</span></button><div class="project-expanded"><div class="project-expanded-inner"><strong>Stack:</strong> Embedded C/C++, Sonar, GPS, BLE, MQTT, Wi-Fi, AWS, ML model.</div></div></div>
+        <div class="project-card reveal reveal-delay-1" id="proj-hazard">
+          <div class="project-thumb" style="height:260px;background:#1a1a2e;overflow:hidden;position:relative;">
+            <div id="haz-slides" style="display:flex;width:400%;height:100%;transition:transform 0.4s cubic-bezier(0.4,0,0.2,1);">
+              <div style="flex-shrink:0;width:25.0%;height:100%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#1a1a2e;"><img src="assets/projects/powerApps/hazard/screen-home-saved.jpg" loading="lazy" style="height:100%;width:auto;max-width:100%;object-fit:contain;" onerror="this.style.display='none'"></div><div style="flex-shrink:0;width:25.0%;height:100%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#1a1a2e;"><img src="assets/projects/powerApps/hazard/screen-project-info.jpg" loading="lazy" style="height:100%;width:auto;max-width:100%;object-fit:contain;" onerror="this.style.display='none'"></div><div style="flex-shrink:0;width:25.0%;height:100%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#1a1a2e;"><img src="assets/projects/powerApps/hazard/screen-task-details.jpg" loading="lazy" style="height:100%;width:auto;max-width:100%;object-fit:contain;" onerror="this.style.display='none'"></div><div style="flex-shrink:0;width:25.0%;height:100%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#1a1a2e;"><img src="assets/projects/powerApps/hazard/screen-task-fields.jpg" loading="lazy" style="height:100%;width:auto;max-width:100%;object-fit:contain;" onerror="this.style.display='none'"></div>
+            </div>
+            <div style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:5;"><button onclick="hazSlide(0)" class="haz-dot" style="width:8px;height:8px;border-radius:50%;background:#fff;opacity:1;border:none;cursor:pointer;padding:0;transition:opacity 0.3s;"></button><button onclick="hazSlide(1)" class="haz-dot" style="width:8px;height:8px;border-radius:50%;background:#fff;opacity:0.35;border:none;cursor:pointer;padding:0;transition:opacity 0.3s;"></button><button onclick="hazSlide(2)" class="haz-dot" style="width:8px;height:8px;border-radius:50%;background:#fff;opacity:0.35;border:none;cursor:pointer;padding:0;transition:opacity 0.3s;"></button><button onclick="hazSlide(3)" class="haz-dot" style="width:8px;height:8px;border-radius:50%;background:#fff;opacity:0.35;border:none;cursor:pointer;padding:0;transition:opacity 0.3s;"></button></div>
+            <button onclick="hazSlide((window._haz||0)-1)" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.5);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;z-index:5;">‹</button>
+            <button onclick="hazSlide((window._haz||0)+1)" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.5);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;z-index:5;">›</button>
+            <div id="haz-lbl" style="position:absolute;top:10px;left:10px;background:rgba(0,0,0,0.55);backdrop-filter:blur(6px);color:#fff;font-family:'Space Mono',monospace;font-size:10px;padding:4px 10px;border-radius:100px;z-index:5;letter-spacing:1px;">Home — Saved Forms</div>
+            <div class="project-overlay"></div>
+            <div class="project-tech-chips"><span class="tech-chip">Power Apps</span><span class="tech-chip">Power Automate</span><span class="tech-chip">SharePoint</span><span class="tech-chip">Offline-Capable</span><span class="tech-chip">PDF Generation</span></div>
+          </div>
+          <div class="project-content">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px;">
+              <div class="project-title" style="margin-bottom:0;">⚠️ Hazard Assessment Form</div>
+              <span style="display:inline-flex;align-items:center;gap:5px;padding:4px 11px;background:rgba(255,107,107,0.1);border:2px solid rgba(255,107,107,0.25);color:var(--coral);border-radius:100px;font-size:11px;font-family:'Space Mono',monospace;white-space:nowrap;">📱 Power Apps · Indus Automation</span>
+            </div>
+            <p class="project-short">Offline-capable mobile Power App for field technicians to create and submit workplace hazard assessments on-site. Supports multiple tasks, auto-calculates risk levels, and triggers a Power Automate flow that generates a PDF and emails it to the Safety Representative on submission.</p>
+            <div class="project-actions"><span class="btn btn-ghost btn-sm" style="cursor:default;opacity:0.7;">🔒 Internal Tool</span></div>
+            <button class="project-expand-toggle" onclick="openProjModal('modal-hazard')">
+              <span>Key Highlights</span><span class="toggle-arrow">↗</span>
+            </button>
+          </div>
         </div>
-        <div class="project-card reveal reveal-delay-3" id="proj-2">
-          <div class="project-thumb"><img src="assets/projects/careerSphere/CareerSphere.png" alt="CareerSphere" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="project-thumb-placeholder">💼</div><div class="project-overlay"></div><div class="project-tech-chips"><span class="tech-chip">MERN</span><span class="tech-chip">Docker</span><span class="tech-chip">CI/CD</span></div></div>
-          <div class="project-content"><div class="project-title">CareerSphere — Full Stack Platform</div><p class="project-short">MERN-stack career platform connecting job seekers and employers with AI-driven recommendations, custom quizzes, and role-based access control.</p><div class="project-actions"><a href="https://1024terabox.com/s/18CQ7fGzQfKydaOoBVjT2aQ" target="_blank" rel="noopener" class="btn btn-primary btn-sm">▶ Demo</a></div><button class="project-expand-toggle" onclick="toggleProject('proj-2')"><span>Read More</span><span class="toggle-arrow">↓</span></button><div class="project-expanded"><div class="project-expanded-inner"><strong>Stack:</strong> MongoDB, Express.js, React, Node.js, Docker, CI/CD, Load testing.</div></div></div>
+        <div class="project-card reveal reveal-delay-2" id="proj-service">
+          <div class="project-thumb" style="height:260px;background:#1a1a2e;overflow:hidden;position:relative;">
+            <div id="svc-slides" style="display:flex;width:900%;height:100%;transition:transform 0.4s cubic-bezier(0.4,0,0.2,1);">
+              <div style="flex-shrink:0;width:11.1111%;height:100%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#1a1a2e;"><img src="assets/projects/powerApps/service/screen-1.jpg" loading="lazy" style="height:100%;width:auto;max-width:100%;object-fit:contain;" onerror="this.style.display='none'"></div><div style="flex-shrink:0;width:11.1111%;height:100%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#1a1a2e;"><img src="assets/projects/powerApps/service/screen-2.jpg" loading="lazy" style="height:100%;width:auto;max-width:100%;object-fit:contain;" onerror="this.style.display='none'"></div><div style="flex-shrink:0;width:11.1111%;height:100%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#1a1a2e;"><img src="assets/projects/powerApps/service/screen-3.jpg" loading="lazy" style="height:100%;width:auto;max-width:100%;object-fit:contain;" onerror="this.style.display='none'"></div><div style="flex-shrink:0;width:11.1111%;height:100%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#1a1a2e;"><img src="assets/projects/powerApps/service/screen-4.jpg" loading="lazy" style="height:100%;width:auto;max-width:100%;object-fit:contain;" onerror="this.style.display='none'"></div><div style="flex-shrink:0;width:11.1111%;height:100%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#1a1a2e;"><img src="assets/projects/powerApps/service/screen-5.jpg" loading="lazy" style="height:100%;width:auto;max-width:100%;object-fit:contain;" onerror="this.style.display='none'"></div><div style="flex-shrink:0;width:11.1111%;height:100%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#1a1a2e;"><img src="assets/projects/powerApps/service/screen-6.jpg" loading="lazy" style="height:100%;width:auto;max-width:100%;object-fit:contain;" onerror="this.style.display='none'"></div><div style="flex-shrink:0;width:11.1111%;height:100%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#1a1a2e;"><img src="assets/projects/powerApps/service/screen-7.jpg" loading="lazy" style="height:100%;width:auto;max-width:100%;object-fit:contain;" onerror="this.style.display='none'"></div><div style="flex-shrink:0;width:11.1111%;height:100%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#1a1a2e;"><img src="assets/projects/powerApps/service/screen-8.jpg" loading="lazy" style="height:100%;width:auto;max-width:100%;object-fit:contain;" onerror="this.style.display='none'"></div><div style="flex-shrink:0;width:11.1111%;height:100%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#1a1a2e;"><img src="assets/projects/powerApps/service/screen-9.jpg" loading="lazy" style="height:100%;width:auto;max-width:100%;object-fit:contain;" onerror="this.style.display='none'"></div>
+            </div>
+            <div style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:5;"><button onclick="svcSlide(0)" class="svc-dot" style="width:8px;height:8px;border-radius:50%;background:#fff;opacity:1;border:none;cursor:pointer;padding:0;transition:opacity 0.3s;"></button><button onclick="svcSlide(1)" class="svc-dot" style="width:8px;height:8px;border-radius:50%;background:#fff;opacity:0.35;border:none;cursor:pointer;padding:0;transition:opacity 0.3s;"></button><button onclick="svcSlide(2)" class="svc-dot" style="width:8px;height:8px;border-radius:50%;background:#fff;opacity:0.35;border:none;cursor:pointer;padding:0;transition:opacity 0.3s;"></button><button onclick="svcSlide(3)" class="svc-dot" style="width:8px;height:8px;border-radius:50%;background:#fff;opacity:0.35;border:none;cursor:pointer;padding:0;transition:opacity 0.3s;"></button><button onclick="svcSlide(4)" class="svc-dot" style="width:8px;height:8px;border-radius:50%;background:#fff;opacity:0.35;border:none;cursor:pointer;padding:0;transition:opacity 0.3s;"></button><button onclick="svcSlide(5)" class="svc-dot" style="width:8px;height:8px;border-radius:50%;background:#fff;opacity:0.35;border:none;cursor:pointer;padding:0;transition:opacity 0.3s;"></button><button onclick="svcSlide(6)" class="svc-dot" style="width:8px;height:8px;border-radius:50%;background:#fff;opacity:0.35;border:none;cursor:pointer;padding:0;transition:opacity 0.3s;"></button><button onclick="svcSlide(7)" class="svc-dot" style="width:8px;height:8px;border-radius:50%;background:#fff;opacity:0.35;border:none;cursor:pointer;padding:0;transition:opacity 0.3s;"></button><button onclick="svcSlide(8)" class="svc-dot" style="width:8px;height:8px;border-radius:50%;background:#fff;opacity:0.35;border:none;cursor:pointer;padding:0;transition:opacity 0.3s;"></button></div>
+            <button onclick="svcSlide((window._svc||0)-1)" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.5);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;z-index:5;">‹</button>
+            <button onclick="svcSlide((window._svc||0)+1)" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.5);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;z-index:5;">›</button>
+            <div id="svc-lbl" style="position:absolute;top:10px;left:10px;background:rgba(0,0,0,0.55);backdrop-filter:blur(6px);color:#fff;font-family:'Space Mono',monospace;font-size:10px;padding:4px 10px;border-radius:100px;z-index:5;letter-spacing:1px;">Active Records</div>
+            <div class="project-overlay"></div>
+            <div class="project-tech-chips"><span class="tech-chip">Power Apps</span><span class="tech-chip">Power Automate</span><span class="tech-chip">SharePoint</span><span class="tech-chip">PDF Auto-Gen</span><span class="tech-chip">Approval Workflow</span><span class="tech-chip">Email Automation</span></div>
+          </div>
+          <div class="project-content">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px;">
+              <div class="project-title" style="margin-bottom:0;">🔧 Service Record Form</div>
+              <span style="display:inline-flex;align-items:center;gap:5px;padding:4px 11px;background:rgba(132,94,194,0.1);border:2px solid rgba(132,94,194,0.25);color:var(--purple);border-radius:100px;font-size:11px;font-family:'Space Mono',monospace;white-space:nowrap;">📱 Power Apps · Indus Automation</span>
+            </div>
+            <p class="project-short">6-step wizard Power App for field service technicians to log work performed, materials used, and labour costs — then route through a structured approval workflow with automated PDF generation, email distribution to customer and management, and SharePoint record archiving.</p>
+            <div class="project-actions"><span class="btn btn-ghost btn-sm" style="cursor:default;opacity:0.7;">🔒 Internal Tool</span></div>
+            <button class="project-expand-toggle" onclick="openProjModal('modal-service')">
+              <span>Key Highlights</span><span class="toggle-arrow">↗</span>
+            </button>
+          </div>
         </div>
-        <div class="project-card reveal reveal-delay-4" id="proj-3">
-          <div class="project-thumb"><img src="assets/projects/broomBuddy/Handheld Remote-imageonline.co-merged.jpg" alt="Broom Buddy" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="project-thumb-placeholder">🧹</div><div class="project-overlay"></div><div class="project-tech-chips"><span class="tech-chip">ESP-NOW</span><span class="tech-chip">ADC</span><span class="tech-chip">Embedded</span></div></div>
-          <div class="project-content"><div class="project-title">Broom Buddy</div><p class="project-short">Embedded control system for deaf curlers — handheld controller + broom-mounted LED ring using ESP-NOW wireless communication.</p><div class="project-actions"><a href="assets/projects/broomBuddy/Broom Buddy - Demonstartion.mp4" target="_blank" class="btn btn-primary btn-sm">▶ Demo</a></div><button class="project-expand-toggle" onclick="toggleProject('proj-3')"><span>Read More</span><span class="toggle-arrow">↓</span></button><div class="project-expanded"><div class="project-expanded-inner"><strong>Stack:</strong> ESP32, ESP-NOW, 12-bit ADC, Embedded C, LED ring.</div></div></div>
+        <div class="project-card reveal reveal-delay-3" id="proj-0">
+          <div class="project-thumb">
+            <img src="assets/projects/indusIoTApp/indusIoTApp.jpg" alt="📱 PLC IoT Remote App" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="project-thumb-placeholder">📱</div>
+            <div class="project-overlay"></div>
+            <div class="project-tech-chips"><span class="tech-chip">AWS IoT</span><span class="tech-chip">MQTT</span><span class="tech-chip">Flutter</span><span class="tech-chip">PLC</span></div>
+          </div>
+          <div class="project-content">
+            <div class="project-title">📱 PLC IoT Remote App</div>
+            <p class="project-short">Custom cross-platform smartphone app (iOS & Android) for real-time remote monitoring and control of Siemens S7-1200/1500 PLCs at pump/lift stations. AWS IoT Core + MQTT, RBAC authentication, real-time dashboard, and push/email/SMS alerts.</p>
+            <div class="project-actions"><a href="assets/projects/indusIoTApp/IoT Application - Things we have and future maybe things to do.pdf" target="_blank" class="btn btn-ghost btn-sm">📄 Notes</a><span class="btn btn-ghost btn-sm" style="cursor:default;opacity:0.7;margin-left:4px;">🔒 Private Repo</span></div>
+            <button class="project-expand-toggle" onclick="openProjModal('modal-plc')">
+              <span>Key Highlights</span><span class="toggle-arrow">↗</span>
+            </button>
+          </div>
         </div>
-        <div class="project-card reveal reveal-delay-5" id="proj-4">
-          <div class="project-thumb"><img src="assets/projects/urbanTech/App Categories.png" alt="Urban Tech" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="project-thumb-placeholder">🛍️</div><div class="project-overlay"></div><div class="project-tech-chips"><span class="tech-chip">HTML/CSS/JS</span><span class="tech-chip">E-Commerce</span></div></div>
-          <div class="project-content"><div class="project-title">Urban Tech App</div><p class="project-short">User-friendly online store with cart, checkout, account management, and product recommendations.</p><div class="project-actions"><a href="https://sukhmeet468.github.io/UrbanTechWebsite/" target="_blank" rel="noopener" class="btn btn-primary btn-sm">🌐 Live Site</a></div><button class="project-expand-toggle" onclick="toggleProject('proj-4')"><span>Read More</span><span class="toggle-arrow">↓</span></button><div class="project-expanded"><div class="project-expanded-inner"><strong>Stack:</strong> HTML, CSS, JavaScript — deployed on GitHub Pages.</div></div></div>
+        <div class="project-card reveal reveal-delay-4" id="proj-1">
+          <div class="project-thumb">
+            <img src="assets/projects/depthMonitoring/depthMonitoring.jpg" alt="🌊 IoT River Depth Monitoring" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="project-thumb-placeholder">🌊</div>
+            <div class="project-overlay"></div>
+            <div class="project-tech-chips"><span class="tech-chip">BLE/Wi-Fi</span><span class="tech-chip">AWS</span><span class="tech-chip">ML</span><span class="tech-chip">Flutter</span></div>
+          </div>
+          <div class="project-content">
+            <div class="project-title">🌊 IoT River Depth Monitoring</div>
+            <p class="project-short">University of Manitoba Capstone (team of 6). Sensor-driven system enabling boaters to conduct real-time bathymetric surveys — sonar + GPS data streamed to a Flutter app with Google Maps visualization, safe-route navigation, and ML-driven hazard detection.</p>
+            <div class="project-actions"><a href="https://1024terabox.com/s/1i85eR_AVTswdY9h1XYKL8Q" target="_blank" rel="noopener" class="btn btn-primary btn-sm">▶ Demo</a><a href="assets/projects/depthMonitoring/G09_FinalReport.pdf" target="_blank" class="btn btn-ghost btn-sm" style="margin-left:4px;">📄 Report</a><span class="btn btn-ghost btn-sm" style="cursor:default;opacity:0.7;margin-left:4px;">🔒 Private Repo</span></div>
+            <button class="project-expand-toggle" onclick="openProjModal('modal-river')">
+              <span>Key Highlights</span><span class="toggle-arrow">↗</span>
+            </button>
+          </div>
         </div>
-        <div class="project-card reveal reveal-delay-6" id="proj-5">
-          <div class="project-thumb"><img src="assets/projects/musicOset/Help Menu.png" alt="MusicOSet" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="project-thumb-placeholder">🎵</div><div class="project-overlay"></div><div class="project-tech-chips"><span class="tech-chip">SQL</span><span class="tech-chip">Database</span><span class="tech-chip">CLI</span></div></div>
-          <div class="project-content"><div class="project-title">MusicOSet DB</div><p class="project-short">Relational database system for albums, artists, and songs with a CLI for full database access and management.</p><div class="project-actions"><a href="assets/projects/musicOset/Team09_Final Project Report_COMP3380.pdf" target="_blank" class="btn btn-ghost btn-sm">📄 Report</a></div><button class="project-expand-toggle" onclick="toggleProject('proj-5')"><span>Read More</span><span class="toggle-arrow">↓</span></button><div class="project-expanded"><div class="project-expanded-inner"><strong>Stack:</strong> SQL, Relational database design, ERD modeling, CLI interface.</div></div></div>
+        <div class="project-card reveal reveal-delay-5" id="proj-2">
+          <div class="project-thumb">
+            <img src="assets/projects/careerSphere/CareerSphere.png" alt="💼 CareerSphere — Full Stack Platform" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="project-thumb-placeholder">💼</div>
+            <div class="project-overlay"></div>
+            <div class="project-tech-chips"><span class="tech-chip">MERN</span><span class="tech-chip">Docker</span><span class="tech-chip">CI/CD</span></div>
+          </div>
+          <div class="project-content">
+            <div class="project-title">💼 CareerSphere — Full Stack Platform</div>
+            <p class="project-short">MERN-stack career platform (team of 6) connecting job seekers and employers. Features AI-driven job recommendations, live employer quizzes, real-time messaging, interview scheduling, and forums. Load tested to 250 concurrent users with JMeter.</p>
+            <div class="project-actions"><a href="https://1024terabox.com/s/18CQ7fGzQfKydaOoBVjT2aQ" target="_blank" rel="noopener" class="btn btn-primary btn-sm">▶ Demo</a><a href="https://github.com/ColinMcD6/CareerSphere" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="margin-left:4px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg> GitHub</a></div>
+            <button class="project-expand-toggle" onclick="openProjModal('modal-career')">
+              <span>Key Highlights</span><span class="toggle-arrow">↗</span>
+            </button>
+          </div>
+        </div>
+        <div class="project-card reveal reveal-delay-6" id="proj-3">
+          <div class="project-thumb">
+            <img src="assets/projects/broomBuddy/Handheld Remote-imageonline.co-merged.jpg" alt="🧹 Broom Buddy — Assistive Curling Device" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="project-thumb-placeholder">🧹</div>
+            <div class="project-overlay"></div>
+            <div class="project-tech-chips"><span class="tech-chip">ESP-NOW</span><span class="tech-chip">ESP32</span><span class="tech-chip">Embedded</span></div>
+          </div>
+          <div class="project-content">
+            <div class="project-title">🧹 Broom Buddy — Assistive Curling Device</div>
+            <p class="project-short">Embedded assistive technology for deaf curlers. A handheld controller wirelessly signals sweeping commands to an LED ring on the broom — providing visual cues via ESP-NOW (peer-to-peer Wi-Fi, no router) between two ESP32 modules.</p>
+            <div class="project-actions"><a href="assets/projects/broomBuddy/Broom Buddy - Demonstartion.mp4" target="_blank" class="btn btn-primary btn-sm">▶ Demo</a><span class="btn btn-ghost btn-sm" style="cursor:default;opacity:0.7;margin-left:4px;">🔒 Private Repo</span></div>
+            <button class="project-expand-toggle" onclick="openProjModal('modal-broom')">
+              <span>Key Highlights</span><span class="toggle-arrow">↗</span>
+            </button>
+          </div>
+        </div>
+        <div class="project-card reveal reveal-delay-1" id="proj-4">
+          <div class="project-thumb">
+            <img src="assets/projects/urbanTech/App Categories.png" alt="🛍️ Urban Tech — E-Commerce Website" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="project-thumb-placeholder">🛍️</div>
+            <div class="project-overlay"></div>
+            <div class="project-tech-chips"><span class="tech-chip">HTML/CSS/JS</span><span class="tech-chip">E-Commerce</span></div>
+          </div>
+          <div class="project-content">
+            <div class="project-title">🛍️ Urban Tech — E-Commerce Website</div>
+            <p class="project-short">Clean, responsive e-commerce storefront for tech products with dynamic product catalogue, shopping cart, checkout flow, user account management, and product recommendations. Deployed on GitHub Pages.</p>
+            <div class="project-actions"><a href="https://sukhmeet468.github.io/UrbanTechWebsite/" target="_blank" rel="noopener" class="btn btn-primary btn-sm">🌐 Live Site</a></div>
+            <button class="project-expand-toggle" onclick="openProjModal('modal-urban')">
+              <span>Key Highlights</span><span class="toggle-arrow">↗</span>
+            </button>
+          </div>
+        </div>
+        <div class="project-card reveal reveal-delay-2" id="proj-5">
+          <div class="project-thumb">
+            <img src="assets/projects/musicOset/Help Menu.png" alt="🎵 MusicOSet — Relational Database System" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="project-thumb-placeholder">🎵</div>
+            <div class="project-overlay"></div>
+            <div class="project-tech-chips"><span class="tech-chip">SQL</span><span class="tech-chip">Database</span><span class="tech-chip">CLI</span></div>
+          </div>
+          <div class="project-content">
+            <div class="project-title">🎵 MusicOSet — Relational Database System</div>
+            <p class="project-short">Fully normalized relational database for managing music catalogues — albums, artists, songs, playlists, and user data. Features a Python CLI for complete CRUD operations and complex SQL queries. COMP 3380 Database course project.</p>
+            <div class="project-actions"><a href="assets/projects/musicOset/Team09_Final Project Report_COMP3380.pdf" target="_blank" class="btn btn-ghost btn-sm">📄 Report</a><span class="btn btn-ghost btn-sm" style="cursor:default;opacity:0.7;margin-left:4px;">🔒 Private Repo</span></div>
+            <button class="project-expand-toggle" onclick="openProjModal('modal-music')">
+              <span>Key Highlights</span><span class="toggle-arrow">↗</span>
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -1409,7 +1630,7 @@ img { max-width: 100%; display: block; }
           <div class="form-group"><label for="contact-email">Email</label><input type="email" id="contact-email" placeholder="your@email.com"></div>
           <div class="form-group">
             <label for="contact-type">Prefer to hear back via</label>
-            <select id="contact-type" style="width:100%;background:var(--white);border:2px solid rgba(132,94,194,0.12);border-radius:12px;padding:12px 16px;color:var(--text);font-size:14px;font-family:'Nunito',sans-serif;outline:none;appearance:none;-webkit-appearance:none;" onchange="togglePhoneField(this.value)">
+            <select id="contact-type" style="width:100%;background:var(--white);border:2px solid rgba(132,94,194,0.12);border-radius:12px;padding:12px 16px;color:var(--text);font-size:14px;font-family:'Nunito',sans-serif;outline:none;-appearance:none;" onchange="togglePhoneField(this.value)">
               <option value="email">Email</option>
               <option value="sms">SMS / Text</option>
             </select>
@@ -1432,6 +1653,124 @@ img { max-width: 100%; display: block; }
       <div><span class="footer-name"><span>S</span>ukhmeet Singh <span>H</span>ora, EIT</span> &nbsp;·&nbsp; Computer Engineer</div>
       <div>Built with ❤️ &amp; 🎨 · 2025</div>
     </footer>
+  
+    <div class="proj-modal-overlay" id="modal-dash" onclick="closeProjModal(event,'modal-dash')">
+      <div class="proj-modal">
+        <div class="proj-modal-header">
+          <button class="proj-modal-close" onclick="document.getElementById('modal-dash').classList.remove('open')">✕</button>
+          <div class="proj-modal-title">🛠️ Production & Design Drafting Dashboard</div>
+          <div class="proj-modal-sub">React · Node.js · Microsoft Graph API · Azure AD · SharePoint · Office Scripts · Power Automate</div>
+        </div>
+        <div class="proj-modal-body">
+          <ul class="proj-modal-points"><li>3 integrated dashboards: <strong>Production</strong> (job tracking, rev mismatches, deadline indicators), <strong>Design Drafting</strong> (submittal workflows, drafter filtering), <strong>Resource Capacity</strong> (multi-year Gantt, department utilization)</li><li><strong>MSAL authentication</strong> (Authorization Code Flow + PKCE) via Microsoft Entra ID — restricted to company domain only; session-based auth with HTTP-only secure cookies</li><li>Live data from SharePoint Excel sheets via <strong>Microsoft Graph API</strong> — PM team edits Excel, dashboard reflects changes automatically</li><li><strong>Office Scripts + Power Automate</strong> pipeline: extracts & filters .xlsm data → writes to .xlsx → Graph API reads → React renders. Scheduled refresh + on-demand trigger</li><li>Resource Capacity: <strong>What-If simulation</strong> — model new projects without affecting real data; <strong>Deadline Adjustment Tool</strong> — redistribute hours and see cascade effects client-side</li><li>Capacity utilization colour-coded per week: 🟢 &lt;85% · 🟡 85–100% · 🔴 Overloaded; 3 departments: Design Drafting, System Integrators, Shop Shipping</li><li>Additional Office Scripts: <strong>Vacation Grid</strong> (holiday-aware capacity), <strong>Resource Workload sync</strong> from PM Sheet, <strong>Payroll Actual Hours</strong> update biweekly from payroll reports</li><li>Production dashboard: <strong>Rev Mismatch Detection</strong> (Drawing Rev vs Shop Rev), auto-scroll mode for wall-mounted screens, configurable 15–45 min auto-refresh</li></ul>
+          <div class="proj-modal-links"><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔐 Internal Access Only</span><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Private Repo</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="proj-modal-overlay" id="modal-hazard" onclick="closeProjModal(event,'modal-hazard')">
+      <div class="proj-modal">
+        <div class="proj-modal-header">
+          <button class="proj-modal-close" onclick="document.getElementById('modal-hazard').classList.remove('open')">✕</button>
+          <div class="proj-modal-title">⚠️ Hazard Assessment Form — Power App</div>
+          <div class="proj-modal-sub">Microsoft Power Apps · Power Automate · SharePoint · PDF Generation · Offline-Capable</div>
+        </div>
+        <div class="proj-modal-body">
+          <ul class="proj-modal-points"><li><strong>Offline-first</strong>: fill and save forms on-device without internet; dropdown lists (customers, locations, PPE, classifications) cached on first online load</li><li><strong>3-screen flow</strong>: Home Screen (saved drafts with edit/publish/delete) → Project Info (customer, safety rep, superintendent, location, date) → Task Details (per-task fields)</li><li>Each task captures: name, materials/equipment, potential hazards, <strong>PPE multi-select</strong>, hazard classification (CLASS A1 Severe / B2 Serious / C3 Minor), and <strong>auto-calculated risk level</strong></li><li>Validation enforces all required fields — incomplete fields highlighted with <strong>red borders</strong>; Save and Next buttons stay greyed out until complete</li><li><strong>On Publish</strong>: Power Automate flow generates a formatted PDF, emails it to the Safety Representative, and saves the record to SharePoint. Form removed from device after successful submit</li><li>Connection indicator (🌐 green/red globe) on every screen; Publish button disabled when offline</li><li>"Select Other" pattern across all dropdowns — entering a custom value adds it to the list automatically</li></ul>
+          <div class="proj-modal-links"><a href="assets/projects/powerApps/hazard/Risk_Hazard_Assessment_Form_-_User_Guide.docx" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">📄 User Guide</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Internal Tool</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="proj-modal-overlay" id="modal-service" onclick="closeProjModal(event,'modal-service')">
+      <div class="proj-modal">
+        <div class="proj-modal-header">
+          <button class="proj-modal-close" onclick="document.getElementById('modal-service').classList.remove('open')">✕</button>
+          <div class="proj-modal-title">🔧 Service Record Form — Power App</div>
+          <div class="proj-modal-sub">Microsoft Power Apps · Power Automate · SharePoint · PDF Generation · Approval Workflow</div>
+        </div>
+        <div class="proj-modal-body">
+          <ul class="proj-modal-points"><li><strong>6-step wizard</strong>: Service Record Info → Work Performed → Total Time & Distance → Materials Used → Job Completed & Special Instructions → Request Approval / Approve & Submit</li><li>Work lines capture date, work area, PO, start/end time (AM/PM dropdowns → 24hr stored internally), travel hours & distance, and work description (min 10 chars)</li><li><strong>Auto-calculated labour hours</strong> by day-of-week rules: Mon–Fri regular 08:00–16:30 / OT first 4hrs after / DT remainder; Saturday all OT for 8hrs then DT; Sunday/Holiday all DT. <strong>3-hour minimum call-out</strong> enforced automatically</li><li>Rates loaded from SharePoint <strong>ServiceRates</strong> table; adjustable per-record without affecting master rates</li><li><strong>Two-role approval workflow</strong>: Technician submits → Power Automate emails approver with deep-link → Approver reviews in Approve mode → <strong>identity verification</strong> (signed-in email must match designated approver) → two-tap confirmation</li><li><strong>On final approval</strong>: PDF generated & saved to SharePoint, customer emailed (optional toggle), CPA + all approvers CC'd, record locked as Completed permanently</li><li>All data saved to SharePoint in <strong>real-time</strong> as technician navigates screens — no work lost on navigation or app close</li><li>Inline ⚠ warnings on work lines for future dates, end-before-start time, and short descriptions — before tapping Next</li></ul>
+          <div class="proj-modal-links"><a href="assets/projects/powerApps/service/Service_Record_Form_Documentation_-_User_Guide.docx" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">📄 User Guide</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Internal Tool</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="proj-modal-overlay" id="modal-plc" onclick="closeProjModal(event,'modal-plc')">
+      <div class="proj-modal">
+        <div class="proj-modal-header">
+          <button class="proj-modal-close" onclick="document.getElementById('modal-plc').classList.remove('open')">✕</button>
+          <div class="proj-modal-title">📱 PLC IoT Remote App</div>
+          <div class="proj-modal-sub">Flutter · AWS IoT Core · MQTT · Siemens S7-1200/1500 · TIA Portal · Node-RED · IoT2050</div>
+        </div>
+        <div class="proj-modal-body">
+          <ul class="proj-modal-points"><li>Cross-platform <strong>Flutter app (iOS & Android)</strong> for remote monitoring and control of Siemens S7-1200/1500 PLCs at pump/lift stations via AWS IoT Core and MQTT</li><li><strong>Authentication</strong>: AWS Cognito (email/password + Google login on iOS), Amplify Authenticator UI, IAM permissions; admin users can add/remove site access per user</li><li>Multi-station dashboard: pumps, reservoir levels, effluent/influent flows, setpoints, alarms, heartbeat — digital, analog, and SP control</li><li><strong>Fleet provisioning by claim</strong>: secure encrypted PLC-to-cloud MQTT connection; each device provisioned with unique certificates</li><li>Alerts: <strong>push notifications</strong> (AWS SNS + Firebase FCM), <strong>email</strong> (AWS SES), <strong>SMS</strong> (AWS SNS) — all IoT-triggered via Lambda functions</li><li><strong>Data logging</strong>: alarm, pump, pit level, effluent flow, and setpoint logs with timestamps; graphical trend charts (fl_chart) for analog values</li><li>Additional data pipeline via <strong>SIMATIC IoT2050 + Node-RED</strong> for automated PLC-to-cloud flows without MQTT</li><li>Backend: AWS Amplify Studio for content management; AWS AppSync + DynamoDB for data sync; AWS S3 for storage; Pinpoint for analytics</li></ul>
+          <div class="proj-modal-links"><a href="assets/projects/indusIoTApp/IoT Application - Things we have and future maybe things to do.pdf" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">📄 Notes PDF</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Private Repo</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="proj-modal-overlay" id="modal-river" onclick="closeProjModal(event,'modal-river')">
+      <div class="proj-modal">
+        <div class="proj-modal-header">
+          <button class="proj-modal-close" onclick="document.getElementById('modal-river').classList.remove('open')">✕</button>
+          <div class="proj-modal-title">🌊 IoT River Depth Monitoring System</div>
+          <div class="proj-modal-sub">RPi4 · Sonar · GPS · Flutter · AWS Amplify · Google Maps · ML · University of Manitoba Capstone</div>
+        </div>
+        <div class="proj-modal-body">
+          <ul class="proj-modal-points"><li><strong>University of Manitoba Capstone</strong> — team of 6 (Sukhmeet Hora, Sudipta Dip, Gunjan Modi, Matt Fryatt, Het Patel, Justine Ugalde); supervised by Dr. Ken Ferens</li><li>Device mounts on boats: <strong>Raspberry Pi 4</strong> + sonar sensor + GPS streams real-time depth + location data to a Flutter smartphone app</li><li><strong>Flutter app</strong>: AWS Amplify (Auth, DataStore, API), AWS IoT Core for device communication, DynamoDB via AppSync (GraphQL) for survey data, S3 for storage</li><li><strong>Google Cloud Maps</strong> integration: visualizes surveyed area as a heatmap, provides safe-route navigation overlays, geolocation access</li><li><strong>ML hazard detection model</strong>: classifies each depth reading as Safe / Warning / Hazardous based on bathymetric patterns</li><li>Enables boaters to view previously surveyed areas and navigate around identified hazards automatically</li><li>Read-only repo — tied to private AWS account and Google Cloud configurations; cannot be cloned and run without re-provisioning all cloud services</li></ul>
+          <div class="proj-modal-links"><a href="https://1024terabox.com/s/1i85eR_AVTswdY9h1XYKL8Q" target="_blank" rel="noopener" class="btn btn-primary btn-sm">▶ Demo Video</a><a href="assets/projects/depthMonitoring/G09_FinalReport.pdf" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">📄 Final Report</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Private Repo</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="proj-modal-overlay" id="modal-career" onclick="closeProjModal(event,'modal-career')">
+      <div class="proj-modal">
+        <div class="proj-modal-header">
+          <button class="proj-modal-close" onclick="document.getElementById('modal-career').classList.remove('open')">✕</button>
+          <div class="proj-modal-title">💼 CareerSphere — Full Stack Career Platform</div>
+          <div class="proj-modal-sub">MongoDB · Express.js · React · Node.js · Docker · CI/CD · JMeter Load Testing</div>
+        </div>
+        <div class="proj-modal-body">
+          <ul class="proj-modal-points"><li>Team of 6 — Sukhmeet Hora, Sudipta Dip, Colin McDonell, Ethan Lapkin, AJ Manigque, Bryce Erichsen</li><li><strong>Job seekers</strong>: manage profiles, apply for jobs, showcase skills. <strong>Employers</strong>: post listings, evaluate candidates, host live quizzes with real-time participation</li><li><strong>AI-driven job recommendations</strong> based on user profile and application history; personalized search with dynamic filters</li><li>Real-time <strong>messaging system</strong>, interview scheduling, community forums, and collaboration tools</li><li><strong>Auth</strong>: JWT access tokens + JWT refresh tokens; role-based access control (job seeker vs employer); Resend API for transactional emails</li><li><strong>Dockerized</strong> full-stack deployment with CI/CD pipeline; load tested with JMeter at 50, 150, and 250 concurrent users</li><li>Architecture diagram, sequence diagrams, and full test plan documented in GitHub wiki</li></ul>
+          <div class="proj-modal-links"><a href="https://1024terabox.com/s/18CQ7fGzQfKydaOoBVjT2aQ" target="_blank" rel="noopener" class="btn btn-primary btn-sm">▶ Demo Video</a><a href="https://github.com/ColinMcD6/CareerSphere" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">⚙️ GitHub</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="proj-modal-overlay" id="modal-broom" onclick="closeProjModal(event,'modal-broom')">
+      <div class="proj-modal">
+        <div class="proj-modal-header">
+          <button class="proj-modal-close" onclick="document.getElementById('modal-broom').classList.remove('open')">✕</button>
+          <div class="proj-modal-title">🧹 Broom Buddy — Assistive Curling Device</div>
+          <div class="proj-modal-sub">ESP32 · ESP-NOW · Embedded C · 12-bit ADC · WS2812B LED Ring</div>
+        </div>
+        <div class="proj-modal-body">
+          <ul class="proj-modal-points"><li>Assistive technology built for <strong>deaf curlers</strong> — translates skip's sweep/hold/stop commands into instant LED ring signals on the broom head</li><li>Two-unit system: <strong>handheld controller</strong> (ESP32 + ADC buttons) + <strong>broom unit</strong> (ESP32 + WS2812B addressable LED ring)</li><li><strong>ESP-NOW protocol</strong>: direct MAC-layer peer-to-peer Wi-Fi — no router or access point needed; sub-millisecond latency ideal for real-time sports signaling</li><li>12-bit ADC for analog button/pressure input; distinct LED patterns for Sweep / Hold / Stop commands</li><li>Eliminates audio communication barriers on ice — visual cues visible to the sweeper even in noisy arena environments</li></ul>
+          <div class="proj-modal-links"><a href="assets/projects/broomBuddy/Broom Buddy - Demonstartion.mp4" target="_blank" rel="noopener" class="btn btn-primary btn-sm">▶ Demo Video</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Private Repo</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="proj-modal-overlay" id="modal-urban" onclick="closeProjModal(event,'modal-urban')">
+      <div class="proj-modal">
+        <div class="proj-modal-header">
+          <button class="proj-modal-close" onclick="document.getElementById('modal-urban').classList.remove('open')">✕</button>
+          <div class="proj-modal-title">🛍️ Urban Tech — E-Commerce Website</div>
+          <div class="proj-modal-sub">HTML · CSS · Vanilla JavaScript · GitHub Pages</div>
+        </div>
+        <div class="proj-modal-body">
+          <ul class="proj-modal-points"><li>Fully static responsive e-commerce storefront built with <strong>zero frameworks</strong> — pure HTML, CSS, and Vanilla JS</li><li><strong>Product catalogue</strong> by category with dynamic filtering; add-to-cart with quantity controls; checkout form with field validation</li><li><strong>User account management</strong> via localStorage — persists cart and preferences across sessions</li><li>Product recommendation logic based on current category/selection; responsive layout for mobile and desktop</li><li>Design informed by <strong>Google UX Design certification</strong> coursework — clear navigation hierarchy, accessible form elements, consistent visual language</li><li>Deployed on <strong>GitHub Pages</strong> — zero hosting cost, instant deployment on push</li></ul>
+          <div class="proj-modal-links"><a href="https://sukhmeet468.github.io/UrbanTechWebsite/" target="_blank" rel="noopener" class="btn btn-primary btn-sm">🌐 Live Site</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="proj-modal-overlay" id="modal-music" onclick="closeProjModal(event,'modal-music')">
+      <div class="proj-modal">
+        <div class="proj-modal-header">
+          <button class="proj-modal-close" onclick="document.getElementById('modal-music').classList.remove('open')">✕</button>
+          <div class="proj-modal-title">🎵 MusicOSet — Relational Database System</div>
+          <div class="proj-modal-sub">SQL · Relational DB Design · ERD Modeling · Python CLI · COMP 3380</div>
+        </div>
+        <div class="proj-modal-body">
+          <ul class="proj-modal-points"><li>Fully normalized relational database (<strong>3NF</strong>) for managing music catalogues: Artists, Albums, Songs, Playlists, Users, and junction tables for many-to-many relationships</li><li>Complete <strong>ERD → relational schema</strong> mapping; referential integrity via foreign keys and cascades; designed for the COMP 3380 Databases course at University of Manitoba</li><li><strong>Python CLI</strong> with full CRUD: search songs/albums/artists, create and manage playlists, add/remove tracks, query by genre/year/artist, display nested relationships</li><li>Complex <strong>SQL queries</strong>: multi-table JOINs, subqueries, aggregate functions (COUNT, AVG, GROUP BY), and transaction management for data consistency</li><li>Full final report documenting schema design decisions, normalization steps, and query performance</li></ul>
+          <div class="proj-modal-links"><a href="assets/projects/musicOset/Team09_Final Project Report_COMP3380.pdf" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">📄 Final Report</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Private Repo</span></div>
+        </div>
+      </div>
+    </div>
   </main>
 </div>
 
@@ -1763,6 +2102,89 @@ function togglePhoneField(val) {
     wrap.classList.remove('visible');
   }
 }
+
+
+// ── Dashboard Project Carousel ────────────────────────────
+window._dashIdx = 0;
+const _dashLabels = ['Production Dashboard', 'Resource Capacity Gantt', 'Design Drafting Dashboard'];
+function dashSlide(n) {
+  const total = 3;
+  window._dashIdx = ((n % total) + total) % total;
+  const slides = document.getElementById('dash-slides');
+  if (!slides) return;
+  slides.style.transform = `translateX(-${window._dashIdx * 33.333}%)`;
+  document.querySelectorAll('.dash-dot').forEach((d, i) => {
+    d.style.background = i === window._dashIdx ? '#fff' : 'rgba(255,255,255,0.4)';
+    d.style.opacity = i === window._dashIdx ? '0.9' : '1';
+  });
+  const lbl = document.getElementById('dash-label');
+  if (lbl) lbl.textContent = _dashLabels[window._dashIdx];
+}
+// Auto-advance every 4s
+setInterval(() => dashSlide((window._dashIdx||0) + 1), 4000);
+
+
+window._haz = 0;
+const _hazLabels = ['Home Screen','Project Info','Task Details','Task Fields'];
+function hazSlide(n) {
+  const tot = 4;
+  window._haz = ((n % tot) + tot) % tot;
+  const s = document.getElementById('haz-slides');
+  if (!s) return;
+  s.style.transform = 'translateX(-' + (window._haz * 25) + '%)';
+  document.querySelectorAll('.haz-dot').forEach((d,i) => d.style.opacity = i===window._haz?'1':'0.35');
+  const lb = document.getElementById('haz-lbl');
+  if (lb) lb.textContent = _hazLabels[window._haz];
+}
+setInterval(() => hazSlide((window._haz||0)+1), 3500);
+
+window._svc = 0;
+const _svcLabels = ['Starting Screen','New Service Record','Work Performed','Time & Distance','Materials Used','Job & Instructions','Completed Records','Request Approval','Active Records'];
+function svcSlide(n) {
+  const tot = 9;
+  window._svc = ((n % tot) + tot) % tot;
+  const s = document.getElementById('svc-slides');
+  if (!s) return;
+  s.style.transform = 'translateX(-' + (window._svc * 11) + '%)';
+  document.querySelectorAll('.svc-dot').forEach((d,i) => d.style.opacity = i===window._svc?'1':'0.35');
+  const lb = document.getElementById('svc-lbl');
+  if (lb) lb.textContent = _svcLabels[window._svc];
+}
+setInterval(() => svcSlide((window._svc||0)+1), 3200);
+
+
+// ── Dashboard carousel ────────────────────────────────────────
+window._dashIdx=0;
+const _dashL=['Production Dashboard','Resource Capacity Gantt','Design Drafting Dashboard'];
+function dashSlide(n){const t=3;window._dashIdx=((n%t)+t)%t;const s=document.getElementById('dash-slides');if(s)s.style.transform='translateX(-'+(window._dashIdx*33.333)+'%)';document.querySelectorAll('.dash-dot').forEach((d,i)=>d.style.opacity=i===window._dashIdx?'0.9':'0.4');const lb=document.getElementById('dash-label');if(lb)lb.textContent=_dashL[window._dashIdx];}
+setInterval(()=>dashSlide((window._dashIdx||0)+1),4500);
+
+window._haz=0;
+const _hazL=['Home — Saved Forms','Project Info','Task Details','PPE & Classification'];
+function hazSlide(n){const t=4;window._haz=((n%t)+t)%t;const s=document.getElementById('haz-slides');if(s)s.style.transform='translateX(-'+(window._haz*25.0)+'%)';document.querySelectorAll('.haz-dot').forEach((d,i)=>d.style.opacity=i===window._haz?'1':'0.35');const lb=document.getElementById('haz-lbl');if(lb)lb.textContent=_hazL[window._haz];}
+setInterval(()=>hazSlide((window._haz||0)+1),3800);
+window._svc=0;
+const _svcL=['Active Records','New Service Record','Work Performed','Time & Distance','Materials Used','Job & Instructions','Completed Records','Request Approval','Active Records (Delete)'];
+function svcSlide(n){const t=9;window._svc=((n%t)+t)%t;const s=document.getElementById('svc-slides');if(s)s.style.transform='translateX(-'+(window._svc*11.1111)+'%)';document.querySelectorAll('.svc-dot').forEach((d,i)=>d.style.opacity=i===window._svc?'1':'0.35');const lb=document.getElementById('svc-lbl');if(lb)lb.textContent=_svcL[window._svc];}
+setInterval(()=>svcSlide((window._svc||0)+1),3200);
+// ── Project Modals ────────────────────────────────────────────
+function openProjModal(id){
+  document.getElementById(id).classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeProjModal(e,id){
+  if(e.target===document.getElementById(id)){
+    document.getElementById(id).classList.remove('open');
+    document.body.style.overflow='';
+  }
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    document.querySelectorAll('.proj-modal-overlay.open').forEach(m=>{
+      m.classList.remove('open'); document.body.style.overflow='';
+    });
+  }
+});
 
 // ── Card tilt ─────────────────────────────────────────────
 if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
