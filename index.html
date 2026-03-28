@@ -972,6 +972,37 @@ img { max-width: 100%; display: block; }
 body.theme-dark .proj-modal { background:var(--card-bg); }
 body.theme-dark .proj-modal-header { background:var(--card-bg); }
 
+
+/* ─── Music Player ──────────────────────────────────────── */
+.music-btn {
+  position: fixed; bottom: 24px; right: 24px; z-index: 300;
+  width: 46px; height: 46px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple), #6B47A8);
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(132,94,194,0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+.music-btn:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(132,94,194,0.55); }
+.music-btn svg { transition: opacity 0.3s !important; }
+.music-btn.playing { animation: musicPulse 2s ease-in-out infinite; }
+@keyframes musicPulse {
+  0%,100% { box-shadow: 0 4px 20px rgba(132,94,194,0.4); }
+  50%     { box-shadow: 0 4px 28px rgba(132,94,194,0.7), 0 0 0 8px rgba(132,94,194,0.1); }
+}
+.music-tooltip {
+  position: fixed; bottom: 78px; right: 24px; z-index: 300;
+  background: var(--white); border: 2px solid rgba(132,94,194,0.2);
+  border-radius: 12px; padding: 8px 14px;
+  font-family: 'Space Mono', monospace; font-size: 10px;
+  color: var(--muted); letter-spacing: 1px; white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(132,94,194,0.15);
+  opacity: 0; transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease !important;
+  pointer-events: none;
+}
+.music-tooltip.show { opacity: 1; transform: translateY(0); }
+
 </style>
 </head>
 <body>
@@ -1475,6 +1506,23 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
             </button>
           </div>
         </div>
+        <div class="project-card reveal reveal-delay-4" id="proj-sql">
+          <div class="project-thumb">
+            <img src="assets/projects/sqlClient/preview.jpg" alt="📊 WinCC SCADA Tag & Alarm Reporter" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="project-thumb-placeholder">📊</div>
+            <div class="project-overlay"></div>
+            <div class="project-tech-chips"><span class="tech-chip">Python</span><span class="tech-chip">pyodbc</span><span class="tech-chip">SQL Server</span><span class="tech-chip">WinCC OLE DB</span><span class="tech-chip">openpyxl</span></div>
+          </div>
+          <div class="project-content">
+            <div class="project-title">📊 WinCC SCADA Tag & Alarm Reporter</div>
+            <p class="project-short">Python proof-of-concept that queries live Siemens WinCC SCADA data directly via pyodbc → SQL Server → WinCC OLE DB Linked Server, bypassing manual HMI exports. Dynamically builds UNION ALL queries across user-selected PLC tags, retrieves timestamped analog and alarm history, and exports structured compliance reports to Excel — validating the full WinCC OLE DB reporting pipeline.</p>
+            <div class="project-actions"><span class="btn btn-secondary btn-sm" style="background:rgba(255,159,67,0.1);border:2px solid rgba(255,159,67,0.4);color:var(--orange);cursor:default;">🔧 Software Build in Progress</span></div>
+            <button class="project-expand-toggle" onclick="openProjModal('modal-sql')">
+              <span>Key Highlights</span><span class="toggle-arrow">↗</span>
+            </button>
+          </div>
+        </div>
         <div class="project-card reveal reveal-delay-3" id="proj-0">
           <div class="project-thumb">
             <img src="assets/projects/indusIoTApp/indusIoTApp.jpg" alt="📱 PLC IoT Remote App" loading="lazy"
@@ -1526,6 +1574,23 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
             </button>
           </div>
         </div>
+        <div class="project-card reveal reveal-delay-3" id="proj-pdf">
+          <div class="project-thumb">
+            <img src="assets/projects/pdfTOC/preview.jpg" alt="📑 PDF TOC Generator, Merger & Cut-Sheet Finder" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="project-thumb-placeholder">📑</div>
+            <div class="project-overlay"></div>
+            <div class="project-tech-chips"><span class="tech-chip">Python</span><span class="tech-chip">PyPDF</span><span class="tech-chip">ReportLab</span><span class="tech-chip">PyInstaller</span><span class="tech-chip">VBA</span><span class="tech-chip">Excel Macro</span></div>
+          </div>
+          <div class="project-content">
+            <div class="project-title">📑 PDF TOC Generator, Merger & Cut-Sheet Finder</div>
+            <p class="project-short">Python automation engine that reads structured cutsheet filenames, auto-builds a multi-page Table of Contents with clickable internal hyperlinks and PDF bookmarks, then merges everything into a single deliverable PDF. Distributed as a standalone .exe via PyInstaller. Paired with a VBA macro that searches network drives to locate cutsheets by part number and manufacturer.</p>
+            <div class="project-actions"><a href="assets/projects/pdfTOC/README.md" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">📖 README</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Private Repo</span></div>
+            <button class="project-expand-toggle" onclick="openProjModal('modal-pdf')">
+              <span>Key Highlights</span><span class="toggle-arrow">↗</span>
+            </button>
+          </div>
+        </div>
         <div class="project-card reveal reveal-delay-6" id="proj-3">
           <div class="project-thumb">
             <img src="assets/projects/broomBuddy/Handheld Remote-imageonline.co-merged.jpg" alt="🧹 Broom Buddy — Assistive Curling Device" loading="lazy"
@@ -1573,40 +1638,6 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
             <p class="project-short">Fully normalized relational database for managing music catalogues — albums, artists, songs, playlists, and user data. Features a Python CLI for complete CRUD operations and complex SQL queries. COMP 3380 Database course project.</p>
             <div class="project-actions"><a href="assets/projects/musicOset/Team09_Final Project Report_COMP3380.pdf" target="_blank" class="btn btn-ghost btn-sm">📄 Report</a><span class="btn btn-ghost btn-sm" style="cursor:default;opacity:0.7;margin-left:4px;">🔒 Private Repo</span></div>
             <button class="project-expand-toggle" onclick="openProjModal('modal-music')">
-              <span>Key Highlights</span><span class="toggle-arrow">↗</span>
-            </button>
-          </div>
-        </div>
-        <div class="project-card reveal reveal-delay-3" id="proj-pdf">
-          <div class="project-thumb">
-            <img src="assets/projects/pdfTOC/preview.jpg" alt="📑 PDF TOC Generator, Merger & Cut-Sheet Finder" loading="lazy"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-            <div class="project-thumb-placeholder">📑</div>
-            <div class="project-overlay"></div>
-            <div class="project-tech-chips"><span class="tech-chip">Python</span><span class="tech-chip">PyPDF</span><span class="tech-chip">ReportLab</span><span class="tech-chip">PyInstaller</span><span class="tech-chip">VBA</span><span class="tech-chip">Excel Macro</span></div>
-          </div>
-          <div class="project-content">
-            <div class="project-title">📑 PDF TOC Generator, Merger & Cut-Sheet Finder</div>
-            <p class="project-short">Python automation engine that reads structured cutsheet filenames, auto-builds a multi-page Table of Contents with clickable internal hyperlinks and PDF bookmarks, then merges everything into a single deliverable PDF. Distributed as a standalone .exe via PyInstaller. Paired with a VBA macro that searches network drives to locate cutsheets by part number and manufacturer.</p>
-            <div class="project-actions"><a href="assets/projects/pdfTOC/README.md" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">📖 README</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Private Repo</span></div>
-            <button class="project-expand-toggle" onclick="openProjModal('modal-pdf')">
-              <span>Key Highlights</span><span class="toggle-arrow">↗</span>
-            </button>
-          </div>
-        </div>
-        <div class="project-card reveal reveal-delay-4" id="proj-sql">
-          <div class="project-thumb">
-            <img src="assets/projects/sqlClient/preview.jpg" alt="📊 WinCC SCADA Tag & Alarm Reporter" loading="lazy"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-            <div class="project-thumb-placeholder">📊</div>
-            <div class="project-overlay"></div>
-            <div class="project-tech-chips"><span class="tech-chip">Python</span><span class="tech-chip">pyodbc</span><span class="tech-chip">SQL Server</span><span class="tech-chip">WinCC OLE DB</span><span class="tech-chip">openpyxl</span></div>
-          </div>
-          <div class="project-content">
-            <div class="project-title">📊 WinCC SCADA Tag & Alarm Reporter</div>
-            <p class="project-short">Python proof-of-concept that queries live Siemens WinCC SCADA data directly via pyodbc → SQL Server → WinCC OLE DB Linked Server, bypassing manual HMI exports. Dynamically builds UNION ALL queries across user-selected PLC tags, retrieves timestamped analog and alarm history, and exports structured compliance reports to Excel — validating the full WinCC OLE DB reporting pipeline.</p>
-            <div class="project-actions"><a href="assets/projects/sqlClient/SQL_Client_-_Query_Tags_and_Alarms_History.py" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">🐍 View Script</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Private Repo</span></div>
-            <button class="project-expand-toggle" onclick="openProjModal('modal-sql')">
               <span>Key Highlights</span><span class="toggle-arrow">↗</span>
             </button>
           </div>
@@ -1720,7 +1751,7 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
           <div class="form-group"><label for="contact-email">Email</label><input type="email" id="contact-email" placeholder="your@email.com"></div>
           <div class="form-group">
             <label for="contact-type">Prefer to hear back via</label>
-            <select id="contact-type" style="width:100%;background:var(--white);border:2px solid rgba(132,94,194,0.12);border-radius:12px;padding:12px 16px;color:var(--text);font-size:14px;font-family:'Nunito',sans-serif;outline:none;appearance:none;-webkit-appearance:none;" onchange="togglePhoneField(this.value)">
+            <select id="contact-type" style="width:100%;background:var(--white);border:2px solid rgba(132,94,194,0.12);border-radius:12px;padding:12px 16px;color:var(--text);font-size:14px;font-family:'Nunito',sans-serif;outline:none;-webkit-appearance:none;appearance:none;" onchange="togglePhoneField(this.value)">
               <option value="email">Email</option>
               <option value="sms">SMS / Text</option>
             </select>
@@ -1835,32 +1866,6 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
         </div>
       </div>
     </div>
-    <div class="proj-modal-overlay" id="modal-pdf" onclick="closeProjModal(event,'modal-pdf')">
-      <div class="proj-modal">
-        <div class="proj-modal-header">
-          <button class="proj-modal-close" onclick="document.getElementById('modal-pdf').classList.remove('open');document.body.style.overflow=''">✕</button>
-          <div class="proj-modal-title">📑 PDF TOC Generator, Merger & Cut-Sheet Finder</div>
-          <div class="proj-modal-sub">Python · PyPDF · ReportLab · PyInstaller · VBA · Excel Macro · Automated Engineering Submittals</div>
-        </div>
-        <div class="proj-modal-body">
-          <ul class="proj-modal-points"><li><strong>Python PDF automation engine</strong>: reads cutsheet filenames in a structured format (<code>ITEM#_PARTNUMBER_MANUFACTURER_DESCRIPTION.pdf</code>), extracts metadata, and auto-builds a multi-page Table of Contents with wrapped/centered column formatting</li><li><strong>Clickable internal hyperlinks</strong> in the TOC jump directly to the corresponding cutsheet page; <strong>PDF outline bookmarks</strong> generated for all items — enabling instant navigation in any PDF viewer without manual linking</li><li>Merges TOC pages + all cutsheet PDFs into <strong>one deliverable PDF</strong> named <code>JobNumber_Linked_TOC_Merged-Cutsheets.pdf</code>; progress bar provides real-time merge status for large submittal packages</li><li>Packaged into a <strong>standalone .exe via PyInstaller</strong> — distributed to project engineers with no Python installation required; single-file executable runs on any Windows machine</li><li><strong>VBA Cut-Sheet Finder macro</strong>: searches network drives and SharePoint document libraries by part number and manufacturer, automatically locates and pulls the correct cutsheet PDF into the project folder — feeds directly into the Python merger workflow</li><li>Eliminates hours of manual PDF assembly per engineering submittal package — engineer enters a Job Number and runs the tool; entire TOC, hyperlinked merged PDF is generated in seconds</li></ul>
-          <div class="proj-modal-links"><a href="assets/projects/pdfTOC/README.md" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">📖 README</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Private Repo</span></div>
-        </div>
-      </div>
-    </div>
-    <div class="proj-modal-overlay" id="modal-sql" onclick="closeProjModal(event,'modal-sql')">
-      <div class="proj-modal">
-        <div class="proj-modal-header">
-          <button class="proj-modal-close" onclick="document.getElementById('modal-sql').classList.remove('open');document.body.style.overflow=''">✕</button>
-          <div class="proj-modal-title">📊 SQL Client — WinCC SCADA Tag & Alarm History Reporter</div>
-          <div class="proj-modal-sub">Python · pyodbc · SQL Server · WinCC OLE DB Provider · OpenQuery · openpyxl · SCADA Reporting</div>
-        </div>
-        <div class="proj-modal-body">
-          <ul class="proj-modal-points"><li><strong>Proof-of-concept SQL client</strong> that connects directly to a WinCC SCADA SQL Server instance via <strong>pyodbc + ODBC Driver 18</strong> using Windows Trusted Authentication — queries live SCADA process data without any manual export from the WinCC HMI</li><li>Uses <strong>WinCC OLE DB Provider via OpenQuery through a Linked Server</strong> (<code>LnkRtDb_WinCCOLEDB</code>) to retrieve raw tag history — reads timestamped analog values (RealValue) for selected PLC tags over a configurable date/time range</li><li>Queries the <strong>Archive table</strong> in the WinCC project database to enumerate all available tags, groups them by main tag hierarchy, and presents an interactive selection menu — user selects by number or name</li><li>Dynamically builds <strong>UNION ALL queries</strong> across multiple selected tag IDs, joins against the Archive table for human-readable tag names, and orders results by tag name + timestamp — suitable for compliance log and trend reports</li><li>Configurable via user prompts: <strong>date range, time zone, report type</strong> (Hours / Daily / Weekly / Monthly); output structured for export to Excel via openpyxl with auto-generated table formatting</li><li>Validates the end-to-end reporting pipeline: WinCC SCADA → OLE DB Linked Server → SQL Server → Python → Excel — replacing the need to manually extract alarm and tag logs from the WinCC interface for operational reports</li></ul>
-          <div class="proj-modal-links"><a href="assets/projects/sqlClient/SQL_Client_-_Query_Tags_and_Alarms_History.py" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">🐍 View Script</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Private Repo</span></div>
-        </div>
-      </div>
-    </div>
     <div class="proj-modal-overlay" id="modal-urban" onclick="closeProjModal(event,'modal-urban')">
       <div class="proj-modal">
         <div class="proj-modal-header">
@@ -1887,6 +1892,32 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
         </div>
       </div>
     </div>
+    <div class="proj-modal-overlay" id="modal-pdf" onclick="closeProjModal(event,'modal-pdf')">
+      <div class="proj-modal">
+        <div class="proj-modal-header">
+          <button class="proj-modal-close" onclick="document.getElementById('modal-pdf').classList.remove('open');document.body.style.overflow=''">✕</button>
+          <div class="proj-modal-title">📑 PDF TOC Generator, Merger & Cut-Sheet Finder</div>
+          <div class="proj-modal-sub">Python · PyPDF · ReportLab · PyInstaller · VBA · Excel Macro · Automated Engineering Submittals</div>
+        </div>
+        <div class="proj-modal-body">
+          <ul class="proj-modal-points"><li><strong>Python PDF automation engine</strong>: reads cutsheet filenames in a structured format (<code>ITEM#_PARTNUMBER_MANUFACTURER_DESCRIPTION.pdf</code>), extracts metadata, and auto-builds a multi-page Table of Contents with wrapped/centered column formatting</li><li><strong>Clickable internal hyperlinks</strong> in the TOC jump directly to the corresponding cutsheet page; <strong>PDF outline bookmarks</strong> generated for all items — enabling instant navigation in any PDF viewer without manual linking</li><li>Merges TOC pages + all cutsheet PDFs into <strong>one deliverable PDF</strong> named <code>JobNumber_Linked_TOC_Merged-Cutsheets.pdf</code>; progress bar provides real-time merge status for large submittal packages</li><li>Packaged into a <strong>standalone .exe via PyInstaller</strong> — distributed to project engineers with no Python installation required; single-file executable runs on any Windows machine</li><li><strong>VBA Cut-Sheet Finder macro</strong>: searches network drives and SharePoint document libraries by part number and manufacturer, automatically locates and pulls the correct cutsheet PDF into the project folder — feeds directly into the Python merger workflow</li><li>Eliminates hours of manual PDF assembly per engineering submittal package — engineer enters a Job Number and runs the tool; entire TOC, hyperlinked merged PDF is generated in seconds</li></ul>
+          <div class="proj-modal-links"><a href="assets/projects/pdfTOC/README.md" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">📖 README</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Private Repo</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="proj-modal-overlay" id="modal-sql" onclick="closeProjModal(event,'modal-sql')">
+      <div class="proj-modal">
+        <div class="proj-modal-header">
+          <button class="proj-modal-close" onclick="document.getElementById('modal-sql').classList.remove('open');document.body.style.overflow=''">✕</button>
+          <div class="proj-modal-title">📊 SQL Client — WinCC SCADA Tag & Alarm History Reporter</div>
+          <div class="proj-modal-sub">Python · pyodbc · SQL Server · WinCC OLE DB Provider · OpenQuery · openpyxl · SCADA Reporting</div>
+        </div>
+        <div class="proj-modal-body">
+          <ul class="proj-modal-points"><li><strong>Proof-of-concept SQL client</strong> that connects directly to a WinCC SCADA SQL Server instance via <strong>pyodbc + ODBC Driver 18</strong> using Windows Trusted Authentication — queries live SCADA process data without any manual export from the WinCC HMI</li><li>Uses <strong>WinCC OLE DB Provider via OpenQuery through a Linked Server</strong> (<code>LnkRtDb_WinCCOLEDB</code>) to retrieve raw tag history — reads timestamped analog values (RealValue) for selected PLC tags over a configurable date/time range</li><li>Queries the <strong>Archive table</strong> in the WinCC project database to enumerate all available tags, groups them by main tag hierarchy, and presents an interactive selection menu — user selects by number or name</li><li>Dynamically builds <strong>UNION ALL queries</strong> across multiple selected tag IDs, joins against the Archive table for human-readable tag names, and orders results by tag name + timestamp — suitable for compliance log and trend reports</li><li>Configurable via user prompts: <strong>date range, time zone, report type</strong> (Hours / Daily / Weekly / Monthly); output structured for export to Excel via openpyxl with auto-generated table formatting</li><li>Validates the end-to-end reporting pipeline: WinCC SCADA → OLE DB Linked Server → SQL Server → Python → Excel — replacing the need to manually extract alarm and tag logs from the WinCC interface for operational reports</li></ul>
+          <div class="proj-modal-links"><a href="assets/projects/sqlClient/SQL_Client_-_Query_Tags_and_Alarms_History.py" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">🐍 View Script</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Private Repo</span></div>
+        </div>
+      </div>
+    </div>
     <div class="proj-modal-overlay" id="modal-excel" onclick="closeProjModal(event,'modal-excel')">
       <div class="proj-modal">
         <div class="proj-modal-header">
@@ -1900,6 +1931,21 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
         </div>
       </div>
     </div>
+  
+<!-- ─── Ambient Music Toggle ─────────────────────────────── -->
+<div class="music-tooltip" id="musicTooltip">♪ Ambient · click to play</div>
+<button class="music-btn" id="musicBtn" aria-label="Toggle ambient music" title="Toggle ambient music"
+  onclick="toggleMusic()"
+  onmouseenter="document.getElementById('musicTooltip').classList.add('show')"
+  onmouseleave="document.getElementById('musicTooltip').classList.remove('show')">
+  <svg id="musicIconPlay" width="18" height="18" viewBox="0 0 24 24" fill="white">
+    <polygon points="5 3 19 12 5 21 5 3"/>
+  </svg>
+  <svg id="musicIconPause" width="18" height="18" viewBox="0 0 24 24" fill="white" style="display:none">
+    <rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>
+  </svg>
+</button>
+
   </main>
 </div>
 
@@ -2314,6 +2360,133 @@ document.addEventListener('keydown',e=>{
     });
   }
 });
+
+
+// ══════════════════════════════════════════════════════════
+// AMBIENT MUSIC — Web Audio API procedural warm ambient pad
+// Warm, calm, welcoming — no external files needed
+// ══════════════════════════════════════════════════════════
+let _ac = null, _masterGain = null, _musicPlaying = false;
+const _musicNodes = [];
+
+function _buildAmbient() {
+  _ac = new (window.AudioContext || window.webkitAudioContext)();
+  _masterGain = _ac.createGain();
+  _masterGain.gain.setValueAtTime(0, _ac.currentTime);
+  _masterGain.gain.linearRampToValueAtTime(0.18, _ac.currentTime + 3);
+  _masterGain.connect(_ac.destination);
+
+  // Warm reverb via convolver (generated impulse)
+  const convolver = _ac.createConvolver();
+  const iLen = _ac.sampleRate * 3.5;
+  const iBuffer = _ac.createBuffer(2, iLen, _ac.sampleRate);
+  for (let ch = 0; ch < 2; ch++) {
+    const d = iBuffer.getChannelData(ch);
+    for (let i = 0; i < iLen; i++) {
+      d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / iLen, 2.4);
+    }
+  }
+  convolver.buffer = iBuffer;
+  const reverbGain = _ac.createGain();
+  reverbGain.gain.value = 0.55;
+  convolver.connect(reverbGain);
+  reverbGain.connect(_masterGain);
+
+  // Gentle low-pass filter for warmth
+  const lpf = _ac.createBiquadFilter();
+  lpf.type = 'lowpass';
+  lpf.frequency.value = 1800;
+  lpf.Q.value = 0.5;
+  lpf.connect(_masterGain);
+  lpf.connect(convolver);
+
+  // Chord: Cmaj7 spread — C3, E3, G3, B3, E4 (warm, open)
+  const freqs = [
+    130.81, // C3
+    164.81, // E3
+    196.00, // G3
+    246.94, // B3
+    329.63, // E4
+    196.00, // G3 doubled for depth
+    82.41,  // E2 deep bass
+  ];
+  const detunes = [0, 3, -2, 4, -3, 6, 0];
+
+  freqs.forEach((freq, idx) => {
+    const osc = _ac.createOscillator();
+    osc.type = idx < 2 ? 'sine' : (idx < 5 ? 'triangle' : 'sine');
+    osc.frequency.value = freq;
+    osc.detune.value = detunes[idx];
+
+    const gain = _ac.createGain();
+    const baseVol = idx === 6 ? 0.22 : (idx < 2 ? 0.14 : 0.09);
+    gain.gain.value = baseVol;
+
+    // Slow tremolo per voice for liveliness
+    const lfo = _ac.createOscillator();
+    lfo.type = 'sine';
+    lfo.frequency.value = 0.07 + idx * 0.013;
+    const lfoGain = _ac.createGain();
+    lfoGain.gain.value = baseVol * 0.18;
+    lfo.connect(lfoGain);
+    lfoGain.connect(gain.gain);
+    lfo.start();
+
+    osc.connect(gain);
+    gain.connect(lpf);
+    osc.start();
+    _musicNodes.push(osc, gain, lfo, lfoGain);
+  });
+
+  // Gentle chime melody — F pentatonic ascending, slow
+  const melody = [349.23, 392.00, 440.00, 523.25, 587.33, 523.25, 440.00, 392.00];
+  const melTimes = [0, 3.2, 6.8, 10.5, 14.0, 17.5, 21.0, 24.5];
+  melody.forEach((mf, mi) => {
+    const t = _ac.currentTime + 6 + melTimes[mi];
+    const mo = _ac.createOscillator();
+    mo.type = 'sine';
+    mo.frequency.value = mf;
+    const mg = _ac.createGain();
+    mg.gain.setValueAtTime(0, t);
+    mg.gain.linearRampToValueAtTime(0.06, t + 0.12);
+    mg.gain.exponentialRampToValueAtTime(0.001, t + 2.8);
+    mo.connect(mg);
+    mg.connect(convolver);
+    mo.start(t);
+    mo.stop(t + 3);
+    _musicNodes.push(mo, mg);
+  });
+}
+
+function toggleMusic() {
+  const btn = document.getElementById('musicBtn');
+  const tip = document.getElementById('musicTooltip');
+  const iconPlay = document.getElementById('musicIconPlay');
+  const iconPause = document.getElementById('musicIconPause');
+
+  if (!_musicPlaying) {
+    if (!_ac) _buildAmbient();
+    else if (_ac.state === 'suspended') _ac.resume();
+    _masterGain.gain.cancelScheduledValues(_ac.currentTime);
+    _masterGain.gain.setValueAtTime(_masterGain.gain.value, _ac.currentTime);
+    _masterGain.gain.linearRampToValueAtTime(0.18, _ac.currentTime + 1.5);
+    _musicPlaying = true;
+    btn.classList.add('playing');
+    iconPlay.style.display = 'none';
+    iconPause.style.display = '';
+    tip.textContent = '♪ Ambient · click to pause';
+  } else {
+    _masterGain.gain.cancelScheduledValues(_ac.currentTime);
+    _masterGain.gain.setValueAtTime(_masterGain.gain.value, _ac.currentTime);
+    _masterGain.gain.linearRampToValueAtTime(0, _ac.currentTime + 1.2);
+    setTimeout(() => { if (_ac) _ac.suspend(); }, 1300);
+    _musicPlaying = false;
+    btn.classList.remove('playing');
+    iconPlay.style.display = '';
+    iconPause.style.display = 'none';
+    tip.textContent = '♪ Ambient · click to play';
+  }
+}
 
 // ── Card tilt ─────────────────────────────────────────────
 if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
