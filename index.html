@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sukhmeet Singh Hora, EIT</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='16' y='16' width='32' height='32' rx='5' fill='%23845EC2'/%3E%3Crect x='20' y='20' width='24' height='24' rx='3' fill='%236B47A8'/%3E%3Crect x='24' y='24' width='4' height='4' rx='1' fill='%23C084FC'/%3E%3Crect x='30' y='24' width='4' height='4' rx='1' fill='%23C084FC'/%3E%3Crect x='36' y='24' width='4' height='4' rx='1' fill='%23C084FC'/%3E%3Crect x='24' y='30' width='4' height='4' rx='1' fill='%23FFD93D'/%3E%3Crect x='30' y='30' width='4' height='4' rx='1' fill='%23C084FC'/%3E%3Crect x='36' y='30' width='4' height='4' rx='1' fill='%2306D6A0'/%3E%3Crect x='24' y='36' width='4' height='4' rx='1' fill='%23C084FC'/%3E%3Crect x='30' y='36' width='4' height='4' rx='1' fill='%23C084FC'/%3E%3Crect x='36' y='36' width='4' height='4' rx='1' fill='%23C084FC'/%3E%3Crect x='8' y='22' width='8' height='3' rx='1.5' fill='%23845EC2'/%3E%3Crect x='8' y='30' width='8' height='3' rx='1.5' fill='%23845EC2'/%3E%3Crect x='8' y='38' width='8' height='3' rx='1.5' fill='%23845EC2'/%3E%3Crect x='48' y='22' width='8' height='3' rx='1.5' fill='%23845EC2'/%3E%3Crect x='48' y='30' width='8' height='3' rx='1.5' fill='%23845EC2'/%3E%3Crect x='48' y='38' width='8' height='3' rx='1.5' fill='%23845EC2'/%3E%3Crect x='22' y='8' width='3' height='8' rx='1.5' fill='%23845EC2'/%3E%3Crect x='30' y='8' width='3' height='8' rx='1.5' fill='%23845EC2'/%3E%3Crect x='38' y='8' width='3' height='8' rx='1.5' fill='%23845EC2'/%3E%3Crect x='22' y='48' width='3' height='8' rx='1.5' fill='%23845EC2'/%3E%3Crect x='30' y='48' width='3' height='8' rx='1.5' fill='%23845EC2'/%3E%3Crect x='38' y='48' width='3' height='8' rx='1.5' fill='%23845EC2'/%3E%3Ccircle cx='22' cy='22' r='2' fill='%23845EC2'/%3E%3C/svg%3E">
 <meta name="description" content="Portfolio of Sukhmeet Singh Hora — Computer Engineer specializing in IoT, Embedded Systems, Full Stack Development, and AWS.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -768,7 +769,7 @@ img { max-width: 100%; display: block; }
 .project-short { font-size: 13.5px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; flex: 1; }
 .project-actions { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
 .project-expand-toggle { background:none;border:none;cursor:pointer;font-size:12px;color:var(--muted);font-family:'Space Mono',monospace;padding:0;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:1px;margin-top:4px; }
-.toggle-arrow {display: inline-flex;align-items: center;justify-content: center;transition: transform 0.25s ease;}
+.project-expand-toggle:hover { color: var(--purple); }
 .project-card.open .toggle-arrow { transform: rotate(180deg); }
 .project-expanded { max-height:0;overflow:hidden;opacity:0; }
 .project-card.open .project-expanded { max-height:500px;opacity:1; }
@@ -989,8 +990,46 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
   <!-- Sidebar -->
   <nav class="sidebar" id="sidebar" aria-label="Main Navigation">
     <div class="sidebar-logo">
-      <div class="name-short"><span>S</span>ukhmeet <span>H</span>ora, EIT</div>
-      <div class="role-short">Computer Engineer</div>
+      <div style="display:flex;align-items:center;gap:11px;">
+        <svg width="38" height="38" viewBox="0 0 64 64" style="flex-shrink:0;" aria-hidden="true">
+          <!-- chip body -->
+          <rect x="16" y="16" width="32" height="32" rx="5" fill="#845EC2"/>
+          <!-- inner die -->
+          <rect x="20" y="20" width="24" height="24" rx="3" fill="#6B47A8"/>
+          <!-- register cells -->
+          <rect x="24" y="24" width="4" height="4" rx="1" fill="#C084FC"/>
+          <rect x="30" y="24" width="4" height="4" rx="1" fill="#C084FC"/>
+          <rect x="36" y="24" width="4" height="4" rx="1" fill="#C084FC"/>
+          <rect x="24" y="30" width="4" height="4" rx="1" fill="#FFD93D"/>
+          <rect x="30" y="30" width="4" height="4" rx="1" fill="#C084FC"/>
+          <rect x="36" y="30" width="4" height="4" rx="1" fill="#06D6A0"/>
+          <rect x="24" y="36" width="4" height="4" rx="1" fill="#C084FC"/>
+          <rect x="30" y="36" width="4" height="4" rx="1" fill="#C084FC"/>
+          <rect x="36" y="36" width="4" height="4" rx="1" fill="#C084FC"/>
+          <!-- left pins -->
+          <rect x="8" y="22" width="8" height="3" rx="1.5" fill="#845EC2"/>
+          <rect x="8" y="30" width="8" height="3" rx="1.5" fill="#845EC2"/>
+          <rect x="8" y="38" width="8" height="3" rx="1.5" fill="#845EC2"/>
+          <!-- right pins -->
+          <rect x="48" y="22" width="8" height="3" rx="1.5" fill="#845EC2"/>
+          <rect x="48" y="30" width="8" height="3" rx="1.5" fill="#845EC2"/>
+          <rect x="48" y="38" width="8" height="3" rx="1.5" fill="#845EC2"/>
+          <!-- top pins -->
+          <rect x="22" y="8" width="3" height="8" rx="1.5" fill="#845EC2"/>
+          <rect x="30" y="8" width="3" height="8" rx="1.5" fill="#845EC2"/>
+          <rect x="38" y="8" width="3" height="8" rx="1.5" fill="#845EC2"/>
+          <!-- bottom pins -->
+          <rect x="22" y="48" width="3" height="8" rx="1.5" fill="#845EC2"/>
+          <rect x="30" y="48" width="3" height="8" rx="1.5" fill="#845EC2"/>
+          <rect x="38" y="48" width="3" height="8" rx="1.5" fill="#845EC2"/>
+          <!-- orientation notch -->
+          <circle cx="22" cy="22" r="2" fill="#845EC2"/>
+        </svg>
+        <div>
+          <div class="name-short"><span>S</span>ukhmeet <span>H</span>ora, EIT</div>
+          <div class="role-short">Computer Engineer</div>
+        </div>
+      </div>
     </div>
     <div class="sidebar-nav">
       <ul>
@@ -1566,6 +1605,7 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
           <div class="project-content">
             <div class="project-title">📊 WinCC SCADA Tag & Alarm Reporter</div>
             <p class="project-short">Python proof-of-concept that queries live Siemens WinCC SCADA data directly via pyodbc → SQL Server → WinCC OLE DB Linked Server, bypassing manual HMI exports. Dynamically builds UNION ALL queries across user-selected PLC tags, retrieves timestamped analog and alarm history, and exports structured compliance reports to Excel — validating the full WinCC OLE DB reporting pipeline.</p>
+            <div class="project-actions"><a href="assets/projects/sqlClient/SQL_Client_-_Query_Tags_and_Alarms_History.py" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">🐍 View Script</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Private Repo</span></div>
             <button class="project-expand-toggle" onclick="openProjModal('modal-sql')">
               <span>Key Highlights</span><span class="toggle-arrow">↗</span>
             </button>
@@ -1680,7 +1720,7 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
           <div class="form-group"><label for="contact-email">Email</label><input type="email" id="contact-email" placeholder="your@email.com"></div>
           <div class="form-group">
             <label for="contact-type">Prefer to hear back via</label>
-            <select id="contact-type" style="width:100%;background:var(--white);border:2px solid rgba(132,94,194,0.12);border-radius:12px;padding:12px 16px;color:var(--text);font-size:14px;font-family:'Nunito',sans-serif;outline:none;-webkit-appearance:none;appearance:none;" onchange="togglePhoneField(this.value)">
+            <select id="contact-type" style="width:100%;background:var(--white);border:2px solid rgba(132,94,194,0.12);border-radius:12px;padding:12px 16px;color:var(--text);font-size:14px;font-family:'Nunito',sans-serif;outline:none;appearance:none;-webkit-appearance:none;" onchange="togglePhoneField(this.value)">
               <option value="email">Email</option>
               <option value="sms">SMS / Text</option>
             </select>
@@ -1795,32 +1835,6 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
         </div>
       </div>
     </div>
-    <div class="proj-modal-overlay" id="modal-urban" onclick="closeProjModal(event,'modal-urban')">
-      <div class="proj-modal">
-        <div class="proj-modal-header">
-          <button class="proj-modal-close" onclick="document.getElementById('modal-urban').classList.remove('open');document.body.style.overflow=''">✕</button>
-          <div class="proj-modal-title">🛍️ Urban Tech — E-Commerce Website</div>
-          <div class="proj-modal-sub">HTML5 · CSS3 · Vanilla JavaScript · Responsive Design · GitHub Pages</div>
-        </div>
-        <div class="proj-modal-body">
-          <ul class="proj-modal-points"><li>Fully static responsive e-commerce storefront built with <strong>zero frameworks</strong> — pure HTML, CSS, and Vanilla JS demonstrating fundamental DOM manipulation and state management without library dependencies</li><li><strong>Dynamic product catalogue</strong> with category filtering; add-to-cart with quantity controls; checkout form with client-side field validation and error handling</li><li><strong>localStorage persistence</strong> for cart state and user session data across page reloads; product recommendation logic based on active category/selection</li><li>Responsive layout designed to Google UX Design principles — accessible form semantics, clear navigation hierarchy, and consistent visual language informed by Google UX Design certification coursework</li><li>Zero-cost deployment on <strong>GitHub Pages</strong> with automated publishing on push</li></ul>
-          <div class="proj-modal-links"><a href="https://sukhmeet468.github.io/UrbanTechWebsite/" target="_blank" rel="noopener" class="btn btn-primary btn-sm">🌐 Live Site</a></div>
-        </div>
-      </div>
-    </div>
-    <div class="proj-modal-overlay" id="modal-music" onclick="closeProjModal(event,'modal-music')">
-      <div class="proj-modal">
-        <div class="proj-modal-header">
-          <button class="proj-modal-close" onclick="document.getElementById('modal-music').classList.remove('open');document.body.style.overflow=''">✕</button>
-          <div class="proj-modal-title">🎵 MusicOSet — Relational Database System</div>
-          <div class="proj-modal-sub">SQL · Relational Schema Design · ERD Modeling · Python CLI · 3NF Normalization · COMP 3380</div>
-        </div>
-        <div class="proj-modal-body">
-          <ul class="proj-modal-points"><li>Fully normalized relational database (<strong>3NF</strong>) modelling music catalogues — Artists, Albums, Songs, Playlists, Users, and junction tables for many-to-many relationships with referential integrity via foreign keys and cascades</li><li>Complete <strong>ERD → relational schema pipeline</strong>: entity identification, functional dependency analysis, normalization to 3NF, constraint definition, and schema documentation</li><li><strong>Python CLI</strong> with full CRUD: search songs/albums/artists, create and manage playlists, add/remove tracks, query by genre/year/artist, display nested relational data</li><li>Complex <strong>SQL queries</strong>: multi-table JOINs, correlated subqueries, aggregate functions (COUNT, AVG, GROUP BY/HAVING), and transaction management for data consistency</li></ul>
-          <div class="proj-modal-links"><a href="assets/projects/musicOset/Team09_Final Project Report_COMP3380.pdf" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">📄 Final Report</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Private Repo</span></div>
-        </div>
-      </div>
-    </div>
     <div class="proj-modal-overlay" id="modal-pdf" onclick="closeProjModal(event,'modal-pdf')">
       <div class="proj-modal">
         <div class="proj-modal-header">
@@ -1844,6 +1858,32 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
         <div class="proj-modal-body">
           <ul class="proj-modal-points"><li><strong>Proof-of-concept SQL client</strong> that connects directly to a WinCC SCADA SQL Server instance via <strong>pyodbc + ODBC Driver 18</strong> using Windows Trusted Authentication — queries live SCADA process data without any manual export from the WinCC HMI</li><li>Uses <strong>WinCC OLE DB Provider via OpenQuery through a Linked Server</strong> (<code>LnkRtDb_WinCCOLEDB</code>) to retrieve raw tag history — reads timestamped analog values (RealValue) for selected PLC tags over a configurable date/time range</li><li>Queries the <strong>Archive table</strong> in the WinCC project database to enumerate all available tags, groups them by main tag hierarchy, and presents an interactive selection menu — user selects by number or name</li><li>Dynamically builds <strong>UNION ALL queries</strong> across multiple selected tag IDs, joins against the Archive table for human-readable tag names, and orders results by tag name + timestamp — suitable for compliance log and trend reports</li><li>Configurable via user prompts: <strong>date range, time zone, report type</strong> (Hours / Daily / Weekly / Monthly); output structured for export to Excel via openpyxl with auto-generated table formatting</li><li>Validates the end-to-end reporting pipeline: WinCC SCADA → OLE DB Linked Server → SQL Server → Python → Excel — replacing the need to manually extract alarm and tag logs from the WinCC interface for operational reports</li></ul>
           <div class="proj-modal-links"><a href="assets/projects/sqlClient/SQL_Client_-_Query_Tags_and_Alarms_History.py" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">🐍 View Script</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Private Repo</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="proj-modal-overlay" id="modal-urban" onclick="closeProjModal(event,'modal-urban')">
+      <div class="proj-modal">
+        <div class="proj-modal-header">
+          <button class="proj-modal-close" onclick="document.getElementById('modal-urban').classList.remove('open');document.body.style.overflow=''">✕</button>
+          <div class="proj-modal-title">🛍️ Urban Tech — E-Commerce Website</div>
+          <div class="proj-modal-sub">HTML5 · CSS3 · Vanilla JavaScript · Responsive Design · GitHub Pages</div>
+        </div>
+        <div class="proj-modal-body">
+          <ul class="proj-modal-points"><li>Fully static responsive e-commerce storefront built with <strong>zero frameworks</strong> — pure HTML, CSS, and Vanilla JS demonstrating fundamental DOM manipulation and state management without library dependencies</li><li><strong>Dynamic product catalogue</strong> with category filtering; add-to-cart with quantity controls; checkout form with client-side field validation and error handling</li><li><strong>localStorage persistence</strong> for cart state and user session data across page reloads; product recommendation logic based on active category/selection</li><li>Responsive layout designed to Google UX Design principles — accessible form semantics, clear navigation hierarchy, and consistent visual language informed by Google UX Design certification coursework</li><li>Zero-cost deployment on <strong>GitHub Pages</strong> with automated publishing on push</li></ul>
+          <div class="proj-modal-links"><a href="https://sukhmeet468.github.io/UrbanTechWebsite/" target="_blank" rel="noopener" class="btn btn-primary btn-sm">🌐 Live Site</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="proj-modal-overlay" id="modal-music" onclick="closeProjModal(event,'modal-music')">
+      <div class="proj-modal">
+        <div class="proj-modal-header">
+          <button class="proj-modal-close" onclick="document.getElementById('modal-music').classList.remove('open');document.body.style.overflow=''">✕</button>
+          <div class="proj-modal-title">🎵 MusicOSet — Relational Database System</div>
+          <div class="proj-modal-sub">SQL · Relational Schema Design · ERD Modeling · Python CLI · 3NF Normalization · COMP 3380</div>
+        </div>
+        <div class="proj-modal-body">
+          <ul class="proj-modal-points"><li>Fully normalized relational database (<strong>3NF</strong>) modelling music catalogues — Artists, Albums, Songs, Playlists, Users, and junction tables for many-to-many relationships with referential integrity via foreign keys and cascades</li><li>Complete <strong>ERD → relational schema pipeline</strong>: entity identification, functional dependency analysis, normalization to 3NF, constraint definition, and schema documentation</li><li><strong>Python CLI</strong> with full CRUD: search songs/albums/artists, create and manage playlists, add/remove tracks, query by genre/year/artist, display nested relational data</li><li>Complex <strong>SQL queries</strong>: multi-table JOINs, correlated subqueries, aggregate functions (COUNT, AVG, GROUP BY/HAVING), and transaction management for data consistency</li></ul>
+          <div class="proj-modal-links"><a href="assets/projects/musicOset/Team09_Final Project Report_COMP3380.pdf" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">📄 Final Report</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Private Repo</span></div>
         </div>
       </div>
     </div>
