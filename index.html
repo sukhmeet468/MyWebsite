@@ -768,7 +768,7 @@ img { max-width: 100%; display: block; }
 .project-short { font-size: 13.5px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; flex: 1; }
 .project-actions { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
 .project-expand-toggle { background:none;border:none;cursor:pointer;font-size:12px;color:var(--muted);font-family:'Space Mono',monospace;padding:0;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:1px;margin-top:4px; }
-.project-expand-toggle:hover { color: var(--purple); }
+.toggle-arrow {display: inline-flex;align-items: center;justify-content: center;transition: transform 0.25s ease;}
 .project-card.open .toggle-arrow { transform: rotate(180deg); }
 .project-expanded { max-height:0;overflow:hidden;opacity:0; }
 .project-card.open .project-expanded { max-height:500px;opacity:1; }
@@ -1087,7 +1087,7 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>
               View Projects
             </a>
-            <a href="assets/docs/Sukhmeet_Singh_Hora_Expanded_Resume.pdf" target="_blank" rel="noopener" download class="btn btn-secondary">
+            <a href="assets/docs/SukhmeetSinghHora_EIT_Resume.pdf" target="_blank" rel="noopener" download class="btn btn-secondary">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
               Resume
             </a>
@@ -1405,7 +1405,7 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
               <div class="project-title" style="margin-bottom:0;">⚠️ Hazard Assessment Form</div>
               <span style="display:inline-flex;align-items:center;gap:5px;padding:4px 11px;background:rgba(255,107,107,0.1);border:2px solid rgba(255,107,107,0.25);color:var(--coral);border-radius:100px;font-size:11px;font-family:'Space Mono',monospace;white-space:nowrap;">📱 Power Apps · Indus Automation</span>
             </div>
-            <p class="project-short">Offline-capable mobile Power App for field technicians to create and submit workplace hazard assessments on-site. Supports multiple tasks, auto-calculates risk levels, and triggers a Power Automate flow that generates a PDF and emails it to the Safety Representative on submission.</p>
+            <p class="project-short">Offline-first Power Apps canvas app deployed for field technicians at Indus Automation — captures multi-task workplace hazard assessments with dynamic risk scoring, PPE validation, and hazard classification. On submission, triggers a Power Automate flow that auto-generates a signed formatted PDF and routes it to the Safety Representative with zero manual intervention.</p>
             <div class="project-actions"><span class="btn btn-ghost btn-sm" style="cursor:default;opacity:0.7;">🔒 Internal Tool</span></div>
             <button class="project-expand-toggle" onclick="openProjModal('modal-hazard')">
               <span>Key Highlights</span><span class="toggle-arrow">↗</span>
@@ -1429,7 +1429,7 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
               <div class="project-title" style="margin-bottom:0;">🔧 Service Record Form</div>
               <span style="display:inline-flex;align-items:center;gap:5px;padding:4px 11px;background:rgba(132,94,194,0.1);border:2px solid rgba(132,94,194,0.25);color:var(--purple);border-radius:100px;font-size:11px;font-family:'Space Mono',monospace;white-space:nowrap;">📱 Power Apps · Indus Automation</span>
             </div>
-            <p class="project-short">6-step wizard Power App for field service technicians to log work performed, materials used, and labour costs — then route through a structured approval workflow with automated PDF generation, email distribution to customer and management, and SharePoint record archiving.</p>
+            <p class="project-short">Production-deployed 6-step Power Apps wizard that replaces a paper-based service record process at Indus Automation. Captures multi-day work performed, auto-calculates Regular/Overtime/Double Time by day-of-week CBA rules, itemizes materials costs, and routes records through an identity-verified multi-approver workflow — culminating in auto-generated PDFs distributed to management and customer, with permanent SharePoint archival.</p>
             <div class="project-actions"><span class="btn btn-ghost btn-sm" style="cursor:default;opacity:0.7;">🔒 Internal Tool</span></div>
             <button class="project-expand-toggle" onclick="openProjModal('modal-service')">
               <span>Key Highlights</span><span class="toggle-arrow">↗</span>
@@ -1538,6 +1538,56 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
             </button>
           </div>
         </div>
+        <div class="project-card reveal reveal-delay-3" id="proj-pdf">
+          <div class="project-thumb">
+            <img src="assets/projects/pdfTOC/preview.jpg" alt="📑 PDF TOC Generator, Merger & Cut-Sheet Finder" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="project-thumb-placeholder">📑</div>
+            <div class="project-overlay"></div>
+            <div class="project-tech-chips"><span class="tech-chip">Python</span><span class="tech-chip">PyPDF</span><span class="tech-chip">ReportLab</span><span class="tech-chip">PyInstaller</span><span class="tech-chip">VBA</span><span class="tech-chip">Excel Macro</span></div>
+          </div>
+          <div class="project-content">
+            <div class="project-title">📑 PDF TOC Generator, Merger & Cut-Sheet Finder</div>
+            <p class="project-short">Python automation engine that reads structured cutsheet filenames, auto-builds a multi-page Table of Contents with clickable internal hyperlinks and PDF bookmarks, then merges everything into a single deliverable PDF. Distributed as a standalone .exe via PyInstaller. Paired with a VBA macro that searches network drives to locate cutsheets by part number and manufacturer.</p>
+            <div class="project-actions"><a href="assets/projects/pdfTOC/README.md" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">📖 README</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Private Repo</span></div>
+            <button class="project-expand-toggle" onclick="openProjModal('modal-pdf')">
+              <span>Key Highlights</span><span class="toggle-arrow">↗</span>
+            </button>
+          </div>
+        </div>
+        <div class="project-card reveal reveal-delay-4" id="proj-sql">
+          <div class="project-thumb">
+            <img src="assets/projects/sqlClient/preview.jpg" alt="📊 WinCC SCADA Tag & Alarm Reporter" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="project-thumb-placeholder">📊</div>
+            <div class="project-overlay"></div>
+            <div class="project-tech-chips"><span class="tech-chip">Python</span><span class="tech-chip">pyodbc</span><span class="tech-chip">SQL Server</span><span class="tech-chip">WinCC OLE DB</span><span class="tech-chip">openpyxl</span></div>
+          </div>
+          <div class="project-content">
+            <div class="project-title">📊 WinCC SCADA Tag & Alarm Reporter</div>
+            <p class="project-short">Python proof-of-concept that queries live Siemens WinCC SCADA data directly via pyodbc → SQL Server → WinCC OLE DB Linked Server, bypassing manual HMI exports. Dynamically builds UNION ALL queries across user-selected PLC tags, retrieves timestamped analog and alarm history, and exports structured compliance reports to Excel — validating the full WinCC OLE DB reporting pipeline.</p>
+            <button class="project-expand-toggle" onclick="openProjModal('modal-sql')">
+              <span>Key Highlights</span><span class="toggle-arrow">↗</span>
+            </button>
+          </div>
+        </div>
+        <div class="project-card reveal reveal-delay-5" id="proj-excel">
+          <div class="project-thumb">
+            <img src="assets/projects/excelVBA/preview.jpg" alt="⚡ Automated Excel Templates & Power Platform Suite" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="project-thumb-placeholder">⚡</div>
+            <div class="project-overlay"></div>
+            <div class="project-tech-chips"><span class="tech-chip">VBA</span><span class="tech-chip">Excel Macros</span><span class="tech-chip">Office Scripts</span><span class="tech-chip">Power Automate</span><span class="tech-chip">Power BI</span><span class="tech-chip">SharePoint</span></div>
+          </div>
+          <div class="project-content">
+            <div class="project-title">⚡ Automated Excel Templates & Power Platform Suite</div>
+            <p class="project-short">A suite of enterprise automation tools deployed across Indus Automation and New Flyer — spanning VBA macros for PLC I/O data integration into AutoCAD Electrical, dynamic capacity planning and budget forecasting workbooks connected live to SharePoint, automated BoM management systems, and Office Scripts pipelines. Collectively replaced multiple manual paper and Excel-based processes, achieving an 8× efficiency improvement in design workflows.</p>
+            <div class="project-actions"><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Internal Tools — Multiple Employers</span></div>
+            <button class="project-expand-toggle" onclick="openProjModal('modal-excel')">
+              <span>Key Highlights</span><span class="toggle-arrow">↗</span>
+            </button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1552,14 +1602,14 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
         <div class="resume-icon-big">📄</div>
         <div class="resume-info">
           <h3>Sukhmeet Singh Hora, EIT</h3>
-          <p>Computer Engineer with hands-on experience in full-stack development, industrial automation, embedded systems, cloud integrations, and enterprise IT. Graduated University of Manitoba, May 2025.</p>
+          <p>Full Stack Developer & Software Engineer · IoT & Embedded Systems · Computer Engineering BSc, University of Manitoba (2025). 3+ years delivering production systems across React/Node.js web apps, AWS IoT mobile applications, Power Apps, and industrial automation tooling.</p>
         </div>
         <div class="resume-buttons">
-          <a href="assets/docs/Sukhmeet_Singh_Hora_Expanded_Resume.pdf" target="_blank" rel="noopener" class="btn btn-primary">
+          <a href="assets/docs/SukhmeetSinghHora_EIT_Resume.pdf" target="_blank" rel="noopener" class="btn btn-primary">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
             View Resume
           </a>
-          <a href="assets/docs/Sukhmeet_Singh_Hora_Expanded_Resume.pdf" target="_blank" rel="noopener" download class="btn btn-secondary">
+          <a href="assets/docs/SukhmeetSinghHora_EIT_Resume.pdf" target="_blank" rel="noopener" download class="btn btn-secondary">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Download PDF
           </a>
@@ -1594,9 +1644,9 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
       </div>
       <div class="contact-grid">
         <div class="reveal reveal-delay-1">
-          <a href="mailto:maherhora468@gmail.com" class="contact-item">
+          <a href="/cdn-cgi/l/email-protection#abc6cac3ced9c3c4d9ca9f9d93ebccc6cac2c785c8c4c6" class="contact-item">
             <div class="contact-icon">✉️</div>
-            <div><div class="contact-label">Email</div><div class="contact-value">maherhora468@gmail.com</span></div></div>
+            <div><div class="contact-label">Email</div><div class="contact-value"><span class="__cf_email__" data-cfemail="127f737a77607a7d607326242a52757f737b7e3c717d7f">[email&#160;protected]</span></div></div>
           </a>
           <a href="sms:+14313887835" class="contact-item">
             <div class="contact-icon">💬</div>
@@ -1630,7 +1680,7 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
           <div class="form-group"><label for="contact-email">Email</label><input type="email" id="contact-email" placeholder="your@email.com"></div>
           <div class="form-group">
             <label for="contact-type">Prefer to hear back via</label>
-            <select id="contact-type" style="width:100%;background:var(--white);border:2px solid rgba(132,94,194,0.12);border-radius:12px;padding:12px 16px;color:var(--text);font-size:14px;font-family:'Nunito',sans-serif;outline:none;-appearance:none;" onchange="togglePhoneField(this.value)">
+            <select id="contact-type" style="width:100%;background:var(--white);border:2px solid rgba(132,94,194,0.12);border-radius:12px;padding:12px 16px;color:var(--text);font-size:14px;font-family:'Nunito',sans-serif;outline:none;-webkit-appearance:none;appearance:none;" onchange="togglePhoneField(this.value)">
               <option value="email">Email</option>
               <option value="sms">SMS / Text</option>
             </select>
@@ -1657,12 +1707,12 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
     <div class="proj-modal-overlay" id="modal-dash" onclick="closeProjModal(event,'modal-dash')">
       <div class="proj-modal">
         <div class="proj-modal-header">
-          <button class="proj-modal-close" onclick="document.getElementById('modal-dash').classList.remove('open')">✕</button>
+          <button class="proj-modal-close" onclick="document.getElementById('modal-dash').classList.remove('open');document.body.style.overflow=''">✕</button>
           <div class="proj-modal-title">🛠️ Production & Design Drafting Dashboard</div>
-          <div class="proj-modal-sub">React · Node.js · Microsoft Graph API · Azure AD · SharePoint · Office Scripts · Power Automate</div>
+          <div class="proj-modal-sub">React · Node.js · Express · Microsoft Graph API · Azure AD / MSAL · SharePoint · Office Scripts · Power Automate</div>
         </div>
         <div class="proj-modal-body">
-          <ul class="proj-modal-points"><li>3 integrated dashboards: <strong>Production</strong> (job tracking, rev mismatches, deadline indicators), <strong>Design Drafting</strong> (submittal workflows, drafter filtering), <strong>Resource Capacity</strong> (multi-year Gantt, department utilization)</li><li><strong>MSAL authentication</strong> (Authorization Code Flow + PKCE) via Microsoft Entra ID — restricted to company domain only; session-based auth with HTTP-only secure cookies</li><li>Live data from SharePoint Excel sheets via <strong>Microsoft Graph API</strong> — PM team edits Excel, dashboard reflects changes automatically</li><li><strong>Office Scripts + Power Automate</strong> pipeline: extracts & filters .xlsm data → writes to .xlsx → Graph API reads → React renders. Scheduled refresh + on-demand trigger</li><li>Resource Capacity: <strong>What-If simulation</strong> — model new projects without affecting real data; <strong>Deadline Adjustment Tool</strong> — redistribute hours and see cascade effects client-side</li><li>Capacity utilization colour-coded per week: 🟢 &lt;85% · 🟡 85–100% · 🔴 Overloaded; 3 departments: Design Drafting, System Integrators, Shop Shipping</li><li>Additional Office Scripts: <strong>Vacation Grid</strong> (holiday-aware capacity), <strong>Resource Workload sync</strong> from PM Sheet, <strong>Payroll Actual Hours</strong> update biweekly from payroll reports</li><li>Production dashboard: <strong>Rev Mismatch Detection</strong> (Drawing Rev vs Shop Rev), auto-scroll mode for wall-mounted screens, configurable 15–45 min auto-refresh</li></ul>
+          <ul class="proj-modal-points"><li><strong>Three integrated dashboards</strong> deployed at Indus Automation: <em>Production</em> — real-time job tracking with Rev Mismatch Detection (Drawing Rev vs Shop Rev), colour-coded deadline indicators (🔥 Past / ⏳ Approaching / ✅ OK), and auto-scroll for wall-mounted screens; <em>Design Drafting</em> — submittal workflow tracker with drafter-level filtering; <em>Resource Capacity</em> — multi-year Gantt chart with weekly department utilization</li><li>Secured via <strong>MSAL Authorization Code Flow + PKCE</strong> (Microsoft Entra ID) — restricted to company domain only; HTTP-only session cookies prevent XSS; role-based route protection on both frontend and Express API</li><li>Live data pipeline: PM team maintains <strong>.xlsm Excel sheets on SharePoint</strong> → Office Scripts extract and filter → Power Automate writes to .xlsx → Node.js reads via Microsoft Graph API → React renders — scheduled refresh + on-demand webhook trigger</li><li>Resource Capacity: <strong>What-If simulation engine</strong> — model new project bids against current capacity without touching production data; client-side redistribution of hours across future weeks with instant utilization recalculation per department</li><li><strong>Deadline Adjustment Tool</strong> — select an existing project, shift its deadline, and instantly visualize redistributed weekly hours and cascade effects on other projects — simulation-only, zero data mutation</li><li>Three additional Office Scripts: <strong>Vacation Schedule Grid</strong> (holiday-aware weekly capacity), <strong>Resource Workload sync</strong> from PM sheet, <strong>Payroll Actual Hours</strong> update from biweekly payroll exports</li><li>Capacity utilization colour-coded per week per department: 🟢 &lt;85% healthy · 🟡 85–100% near limit · 🔴 Overloaded — flags bottleneck weeks proactively before they impact delivery</li></ul>
           <div class="proj-modal-links"><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔐 Internal Access Only</span><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Private Repo</span></div>
         </div>
       </div>
@@ -1670,12 +1720,12 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
     <div class="proj-modal-overlay" id="modal-hazard" onclick="closeProjModal(event,'modal-hazard')">
       <div class="proj-modal">
         <div class="proj-modal-header">
-          <button class="proj-modal-close" onclick="document.getElementById('modal-hazard').classList.remove('open')">✕</button>
+          <button class="proj-modal-close" onclick="document.getElementById('modal-hazard').classList.remove('open');document.body.style.overflow=''">✕</button>
           <div class="proj-modal-title">⚠️ Hazard Assessment Form — Power App</div>
-          <div class="proj-modal-sub">Microsoft Power Apps · Power Automate · SharePoint · PDF Generation · Offline-Capable</div>
+          <div class="proj-modal-sub">Microsoft Power Apps · Power Automate · SharePoint · Dynamic PDF Generation · Offline-Capable Canvas App</div>
         </div>
         <div class="proj-modal-body">
-          <ul class="proj-modal-points"><li><strong>Offline-first</strong>: fill and save forms on-device without internet; dropdown lists (customers, locations, PPE, classifications) cached on first online load</li><li><strong>3-screen flow</strong>: Home Screen (saved drafts with edit/publish/delete) → Project Info (customer, safety rep, superintendent, location, date) → Task Details (per-task fields)</li><li>Each task captures: name, materials/equipment, potential hazards, <strong>PPE multi-select</strong>, hazard classification (CLASS A1 Severe / B2 Serious / C3 Minor), and <strong>auto-calculated risk level</strong></li><li>Validation enforces all required fields — incomplete fields highlighted with <strong>red borders</strong>; Save and Next buttons stay greyed out until complete</li><li><strong>On Publish</strong>: Power Automate flow generates a formatted PDF, emails it to the Safety Representative, and saves the record to SharePoint. Form removed from device after successful submit</li><li>Connection indicator (🌐 green/red globe) on every screen; Publish button disabled when offline</li><li>"Select Other" pattern across all dropdowns — entering a custom value adds it to the list automatically</li></ul>
+          <ul class="proj-modal-points"><li><strong>Offline-first architecture</strong>: all dropdown lists (customers, locations, PPE types, hazard classifications) cached on device at first online load — technicians can open the app, complete full forms, and save without any internet connection; drafts persist locally and are submitted when connectivity is restored</li><li><strong>3-screen structured workflow</strong>: Home Screen (saved drafts with edit/publish/delete and live connection indicator) → Project Info (customer, safety rep, superintendent, location, date — all validated dropdowns) → Task Details (per-task capture with Add Task / Remove Task controls for unlimited tasks per submission)</li><li>Per-task fields: task name, materials/equipment, potential hazards, <strong>multi-select PPE</strong>, hazard classification (CLASS A1 Severe / B2 Serious / C3 Minor), and <strong>auto-calculated risk level</strong> — editable if custom classification entered</li><li><strong>Strict validation</strong>: all required fields enforce red-border highlighting; Save and Next buttons remain disabled until all fields complete; prevents partial/invalid submissions reaching SharePoint</li><li>On Publish: <strong>Power Automate flow</strong> generates a professionally formatted PDF of the complete assessment, emails it directly to the listed Safety Representative, and archives the record to SharePoint — form removed from device on successful submit</li><li>"Select Other" pattern across all dropdowns — entering a custom value adds it to the list and persists for future sessions; supports field-level edge cases without admin intervention</li><li>Connection status icon (🌐 green/red globe) visible on every screen; Publish button programmatically disabled in offline state to prevent failed submissions</li></ul>
           <div class="proj-modal-links"><a href="assets/projects/powerApps/hazard/Risk_Hazard_Assessment_Form_-_User_Guide.docx" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">📄 User Guide</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Internal Tool</span></div>
         </div>
       </div>
@@ -1683,12 +1733,12 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
     <div class="proj-modal-overlay" id="modal-service" onclick="closeProjModal(event,'modal-service')">
       <div class="proj-modal">
         <div class="proj-modal-header">
-          <button class="proj-modal-close" onclick="document.getElementById('modal-service').classList.remove('open')">✕</button>
+          <button class="proj-modal-close" onclick="document.getElementById('modal-service').classList.remove('open');document.body.style.overflow=''">✕</button>
           <div class="proj-modal-title">🔧 Service Record Form — Power App</div>
-          <div class="proj-modal-sub">Microsoft Power Apps · Power Automate · SharePoint · PDF Generation · Approval Workflow</div>
+          <div class="proj-modal-sub">Microsoft Power Apps · Power Automate (2 Flows) · SharePoint · PDF Generation · Multi-Stage Approval · CBA Labour Rules</div>
         </div>
         <div class="proj-modal-body">
-          <ul class="proj-modal-points"><li><strong>6-step wizard</strong>: Service Record Info → Work Performed → Total Time & Distance → Materials Used → Job Completed & Special Instructions → Request Approval / Approve & Submit</li><li>Work lines capture date, work area, PO, start/end time (AM/PM dropdowns → 24hr stored internally), travel hours & distance, and work description (min 10 chars)</li><li><strong>Auto-calculated labour hours</strong> by day-of-week rules: Mon–Fri regular 08:00–16:30 / OT first 4hrs after / DT remainder; Saturday all OT for 8hrs then DT; Sunday/Holiday all DT. <strong>3-hour minimum call-out</strong> enforced automatically</li><li>Rates loaded from SharePoint <strong>ServiceRates</strong> table; adjustable per-record without affecting master rates</li><li><strong>Two-role approval workflow</strong>: Technician submits → Power Automate emails approver with deep-link → Approver reviews in Approve mode → <strong>identity verification</strong> (signed-in email must match designated approver) → two-tap confirmation</li><li><strong>On final approval</strong>: PDF generated & saved to SharePoint, customer emailed (optional toggle), CPA + all approvers CC'd, record locked as Completed permanently</li><li>All data saved to SharePoint in <strong>real-time</strong> as technician navigates screens — no work lost on navigation or app close</li><li>Inline ⚠ warnings on work lines for future dates, end-before-start time, and short descriptions — before tapping Next</li></ul>
+          <ul class="proj-modal-points"><li><strong>6-step wizard replaces a paper-based process</strong>: Service Record Info (customer, PO numbers, job number) → Work Performed (multi-day work lines) → Total Time & Distance (auto-calculated costs) → Materials Used (itemized parts) → Job Completed & Special Instructions → Request Approval / Approve & Submit</li><li>Work lines capture: date, work area, PO reference, <strong>start/end time via AM/PM dropdowns</strong> (stored as 24hr HH:MM internally for accurate payroll calculations), travel hours & distance, and work description (min 10 chars with inline ⚠ warnings)</li><li><strong>CBA-compliant auto-calculation of labour hours</strong> by day-of-week: Mon–Fri regular 08:00–16:30 / OT first 4hrs after 16:30 / DT remainder; Saturday all OT for first 8hrs then DT; Sunday/Holiday all DT. <strong>3-hour minimum call-out</strong> enforced automatically when any labour is logged</li><li>Rates loaded from SharePoint <strong>ServiceRates table</strong>; adjustable per-record without modifying master rates — line-total and grand-total costs calculated in real-time</li><li><strong>Two-role identity-verified approval workflow</strong>: Technician submits → Power Automate Flow 1 emails designated approver with deep-link → Approver opens app in Approve mode → <strong>signed-in email verified against ServiceRates approver list</strong> → deliberate two-tap confirmation prevents accidental approvals</li><li>On approval: <strong>Power Automate Flow 2</strong> generates a complete formatted PDF (all work lines, materials, totals, special instructions), saves to SharePoint document library, optionally emails customer, CC's CPA and all approvers — record permanently locked in Completed state</li><li><strong>Real-time SharePoint persistence</strong>: all data written as technician navigates screens — no work lost on navigation, app close, or connectivity interruption; full search by customer or technician name; separate active vs completed record views</li></ul>
           <div class="proj-modal-links"><a href="assets/projects/powerApps/service/Service_Record_Form_Documentation_-_User_Guide.docx" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">📄 User Guide</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Internal Tool</span></div>
         </div>
       </div>
@@ -1696,12 +1746,12 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
     <div class="proj-modal-overlay" id="modal-plc" onclick="closeProjModal(event,'modal-plc')">
       <div class="proj-modal">
         <div class="proj-modal-header">
-          <button class="proj-modal-close" onclick="document.getElementById('modal-plc').classList.remove('open')">✕</button>
-          <div class="proj-modal-title">📱 PLC IoT Remote App</div>
-          <div class="proj-modal-sub">Flutter · AWS IoT Core · MQTT · Siemens S7-1200/1500 · TIA Portal · Node-RED · IoT2050</div>
+          <button class="proj-modal-close" onclick="document.getElementById('modal-plc').classList.remove('open');document.body.style.overflow=''">✕</button>
+          <div class="proj-modal-title">📱 PLC IoT Remote Application</div>
+          <div class="proj-modal-sub">Flutter · Dart · AWS IoT Core · MQTT · Siemens S7-1200/1500 · TIA Portal · SIMATIC IoT2050 · Node-RED</div>
         </div>
         <div class="proj-modal-body">
-          <ul class="proj-modal-points"><li>Cross-platform <strong>Flutter app (iOS & Android)</strong> for remote monitoring and control of Siemens S7-1200/1500 PLCs at pump/lift stations via AWS IoT Core and MQTT</li><li><strong>Authentication</strong>: AWS Cognito (email/password + Google login on iOS), Amplify Authenticator UI, IAM permissions; admin users can add/remove site access per user</li><li>Multi-station dashboard: pumps, reservoir levels, effluent/influent flows, setpoints, alarms, heartbeat — digital, analog, and SP control</li><li><strong>Fleet provisioning by claim</strong>: secure encrypted PLC-to-cloud MQTT connection; each device provisioned with unique certificates</li><li>Alerts: <strong>push notifications</strong> (AWS SNS + Firebase FCM), <strong>email</strong> (AWS SES), <strong>SMS</strong> (AWS SNS) — all IoT-triggered via Lambda functions</li><li><strong>Data logging</strong>: alarm, pump, pit level, effluent flow, and setpoint logs with timestamps; graphical trend charts (fl_chart) for analog values</li><li>Additional data pipeline via <strong>SIMATIC IoT2050 + Node-RED</strong> for automated PLC-to-cloud flows without MQTT</li><li>Backend: AWS Amplify Studio for content management; AWS AppSync + DynamoDB for data sync; AWS S3 for storage; Pinpoint for analytics</li></ul>
+          <ul class="proj-modal-points"><li><strong>Cross-platform mobile app (iOS & Android)</strong> for real-time remote monitoring and control of Siemens S7-1200/1500 PLCs at pump/lift stations — eliminated the need for manual on-site checks across multiple remote stations</li><li>Communication stack: PLC → <strong>MQTT → AWS IoT Core</strong> broker → Flutter app; secondary data pipeline via <strong>SIMATIC IoT2050 + Node-RED</strong> for automated edge-to-cloud flows without direct MQTT dependency</li><li><strong>Authentication</strong>: AWS Cognito (email/password + Google login on iOS), Amplify Authenticator UI, IAM-scoped permissions; admin users can grant or revoke per-user site access</li><li>Multi-station dashboard: <strong>digital, analog, and setpoint control</strong> across pumps, reservoir levels, effluent/influent flows, alarms, and heartbeat — configurable per station</li><li><strong>Fleet provisioning by claim</strong>: each PLC provisioned with unique AWS IoT certificates at deployment — encrypted MQTT channel between field device and cloud; no shared credentials</li><li><strong>Alert pipelines</strong>: push notifications via AWS SNS + Firebase FCM, email via AWS SES, SMS via AWS SNS — all IoT-rule-triggered through Lambda functions on alarm state changes</li><li>Data logging with timestamps: alarm history, pump cycles, pit levels, effluent flow trends; <strong>graphical trend charts</strong> (fl_chart) for analog values; AWS AppSync + DynamoDB for data sync; S3 for file storage</li></ul>
           <div class="proj-modal-links"><a href="assets/projects/indusIoTApp/IoT Application - Things we have and future maybe things to do.pdf" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">📄 Notes PDF</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Private Repo</span></div>
         </div>
       </div>
@@ -1709,12 +1759,12 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
     <div class="proj-modal-overlay" id="modal-river" onclick="closeProjModal(event,'modal-river')">
       <div class="proj-modal">
         <div class="proj-modal-header">
-          <button class="proj-modal-close" onclick="document.getElementById('modal-river').classList.remove('open')">✕</button>
+          <button class="proj-modal-close" onclick="document.getElementById('modal-river').classList.remove('open');document.body.style.overflow=''">✕</button>
           <div class="proj-modal-title">🌊 IoT River Depth Monitoring System</div>
-          <div class="proj-modal-sub">RPi4 · Sonar · GPS · Flutter · AWS Amplify · Google Maps · ML · University of Manitoba Capstone</div>
+          <div class="proj-modal-sub">RPi4 · Sonar · GPS · Flutter · AWS IoT Core · AWS Amplify · Google Maps API · ML · University of Manitoba Capstone</div>
         </div>
         <div class="proj-modal-body">
-          <ul class="proj-modal-points"><li><strong>University of Manitoba Capstone</strong> — team of 6 (Sukhmeet Hora, Sudipta Dip, Gunjan Modi, Matt Fryatt, Het Patel, Justine Ugalde); supervised by Dr. Ken Ferens</li><li>Device mounts on boats: <strong>Raspberry Pi 4</strong> + sonar sensor + GPS streams real-time depth + location data to a Flutter smartphone app</li><li><strong>Flutter app</strong>: AWS Amplify (Auth, DataStore, API), AWS IoT Core for device communication, DynamoDB via AppSync (GraphQL) for survey data, S3 for storage</li><li><strong>Google Cloud Maps</strong> integration: visualizes surveyed area as a heatmap, provides safe-route navigation overlays, geolocation access</li><li><strong>ML hazard detection model</strong>: classifies each depth reading as Safe / Warning / Hazardous based on bathymetric patterns</li><li>Enables boaters to view previously surveyed areas and navigate around identified hazards automatically</li><li>Read-only repo — tied to private AWS account and Google Cloud configurations; cannot be cloned and run without re-provisioning all cloud services</li></ul>
+          <ul class="proj-modal-points"><li><strong>University of Manitoba Capstone</strong> — team of 6 (Hora, Dip, Modi, Fryatt, Patel, Ugalde); supervised by Dr. Ken Ferens. Enables boaters to conduct bathymetric surveys and navigate hazards using collected depth data</li><li>Embedded node: <strong>Raspberry Pi 4</strong> + sonar depth sensor + GPS module — firmware in C streaming real-time depth and position data via BLE/Wi-Fi to a Flutter mobile app</li><li>Flutter app backed by <strong>AWS Amplify</strong> (Auth, DataStore, API), AWS IoT Core for device telemetry, DynamoDB via AppSync (GraphQL), S3 for storage; <strong>Google Cloud Maps</strong> for geolocation, route visualization, and heatmap overlays of surveyed areas</li><li><strong>ML hazard detection model</strong>: classifies each depth reading as Safe / Warning / Hazardous based on bathymetric patterns — enables automatic safe-route recommendations</li><li>Read-only reference repo — all cloud services tied to a private AWS account and Google Cloud project; cannot be cloned and run without full re-provisioning of Amplify, IoT Core, AppSync, and Maps credentials</li></ul>
           <div class="proj-modal-links"><a href="https://1024terabox.com/s/1i85eR_AVTswdY9h1XYKL8Q" target="_blank" rel="noopener" class="btn btn-primary btn-sm">▶ Demo Video</a><a href="assets/projects/depthMonitoring/G09_FinalReport.pdf" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">📄 Final Report</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Private Repo</span></div>
         </div>
       </div>
@@ -1722,25 +1772,25 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
     <div class="proj-modal-overlay" id="modal-career" onclick="closeProjModal(event,'modal-career')">
       <div class="proj-modal">
         <div class="proj-modal-header">
-          <button class="proj-modal-close" onclick="document.getElementById('modal-career').classList.remove('open')">✕</button>
+          <button class="proj-modal-close" onclick="document.getElementById('modal-career').classList.remove('open');document.body.style.overflow=''">✕</button>
           <div class="proj-modal-title">💼 CareerSphere — Full Stack Career Platform</div>
-          <div class="proj-modal-sub">MongoDB · Express.js · React · Node.js · Docker · CI/CD · JMeter Load Testing</div>
+          <div class="proj-modal-sub">MongoDB · Express.js · React · Node.js · Docker · CI/CD · JMeter Load Testing · WebSocket</div>
         </div>
         <div class="proj-modal-body">
-          <ul class="proj-modal-points"><li>Team of 6 — Sukhmeet Hora, Sudipta Dip, Colin McDonell, Ethan Lapkin, AJ Manigque, Bryce Erichsen</li><li><strong>Job seekers</strong>: manage profiles, apply for jobs, showcase skills. <strong>Employers</strong>: post listings, evaluate candidates, host live quizzes with real-time participation</li><li><strong>AI-driven job recommendations</strong> based on user profile and application history; personalized search with dynamic filters</li><li>Real-time <strong>messaging system</strong>, interview scheduling, community forums, and collaboration tools</li><li><strong>Auth</strong>: JWT access tokens + JWT refresh tokens; role-based access control (job seeker vs employer); Resend API for transactional emails</li><li><strong>Dockerized</strong> full-stack deployment with CI/CD pipeline; load tested with JMeter at 50, 150, and 250 concurrent users</li><li>Architecture diagram, sequence diagrams, and full test plan documented in GitHub wiki</li></ul>
-          <div class="proj-modal-links"><a href="https://1024terabox.com/s/18CQ7fGzQfKydaOoBVjT2aQ" target="_blank" rel="noopener" class="btn btn-primary btn-sm">▶ Demo Video</a><a href="https://github.com/ColinMcD6/CareerSphere" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">⚙️ GitHub</a></div>
+          <ul class="proj-modal-points"><li>Team of 6 — Hora, Dip, McDonell, Lapkin, Manigque, Erichsen. Full-stack career platform on the MERN stack connecting job seekers and employers through a feature-rich hiring pipeline</li><li><strong>AI-driven job recommendation engine</strong> — personalized matches based on user profile, application history, and skill tags; dynamic search with multi-filter support</li><li><strong>Real-time WebSocket messaging</strong>, live employer quiz sessions with real-time participation, interview scheduling system, and community discussion forums</li><li><strong>Auth</strong>: JWT access + refresh tokens with rotation; role-based access control (job seeker vs employer); Resend API for transactional email workflows</li><li>Fully <strong>containerized with Docker</strong>; CI/CD pipeline on GitHub Actions; load tested with JMeter — <strong>verified stable under 250 concurrent users</strong> (50/150/250 test plans with exported results)</li><li>Architecture diagram, sequence diagrams, testing plan, and full API documentation published in GitHub wiki</li></ul>
+          <div class="proj-modal-links"><a href="https://1024terabox.com/s/18CQ7fGzQfKydaOoBVjT2aQ" target="_blank" rel="noopener" class="btn btn-primary btn-sm">▶ Demo Video</a><a href="https://github.com/ColinMcD6/CareerSphere" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">⚙️ GitHub (Public)</a></div>
         </div>
       </div>
     </div>
     <div class="proj-modal-overlay" id="modal-broom" onclick="closeProjModal(event,'modal-broom')">
       <div class="proj-modal">
         <div class="proj-modal-header">
-          <button class="proj-modal-close" onclick="document.getElementById('modal-broom').classList.remove('open')">✕</button>
-          <div class="proj-modal-title">🧹 Broom Buddy — Assistive Curling Device</div>
-          <div class="proj-modal-sub">ESP32 · ESP-NOW · Embedded C · 12-bit ADC · WS2812B LED Ring</div>
+          <button class="proj-modal-close" onclick="document.getElementById('modal-broom').classList.remove('open');document.body.style.overflow=''">✕</button>
+          <div class="proj-modal-title">🧹 Broom Buddy — Embedded Assistive Device</div>
+          <div class="proj-modal-sub">ESP32 · ESP-NOW · Embedded C/C++ · 12-bit ADC · WS2812B LED Ring</div>
         </div>
         <div class="proj-modal-body">
-          <ul class="proj-modal-points"><li>Assistive technology built for <strong>deaf curlers</strong> — translates skip's sweep/hold/stop commands into instant LED ring signals on the broom head</li><li>Two-unit system: <strong>handheld controller</strong> (ESP32 + ADC buttons) + <strong>broom unit</strong> (ESP32 + WS2812B addressable LED ring)</li><li><strong>ESP-NOW protocol</strong>: direct MAC-layer peer-to-peer Wi-Fi — no router or access point needed; sub-millisecond latency ideal for real-time sports signaling</li><li>12-bit ADC for analog button/pressure input; distinct LED patterns for Sweep / Hold / Stop commands</li><li>Eliminates audio communication barriers on ice — visual cues visible to the sweeper even in noisy arena environments</li></ul>
+          <ul class="proj-modal-points"><li>Assistive embedded system for <strong>deaf curlers</strong> — translates skip's sweep/hold/stop commands into instant visual LED cues on the broom head, eliminating the audio communication barrier on ice</li><li>Two-unit peer-to-peer system: <strong>handheld controller</strong> (ESP32 + 12-bit ADC button inputs) + <strong>broom unit</strong> (ESP32 + WS2812B addressable LED ring); no Wi-Fi router or access point required</li><li><strong>ESP-NOW protocol</strong>: direct MAC-layer wireless — sub-millisecond latency, ideal for real-time sports control; engineered signal interpretation and device actuation logic end-to-end in C/C++</li><li>Distinct LED patterns (Sweep / Hold / Stop) with configurable brightness — visible at arena distances even under overhead lighting conditions</li></ul>
           <div class="proj-modal-links"><a href="assets/projects/broomBuddy/Broom Buddy - Demonstartion.mp4" target="_blank" rel="noopener" class="btn btn-primary btn-sm">▶ Demo Video</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Private Repo</span></div>
         </div>
       </div>
@@ -1748,12 +1798,12 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
     <div class="proj-modal-overlay" id="modal-urban" onclick="closeProjModal(event,'modal-urban')">
       <div class="proj-modal">
         <div class="proj-modal-header">
-          <button class="proj-modal-close" onclick="document.getElementById('modal-urban').classList.remove('open')">✕</button>
+          <button class="proj-modal-close" onclick="document.getElementById('modal-urban').classList.remove('open');document.body.style.overflow=''">✕</button>
           <div class="proj-modal-title">🛍️ Urban Tech — E-Commerce Website</div>
-          <div class="proj-modal-sub">HTML · CSS · Vanilla JavaScript · GitHub Pages</div>
+          <div class="proj-modal-sub">HTML5 · CSS3 · Vanilla JavaScript · Responsive Design · GitHub Pages</div>
         </div>
         <div class="proj-modal-body">
-          <ul class="proj-modal-points"><li>Fully static responsive e-commerce storefront built with <strong>zero frameworks</strong> — pure HTML, CSS, and Vanilla JS</li><li><strong>Product catalogue</strong> by category with dynamic filtering; add-to-cart with quantity controls; checkout form with field validation</li><li><strong>User account management</strong> via localStorage — persists cart and preferences across sessions</li><li>Product recommendation logic based on current category/selection; responsive layout for mobile and desktop</li><li>Design informed by <strong>Google UX Design certification</strong> coursework — clear navigation hierarchy, accessible form elements, consistent visual language</li><li>Deployed on <strong>GitHub Pages</strong> — zero hosting cost, instant deployment on push</li></ul>
+          <ul class="proj-modal-points"><li>Fully static responsive e-commerce storefront built with <strong>zero frameworks</strong> — pure HTML, CSS, and Vanilla JS demonstrating fundamental DOM manipulation and state management without library dependencies</li><li><strong>Dynamic product catalogue</strong> with category filtering; add-to-cart with quantity controls; checkout form with client-side field validation and error handling</li><li><strong>localStorage persistence</strong> for cart state and user session data across page reloads; product recommendation logic based on active category/selection</li><li>Responsive layout designed to Google UX Design principles — accessible form semantics, clear navigation hierarchy, and consistent visual language informed by Google UX Design certification coursework</li><li>Zero-cost deployment on <strong>GitHub Pages</strong> with automated publishing on push</li></ul>
           <div class="proj-modal-links"><a href="https://sukhmeet468.github.io/UrbanTechWebsite/" target="_blank" rel="noopener" class="btn btn-primary btn-sm">🌐 Live Site</a></div>
         </div>
       </div>
@@ -1761,13 +1811,52 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
     <div class="proj-modal-overlay" id="modal-music" onclick="closeProjModal(event,'modal-music')">
       <div class="proj-modal">
         <div class="proj-modal-header">
-          <button class="proj-modal-close" onclick="document.getElementById('modal-music').classList.remove('open')">✕</button>
+          <button class="proj-modal-close" onclick="document.getElementById('modal-music').classList.remove('open');document.body.style.overflow=''">✕</button>
           <div class="proj-modal-title">🎵 MusicOSet — Relational Database System</div>
-          <div class="proj-modal-sub">SQL · Relational DB Design · ERD Modeling · Python CLI · COMP 3380</div>
+          <div class="proj-modal-sub">SQL · Relational Schema Design · ERD Modeling · Python CLI · 3NF Normalization · COMP 3380</div>
         </div>
         <div class="proj-modal-body">
-          <ul class="proj-modal-points"><li>Fully normalized relational database (<strong>3NF</strong>) for managing music catalogues: Artists, Albums, Songs, Playlists, Users, and junction tables for many-to-many relationships</li><li>Complete <strong>ERD → relational schema</strong> mapping; referential integrity via foreign keys and cascades; designed for the COMP 3380 Databases course at University of Manitoba</li><li><strong>Python CLI</strong> with full CRUD: search songs/albums/artists, create and manage playlists, add/remove tracks, query by genre/year/artist, display nested relationships</li><li>Complex <strong>SQL queries</strong>: multi-table JOINs, subqueries, aggregate functions (COUNT, AVG, GROUP BY), and transaction management for data consistency</li><li>Full final report documenting schema design decisions, normalization steps, and query performance</li></ul>
+          <ul class="proj-modal-points"><li>Fully normalized relational database (<strong>3NF</strong>) modelling music catalogues — Artists, Albums, Songs, Playlists, Users, and junction tables for many-to-many relationships with referential integrity via foreign keys and cascades</li><li>Complete <strong>ERD → relational schema pipeline</strong>: entity identification, functional dependency analysis, normalization to 3NF, constraint definition, and schema documentation</li><li><strong>Python CLI</strong> with full CRUD: search songs/albums/artists, create and manage playlists, add/remove tracks, query by genre/year/artist, display nested relational data</li><li>Complex <strong>SQL queries</strong>: multi-table JOINs, correlated subqueries, aggregate functions (COUNT, AVG, GROUP BY/HAVING), and transaction management for data consistency</li></ul>
           <div class="proj-modal-links"><a href="assets/projects/musicOset/Team09_Final Project Report_COMP3380.pdf" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">📄 Final Report</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Private Repo</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="proj-modal-overlay" id="modal-pdf" onclick="closeProjModal(event,'modal-pdf')">
+      <div class="proj-modal">
+        <div class="proj-modal-header">
+          <button class="proj-modal-close" onclick="document.getElementById('modal-pdf').classList.remove('open');document.body.style.overflow=''">✕</button>
+          <div class="proj-modal-title">📑 PDF TOC Generator, Merger & Cut-Sheet Finder</div>
+          <div class="proj-modal-sub">Python · PyPDF · ReportLab · PyInstaller · VBA · Excel Macro · Automated Engineering Submittals</div>
+        </div>
+        <div class="proj-modal-body">
+          <ul class="proj-modal-points"><li><strong>Python PDF automation engine</strong>: reads cutsheet filenames in a structured format (<code>ITEM#_PARTNUMBER_MANUFACTURER_DESCRIPTION.pdf</code>), extracts metadata, and auto-builds a multi-page Table of Contents with wrapped/centered column formatting</li><li><strong>Clickable internal hyperlinks</strong> in the TOC jump directly to the corresponding cutsheet page; <strong>PDF outline bookmarks</strong> generated for all items — enabling instant navigation in any PDF viewer without manual linking</li><li>Merges TOC pages + all cutsheet PDFs into <strong>one deliverable PDF</strong> named <code>JobNumber_Linked_TOC_Merged-Cutsheets.pdf</code>; progress bar provides real-time merge status for large submittal packages</li><li>Packaged into a <strong>standalone .exe via PyInstaller</strong> — distributed to project engineers with no Python installation required; single-file executable runs on any Windows machine</li><li><strong>VBA Cut-Sheet Finder macro</strong>: searches network drives and SharePoint document libraries by part number and manufacturer, automatically locates and pulls the correct cutsheet PDF into the project folder — feeds directly into the Python merger workflow</li><li>Eliminates hours of manual PDF assembly per engineering submittal package — engineer enters a Job Number and runs the tool; entire TOC, hyperlinked merged PDF is generated in seconds</li></ul>
+          <div class="proj-modal-links"><a href="assets/projects/pdfTOC/README.md" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">📖 README</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Private Repo</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="proj-modal-overlay" id="modal-sql" onclick="closeProjModal(event,'modal-sql')">
+      <div class="proj-modal">
+        <div class="proj-modal-header">
+          <button class="proj-modal-close" onclick="document.getElementById('modal-sql').classList.remove('open');document.body.style.overflow=''">✕</button>
+          <div class="proj-modal-title">📊 SQL Client — WinCC SCADA Tag & Alarm History Reporter</div>
+          <div class="proj-modal-sub">Python · pyodbc · SQL Server · WinCC OLE DB Provider · OpenQuery · openpyxl · SCADA Reporting</div>
+        </div>
+        <div class="proj-modal-body">
+          <ul class="proj-modal-points"><li><strong>Proof-of-concept SQL client</strong> that connects directly to a WinCC SCADA SQL Server instance via <strong>pyodbc + ODBC Driver 18</strong> using Windows Trusted Authentication — queries live SCADA process data without any manual export from the WinCC HMI</li><li>Uses <strong>WinCC OLE DB Provider via OpenQuery through a Linked Server</strong> (<code>LnkRtDb_WinCCOLEDB</code>) to retrieve raw tag history — reads timestamped analog values (RealValue) for selected PLC tags over a configurable date/time range</li><li>Queries the <strong>Archive table</strong> in the WinCC project database to enumerate all available tags, groups them by main tag hierarchy, and presents an interactive selection menu — user selects by number or name</li><li>Dynamically builds <strong>UNION ALL queries</strong> across multiple selected tag IDs, joins against the Archive table for human-readable tag names, and orders results by tag name + timestamp — suitable for compliance log and trend reports</li><li>Configurable via user prompts: <strong>date range, time zone, report type</strong> (Hours / Daily / Weekly / Monthly); output structured for export to Excel via openpyxl with auto-generated table formatting</li><li>Validates the end-to-end reporting pipeline: WinCC SCADA → OLE DB Linked Server → SQL Server → Python → Excel — replacing the need to manually extract alarm and tag logs from the WinCC interface for operational reports</li></ul>
+          <div class="proj-modal-links"><a href="assets/projects/sqlClient/SQL_Client_-_Query_Tags_and_Alarms_History.py" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">🐍 View Script</a><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Private Repo</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="proj-modal-overlay" id="modal-excel" onclick="closeProjModal(event,'modal-excel')">
+      <div class="proj-modal">
+        <div class="proj-modal-header">
+          <button class="proj-modal-close" onclick="document.getElementById('modal-excel').classList.remove('open');document.body.style.overflow=''">✕</button>
+          <div class="proj-modal-title">📊 Automated Excel Templates & Power Platform Suite</div>
+          <div class="proj-modal-sub">Excel VBA · Macros · Office Scripts · Power Automate · Power BI · Power Query · SharePoint</div>
+        </div>
+        <div class="proj-modal-body">
+          <ul class="proj-modal-points"><li><strong>Indus Automation — Project Management Excel Template</strong>: VBA macros and Office Scripts automate data extraction from SharePoint, status formatting, cell locking, and backup pipelines — synchronized with live project data across the engineering team</li><li><strong>Indus Automation — AutoCAD Electrical integration</strong>: VBA macro automates population of PLC I/O descriptions from Excel take-off sheets into AutoCAD Electrical (ACADE), eliminating manual re-entry; implements AutoLISP features for ladder reference tagging, terminal block ratings, and equipment tag linking</li><li><strong>New Flyer — Capacity Planning Template</strong>: dynamic Excel workbook with VBA, Macros, burndown analysis charts, and weekly hours tracking — connected live to SharePoint; reduced weekly reporting overhead significantly for the engineering project team</li><li><strong>New Flyer — Budget Forecasting Application</strong>: automated budget tracking tool built with VBA, Power BI, and Power Query integrating actuals and projections for real-time monthly and annual expenditure reporting — used by engineering leadership for financial planning</li><li><strong>New Flyer — Bill of Materials (BoM) Management</strong>: VBA and Macro-driven BoM system handling part installations, batch update notifications, and installation tracking across design support and commissioning teams</li><li><strong>Manitoba Government — SharePoint sites</strong>: designed, developed, and maintained SharePoint Publishing Sites; authored HTML pages, SQL extracts, and system documentation for FDM applications; delivered end-user training sessions</li><li>Aggregate impact: <strong>8× efficiency improvement</strong> in design and drafting workflows documented at Indus; multiple manual paper/Excel-based processes replaced with automated pipelines requiring zero manual data entry</li></ul>
+          <div class="proj-modal-links"><span class="btn btn-ghost btn-sm" style="opacity:0.6;cursor:default;">🔒 Internal Tools — Multiple Employers</span></div>
         </div>
       </div>
     </div>
