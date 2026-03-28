@@ -1751,7 +1751,7 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
           <div class="form-group"><label for="contact-email">Email</label><input type="email" id="contact-email" placeholder="your@email.com"></div>
           <div class="form-group">
             <label for="contact-type">Prefer to hear back via</label>
-            <select id="contact-type" style="width:100%;background:var(--white);border:2px solid rgba(132,94,194,0.12);border-radius:12px;padding:12px 16px;color:var(--text);font-size:14px;font-family:'Nunito',sans-serif;outline:none;-webkit-appearance:none;appearance:none;" onchange="togglePhoneField(this.value)">
+            <select id="contact-type" style="width:100%;background:var(--white);border:2px solid rgba(132,94,194,0.12);border-radius:12px;padding:12px 16px;color:var(--text);font-size:14px;font-family:'Nunito',sans-serif;outline:none;appearance:none;-webkit-appearance:none;" onchange="togglePhoneField(this.value)">
               <option value="email">Email</option>
               <option value="sms">SMS / Text</option>
             </select>
@@ -1933,7 +1933,7 @@ body.theme-dark .proj-modal-header { background:var(--card-bg); }
     </div>
   
 <!-- ─── Ambient Music Toggle ─────────────────────────────── -->
-<div class="music-tooltip" id="musicTooltip">♪ Ambient · click to play</div>
+<div class="music-tooltip" id="musicTooltip">♪ Soft tune · click to play</div>
 <button class="music-btn" id="musicBtn" aria-label="Toggle ambient music" title="Toggle ambient music"
   onclick="toggleMusic()"
   onmouseenter="document.getElementById('musicTooltip').classList.add('show')"
@@ -2363,128 +2363,180 @@ document.addEventListener('keydown',e=>{
 
 
 // ══════════════════════════════════════════════════════════
-// AMBIENT MUSIC — Web Audio API procedural warm ambient pad
-// Warm, calm, welcoming — no external files needed
+// AMBIENT MUSIC — original soft lullaby tune, Web Audio API
+// Gently looping · very soft · no external files needed
 // ══════════════════════════════════════════════════════════
-let _ac = null, _masterGain = null, _musicPlaying = false;
-const _musicNodes = [];
+let _ac = null, _masterGain = null, _musicPlaying = false, _loopTimer = null;
 
-function _buildAmbient() {
+// Note frequencies helper
+const _NOTE = (name) => {
+  const notes = {
+    'C3':130.81,'D3':146.83,'E3':164.81,'F3':174.61,'G3':196.00,'A3':220.00,'B3':246.94,
+    'C4':261.63,'D4':293.66,'E4':329.63,'F4':349.23,'G4':392.00,'A4':440.00,'B4':493.88,
+    'C5':523.25,'D5':587.33,'E5':659.25,'G5':783.99,'A5':880.00,
+    'REST':0
+  };
+  return notes[name] || 0;
+};
+
+// ── Tune: original gentle waltz-ish melody in C major ─────────────────────
+// Format: [note, durationBeats]  (at ~60 BPM, 1 beat = 1s)
+const _MELODY = [
+  // Phrase 1 — question
+  ['E4',1],['G4',0.5],['A4',0.5],['G4',1],['E4',1],
+  ['D4',1],['C4',2],
+  // Phrase 2 — answer
+  ['F4',1],['E4',0.5],['D4',0.5],['E4',1],['C4',1],
+  ['D4',1],['G3',2],
+  // Phrase 3 — rise
+  ['G4',0.5],['A4',0.5],['G4',0.5],['F4',0.5],['E4',1],['D4',1],
+  ['C4',1],['E4',1],
+  // Phrase 4 — gentle resolution
+  ['A3',1],['B3',0.5],['C4',0.5],['D4',1],['E4',1],
+  ['C4',3],
+  // Phrase 5 — floating middle
+  ['G4',1],['F4',0.5],['E4',0.5],['F4',1],['G4',1],
+  ['A4',0.5],['G4',0.5],['E4',1],['C4',1],
+  // Phrase 6 — winding down
+  ['D4',1],['E4',0.5],['F4',0.5],['E4',1],['D4',1],
+  ['C4',2],['REST',1],
+  // Coda — breath
+  ['E4',0.5],['D4',0.5],['C4',1],['G3',1],
+  ['A3',0.5],['B3',0.5],['C4',3],
+  ['REST',2],
+];
+
+// ── Soft chord pads underneath (Cmaj, Fmaj, Gmaj, Amin cycle) ─────────────
+const _PADS = [
+  // Each pad: [freq1, freq2, freq3], startBeat, durationBeats
+  [[130.81,164.81,196.00], 0, 7],   // Cmaj
+  [[174.61,220.00,261.63], 7, 7],   // Fmaj
+  [[196.00,246.94,293.66], 14,7],   // Gmaj
+  [[220.00,261.63,329.63], 21,7],   // Amin
+  [[130.81,164.81,196.00], 28,7],   // Cmaj
+  [[174.61,220.00,261.63], 35,7],   // Fmaj
+  [[196.00,246.94,293.66], 42,5],   // Gmaj
+];
+
+function _buildAudio() {
   _ac = new (window.AudioContext || window.webkitAudioContext)();
   _masterGain = _ac.createGain();
-  _masterGain.gain.setValueAtTime(0, _ac.currentTime);
-  _masterGain.gain.linearRampToValueAtTime(0.18, _ac.currentTime + 3);
+  _masterGain.gain.value = 0;
   _masterGain.connect(_ac.destination);
+}
 
-  // Warm reverb via convolver (generated impulse)
-  const convolver = _ac.createConvolver();
-  const iLen = _ac.sampleRate * 3.5;
-  const iBuffer = _ac.createBuffer(2, iLen, _ac.sampleRate);
+function _makeReverb(ac) {
+  const conv = ac.createConvolver();
+  const len  = ac.sampleRate * 4;
+  const buf  = ac.createBuffer(2, len, ac.sampleRate);
   for (let ch = 0; ch < 2; ch++) {
-    const d = iBuffer.getChannelData(ch);
-    for (let i = 0; i < iLen; i++) {
-      d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / iLen, 2.4);
-    }
+    const d = buf.getChannelData(ch);
+    for (let i = 0; i < len; i++)
+      d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 1.8);
   }
-  convolver.buffer = iBuffer;
-  const reverbGain = _ac.createGain();
-  reverbGain.gain.value = 0.55;
-  convolver.connect(reverbGain);
-  reverbGain.connect(_masterGain);
+  conv.buffer = buf;
+  return conv;
+}
 
-  // Gentle low-pass filter for warmth
-  const lpf = _ac.createBiquadFilter();
-  lpf.type = 'lowpass';
-  lpf.frequency.value = 1800;
-  lpf.Q.value = 0.5;
-  lpf.connect(_masterGain);
-  lpf.connect(convolver);
+function _playTune(startAt) {
+  if (!_ac || !_musicPlaying) return;
 
-  // Chord: Cmaj7 spread — C3, E3, G3, B3, E4 (warm, open)
-  const freqs = [
-    130.81, // C3
-    164.81, // E3
-    196.00, // G3
-    246.94, // B3
-    329.63, // E4
-    196.00, // G3 doubled for depth
-    82.41,  // E2 deep bass
-  ];
-  const detunes = [0, 3, -2, 4, -3, 6, 0];
+  const BPM    = 58;   // slow, dreamy
+  const beat   = 60 / BPM;
+  const rev    = _makeReverb(_ac);
+  const revG   = _ac.createGain(); revG.gain.value = 0.55;
+  const lpf    = _ac.createBiquadFilter();
+  lpf.type = 'lowpass'; lpf.frequency.value = 1600; lpf.Q.value = 0.4;
 
-  freqs.forEach((freq, idx) => {
-    const osc = _ac.createOscillator();
-    osc.type = idx < 2 ? 'sine' : (idx < 5 ? 'triangle' : 'sine');
-    osc.frequency.value = freq;
-    osc.detune.value = detunes[idx];
+  rev.connect(revG); revG.connect(_masterGain);
+  lpf.connect(_masterGain); lpf.connect(rev);
 
-    const gain = _ac.createGain();
-    const baseVol = idx === 6 ? 0.22 : (idx < 2 ? 0.14 : 0.09);
-    gain.gain.value = baseVol;
+  // Play melody notes
+  let t = startAt;
+  _MELODY.forEach(([name, dur]) => {
+    const freq = _NOTE(name);
+    const len  = dur * beat;
+    if (freq > 0) {
+      const osc = _ac.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      osc.detune.value = (Math.random() - 0.5) * 3; // micro-detune warmth
 
-    // Slow tremolo per voice for liveliness
-    const lfo = _ac.createOscillator();
-    lfo.type = 'sine';
-    lfo.frequency.value = 0.07 + idx * 0.013;
-    const lfoGain = _ac.createGain();
-    lfoGain.gain.value = baseVol * 0.18;
-    lfo.connect(lfoGain);
-    lfoGain.connect(gain.gain);
-    lfo.start();
+      const g = _ac.createGain();
+      g.gain.setValueAtTime(0, t);
+      g.gain.linearRampToValueAtTime(0.045, t + Math.min(0.08, len * 0.15)); // very soft
+      g.gain.setValueAtTime(0.045, t + len * 0.6);
+      g.gain.exponentialRampToValueAtTime(0.001, t + len * 0.98);
 
-    osc.connect(gain);
-    gain.connect(lpf);
-    osc.start();
-    _musicNodes.push(osc, gain, lfo, lfoGain);
+      osc.connect(g); g.connect(lpf);
+      osc.start(t); osc.stop(t + len);
+    }
+    t += len;
   });
 
-  // Gentle chime melody — F pentatonic ascending, slow
-  const melody = [349.23, 392.00, 440.00, 523.25, 587.33, 523.25, 440.00, 392.00];
-  const melTimes = [0, 3.2, 6.8, 10.5, 14.0, 17.5, 21.0, 24.5];
-  melody.forEach((mf, mi) => {
-    const t = _ac.currentTime + 6 + melTimes[mi];
-    const mo = _ac.createOscillator();
-    mo.type = 'sine';
-    mo.frequency.value = mf;
-    const mg = _ac.createGain();
-    mg.gain.setValueAtTime(0, t);
-    mg.gain.linearRampToValueAtTime(0.06, t + 0.12);
-    mg.gain.exponentialRampToValueAtTime(0.001, t + 2.8);
-    mo.connect(mg);
-    mg.connect(convolver);
-    mo.start(t);
-    mo.stop(t + 3);
-    _musicNodes.push(mo, mg);
+  const totalBeats = _MELODY.reduce((s,[,d]) => s + d, 0);
+  const totalSecs  = totalBeats * beat;
+
+  // Play pad chords
+  _PADS.forEach(([freqs, sb, db]) => {
+    const padStart = startAt + sb * beat;
+    const padDur   = db * beat;
+    freqs.forEach((freq, fi) => {
+      const osc = _ac.createOscillator();
+      osc.type = 'triangle';
+      osc.frequency.value = freq;
+      osc.detune.value = fi * 1.5;
+
+      const g = _ac.createGain();
+      g.gain.setValueAtTime(0, padStart);
+      g.gain.linearRampToValueAtTime(0.022, padStart + 0.8);  // very soft pads
+      g.gain.setValueAtTime(0.022, padStart + padDur - 1.0);
+      g.gain.linearRampToValueAtTime(0, padStart + padDur);
+
+      osc.connect(g); g.connect(lpf);
+      osc.start(padStart); osc.stop(padStart + padDur + 0.1);
+    });
   });
+
+  // Schedule next loop
+  _loopTimer = setTimeout(() => {
+    if (_musicPlaying) _playTune(_ac.currentTime + 0.05);
+  }, (totalSecs - 1.5) * 1000);
 }
 
 function toggleMusic() {
-  const btn = document.getElementById('musicBtn');
-  const tip = document.getElementById('musicTooltip');
+  const btn      = document.getElementById('musicBtn');
+  const tip      = document.getElementById('musicTooltip');
   const iconPlay = document.getElementById('musicIconPlay');
-  const iconPause = document.getElementById('musicIconPause');
+  const iconPause= document.getElementById('musicIconPause');
 
   if (!_musicPlaying) {
-    if (!_ac) _buildAmbient();
-    else if (_ac.state === 'suspended') _ac.resume();
-    _masterGain.gain.cancelScheduledValues(_ac.currentTime);
-    _masterGain.gain.setValueAtTime(_masterGain.gain.value, _ac.currentTime);
-    _masterGain.gain.linearRampToValueAtTime(0.18, _ac.currentTime + 1.5);
+    if (!_ac) _buildAudio();
+    if (_ac.state === 'suspended') _ac.resume();
+
     _musicPlaying = true;
+    _masterGain.gain.cancelScheduledValues(_ac.currentTime);
+    _masterGain.gain.setValueAtTime(0, _ac.currentTime);
+    _masterGain.gain.linearRampToValueAtTime(0.28, _ac.currentTime + 3.5); // soft fade-in
+
+    _playTune(_ac.currentTime + 0.1);
+
     btn.classList.add('playing');
-    iconPlay.style.display = 'none';
+    iconPlay.style.display  = 'none';
     iconPause.style.display = '';
-    tip.textContent = '♪ Ambient · click to pause';
+    tip.textContent = '♪ Soft tune · click to pause';
   } else {
+    _musicPlaying = false;
+    clearTimeout(_loopTimer);
     _masterGain.gain.cancelScheduledValues(_ac.currentTime);
     _masterGain.gain.setValueAtTime(_masterGain.gain.value, _ac.currentTime);
-    _masterGain.gain.linearRampToValueAtTime(0, _ac.currentTime + 1.2);
-    setTimeout(() => { if (_ac) _ac.suspend(); }, 1300);
-    _musicPlaying = false;
+    _masterGain.gain.linearRampToValueAtTime(0, _ac.currentTime + 2.5); // slow fade-out
+    setTimeout(() => { if (_ac && !_musicPlaying) _ac.suspend(); }, 2800);
+
     btn.classList.remove('playing');
-    iconPlay.style.display = '';
+    iconPlay.style.display  = '';
     iconPause.style.display = 'none';
-    tip.textContent = '♪ Ambient · click to play';
+    tip.textContent = '♪ Soft tune · click to play';
   }
 }
 
